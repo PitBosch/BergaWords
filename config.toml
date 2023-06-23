@@ -1,4 +1,4 @@
-baseURL = 'http://example.org/'
+baseURL = 'https://pitbosch.github.io/BergaWords/'
 languageCode = 'it'
 title = 'bergaWords'
 theme = 'PaperMod'
