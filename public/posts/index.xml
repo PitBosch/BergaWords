@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on Bergamappo</title>
+    <link>http://example.org/posts/</link>
+    <description>Recent content in Posts on Bergamappo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>it</language>
+    <lastBuildDate>Sat, 13 May 2023 14:46:34 +0200</lastBuildDate><atom:link href="http://example.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bergaMords</title>
+      <link>http://example.org/posts/pota/</link>
+      <pubDate>Sat, 13 May 2023 14:46:34 +0200</pubDate>
+      
+      <guid>http://example.org/posts/pota/</guid>
+      <description>Pota Ciao siamo Pietro, Paolo e Mainardo e abbiamo fondato Average Berghem Guy nel 2015.
+BergaMords Bergamappo è un progetto che stiamo portando avanti per mappare i termini dialettali nella provincia di Bergamo.
+Lista delle parole Come si dice FiammiferoCome si dice ImbutoCome si dice Pop CornCome si dice RoncolaCome si dice ciabattaCome si dice coperchioCome si dice cotechino grigliatoCome si dice grembiuleCome si dice maialeCome si dice orologioCome si dice ragnatelaCome si dice talpaCome si dice tasca</description>
+    </item>
+    
+  </channel>
+</rss>

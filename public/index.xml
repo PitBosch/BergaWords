@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Bergamappo</title>
+    <link>http://example.org/</link>
+    <description>Recent content on Bergamappo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>it</language>
+    <lastBuildDate>Sat, 13 May 2023 14:46:34 +0200</lastBuildDate><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Page ciabatta</title>
+      <link>http://example.org/ciabatta/</link>
+      <pubDate>Sun, 14 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/ciabatta/</guid>
+      <description>Come si dice ciabatta? </description>
+    </item>
+    
+    <item>
+      <title>Page coperchio</title>
+      <link>http://example.org/coperchio/</link>
+      <pubDate>Sun, 14 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/coperchio/</guid>
+      <description>Come si dice coperchio? </description>
+    </item>
+    
+    <item>
+      <title>Page cotechino grigliato</title>
+      <link>http://example.org/cotechino-grigliato/</link>
+      <pubDate>Sun, 14 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/cotechino-grigliato/</guid>
+      <description>Come si dice cotechino grigliato? </description>
+    </item>
+    
+    <item>
+      <title>Page Fiammifero</title>
+      <link>http://example.org/fiammifero/</link>
+      <pubDate>Sun, 14 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/fiammifero/</guid>
+      <description>Come si dice Fiammifero? </description>
+    </item>
+    
+    <item>
+      <title>Page grembiule</title>
+      <link>http://example.org/grembiule/</link>
+      <pubDate>Sun, 14 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/grembiule/</guid>
+      <description>Come si dice grembiule? </description>
+    </item>
+    
+    <item>
+      <title>Page Imbuto</title>
+      <link>http://example.org/imbuto/</link>
+      <pubDate>Sun, 14 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/imbuto/</guid>
+      <description>Come si dice Imbuto? </description>
+    </item>
+    
+    <item>
+      <title>Page maiale</title>
+      <link>http://example.org/maiale/</link>
+      <pubDate>Sun, 14 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/maiale/</guid>
+      <description>Come si dice maiale? </description>
+    </item>
+    
+    <item>
+      <title>Page orologio</title>
+      <link>http://example.org/orologio/</link>
+      <pubDate>Sun, 14 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/orologio/</guid>
+      <description>Come si dice orologio? </description>
+    </item>
+    
+    <item>
+      <title>Page Pop Corn</title>
+      <link>http://example.org/pop-corn/</link>
+      <pubDate>Sun, 14 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/pop-corn/</guid>
+      <description>Come si dice Pop Corn? </description>
+    </item>
+    
+    <item>
+      <title>Page ragnatela</title>
+      <link>http://example.org/ragnatela/</link>
+      <pubDate>Sun, 14 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/ragnatela/</guid>
+      <description>Come si dice ragnatela? </description>
+    </item>
+    
+    <item>
+      <title>Page Roncola</title>
+      <link>http://example.org/roncola/</link>
+      <pubDate>Sun, 14 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/roncola/</guid>
+      <description>Come si dice Roncola? </description>
+    </item>
+    
+    <item>
+      <title>Page talpa</title>
+      <link>http://example.org/talpa/</link>
+      <pubDate>Sun, 14 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/talpa/</guid>
+      <description>Come si dice talpa? </description>
+    </item>
+    
+    <item>
+      <title>Page tasca</title>
+      <link>http://example.org/tasca/</link>
+      <pubDate>Sun, 14 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tasca/</guid>
+      <description>Come si dice tasca? </description>
+    </item>
+    
+    <item>
+      <title>bergaMords</title>
+      <link>http://example.org/posts/pota/</link>
+      <pubDate>Sat, 13 May 2023 14:46:34 +0200</pubDate>
+      
+      <guid>http://example.org/posts/pota/</guid>
+      <description>Pota Ciao siamo Pietro, Paolo e Mainardo e abbiamo fondato Average Berghem Guy nel 2015.
+BergaMords Bergamappo è un progetto che stiamo portando avanti per mappare i termini dialettali nella provincia di Bergamo.
+Lista delle parole Come si dice FiammiferoCome si dice ImbutoCome si dice Pop CornCome si dice RoncolaCome si dice ciabattaCome si dice coperchioCome si dice cotechino grigliatoCome si dice grembiuleCome si dice maialeCome si dice orologioCome si dice ragnatelaCome si dice talpaCome si dice tasca</description>
+    </item>
+    
+  </channel>
+</rss>

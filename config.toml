@@ -1,0 +1,5 @@
+baseURL = 'http://example.org/'
+languageCode = 'it'
+title = 'bergaWords'
+theme = 'PaperMod'
+author = 'PitBosch'
