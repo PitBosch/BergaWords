@@ -4,5 +4,6 @@ title: "Maiale"
 
 ## Come si dice Maiale?
 
-{{< load-plotly >}}
-{{< plotly json="/plotly/maiale.json" >}}
+{{ if .Params.plotly }}
+{<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>}
+{ end }{{< plotly json="/plotly/maiale.json" >}}

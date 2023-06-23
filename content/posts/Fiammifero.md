@@ -4,5 +4,6 @@ title: "Fiammifero"
 
 ## Come si dice Fiammifero?
 
-{{< load-plotly >}}
-{{< plotly json="/plotly/Fiammifero.json" >}}
+{{ if .Params.plotly }}
+{<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>}
+{ end }{{< plotly json="/plotly/Fiammifero.json" >}}

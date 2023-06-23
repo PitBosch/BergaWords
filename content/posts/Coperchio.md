@@ -4,5 +4,6 @@ title: "Coperchio"
 
 ## Come si dice Coperchio?
 
-{{< load-plotly >}}
-{{< plotly json="/plotly/coperchio.json" >}}
+{{ if .Params.plotly }}
+{<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>}
+{ end }{{< plotly json="/plotly/coperchio.json" >}}

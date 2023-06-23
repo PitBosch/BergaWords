@@ -4,5 +4,6 @@ title: "Imbuto"
 
 ## Come si dice Imbuto?
 
-{{< load-plotly >}}
-{{< plotly json="/plotly/Imbuto.json" >}}
+{{ if .Params.plotly }}
+{<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>}
+{ end }{{< plotly json="/plotly/Imbuto.json" >}}

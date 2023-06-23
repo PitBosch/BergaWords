@@ -4,5 +4,6 @@ title: "Orologio"
 
 ## Come si dice Orologio?
 
-{{< load-plotly >}}
-{{< plotly json="/plotly/orologio.json" >}}
+{{ if .Params.plotly }}
+{<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>}
+{ end }{{< plotly json="/plotly/orologio.json" >}}

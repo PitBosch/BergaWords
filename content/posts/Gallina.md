@@ -4,5 +4,6 @@ title: "Gallina"
 
 ## Come si dice Gallina?
 
-{{< load-plotly >}}
-{{< plotly json="/plotly/Gallina.json" >}}
+{{ if .Params.plotly }}
+{<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>}
+{ end }{{< plotly json="/plotly/Gallina.json" >}}

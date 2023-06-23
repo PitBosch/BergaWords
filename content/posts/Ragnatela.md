@@ -4,5 +4,6 @@ title: "Ragnatela"
 
 ## Come si dice Ragnatela?
 
-{{< load-plotly >}}
-{{< plotly json="/plotly/ragnatela.json" >}}
+{{ if .Params.plotly }}
+{<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>}
+{ end }{{< plotly json="/plotly/ragnatela.json" >}}

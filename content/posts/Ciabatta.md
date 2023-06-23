@@ -4,5 +4,6 @@ title: "Ciabatta"
 
 ## Come si dice Ciabatta?
 
-{{< load-plotly >}}
-{{< plotly json="/plotly/ciabatta.json" >}}
+{{ if .Params.plotly }}
+{<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>}
+{ end }{{< plotly json="/plotly/ciabatta.json" >}}
