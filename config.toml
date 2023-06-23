@@ -3,3 +3,4 @@ languageCode = 'it'
 title = 'bergaWords'
 theme = 'PaperMod'
 author = 'PitBosch'
+canonifyURLs = true
