@@ -5,4 +5,4 @@ title: "Cotechino grigliato"
 ## Come si dice Cotechino grigliato?
 
 {{< load-plotly >}}
-{{< plotly json="/plotly/cotechino grigliato.json" >}}
+{{< plotly json="https://pitbosch.github.io/BergaWords/plotly/cotechino grigliato.json" >}}

@@ -5,4 +5,4 @@ title: "Gallina"
 ## Come si dice Gallina?
 
 {{< load-plotly >}}
-{{< plotly json="/plotly/Gallina.json" >}}
+{{< plotly json="https://pitbosch.github.io/BergaWords/plotly/Gallina.json" >}}

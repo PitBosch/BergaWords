@@ -22,5 +22,5 @@ fig = px.choropleth_mapbox(final, geojson=paesi, locations="Comune", color=final
                            color_discrete_map={
                 "Nessun Dato": "grey"},center={'lat':45.68768, 'lon':9.80})
 nome=final.columns[1][10:-1]
-fig.write_html('pages/'+final.columns[1][10:-1]+".html", full_html=True)
+#fig.write_html('pages/'+final.columns[1][10:-1]+".html", full_html=True)
 fig.write_json('static/plotly/'+final.columns[1][10:-1]+".json")

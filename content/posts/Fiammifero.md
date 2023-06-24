@@ -5,4 +5,4 @@ title: "Fiammifero"
 ## Come si dice Fiammifero?
 
 {{< load-plotly >}}
-{{< plotly json="/plotly/Fiammifero.json" >}}
+{{< plotly json="https://pitbosch.github.io/BergaWords/plotly/Fiammifero.json" >}}

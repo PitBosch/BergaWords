@@ -5,4 +5,4 @@ title: "Roncola"
 ## Come si dice Roncola?
 
 {{< load-plotly >}}
-{{< plotly json="/plotly/Roncola.json" >}}
+{{< plotly json="https://pitbosch.github.io/BergaWords/plotly/Roncola.json" >}}
