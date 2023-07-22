@@ -3,4 +3,5 @@ languageCode = 'it'
 title = 'bergaWords'
 theme = 'PaperMod'
 author = 'PitBosch'
+paginate = 100
 canonifyURLs = true
