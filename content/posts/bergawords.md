@@ -15,7 +15,7 @@ draft: false
 Qui puoi vedere una mappa della distribuzione delle varianti della parola Pop Corn. Molto più recente rispetto alla roncola, un attrezzo usato da secoli. 
 
 {{< raw >}}
-<img src="/data/popcorn_perc.svg" alt="Distribuzione grafemi provincia di Bergamo">
+<img src="https://pitbosch.github.io/BergaWords/data/popcorn_perc.svg" alt="Distribuzione grafemi provincia di Bergamo">
 {{< /raw >}}
 
 
