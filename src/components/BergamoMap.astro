@@ -7,9 +7,9 @@ interface Props {
 const { wordSlug, wordEmoji } = Astro.props;
 ---
 
-<div class="bergamo-map-container relative">
+<div class="bergamo-map-wrapper">
   <!-- Loading State -->
-  <div id="map-loading" class="absolute inset-0 flex flex-col items-center justify-center bg-white/80 backdrop-blur-sm z-10">
+  <div id="map-loading" class="flex flex-col items-center justify-center py-20 bg-gradient-to-br from-amber-50 to-green-50 rounded-2xl">
     <div class="relative">
       <div class="w-20 h-20 border-4 border-amber-200 rounded-full animate-spin border-t-amber-500"></div>
       <div class="absolute inset-0 flex items-center justify-center">
@@ -20,271 +20,275 @@ const { wordSlug, wordEmoji } = Astro.props;
   </div>
 
   <!-- Map Container -->
-  <div id="map-container" class="w-full">
-    <svg id="bergamo-map" class="w-full" style="height: 600px;"></svg>
-  </div>
-
-  <!-- Tooltip -->
-  <div id="map-tooltip" class="fixed pointer-events-none z-50 opacity-0 transition-opacity duration-200">
-    <div class="bg-gray-900 text-white px-4 py-3 rounded-xl shadow-2xl max-w-xs">
-      <p id="tooltip-municipality" class="font-bold text-lg"></p>
-      <p id="tooltip-variant" class="text-amber-400 mt-1"></p>
-    </div>
-    <div class="w-3 h-3 bg-gray-900 rotate-45 -mt-1.5 ml-6"></div>
+  <div id="map-container" class="hidden">
+    <div id="bergamo-map" class="w-full h-[500px] md:h-[600px] rounded-2xl overflow-hidden shadow-inner"></div>
   </div>
 
   <!-- Legend -->
-  <div id="map-legend" class="mt-6 p-4 bg-white rounded-2xl shadow-lg">
-    <h3 class="font-semibold text-gray-700 mb-3 flex items-center gap-2">
-      <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-      </svg>
-      Varianti dialettali
-    </h3>
-    <div id="legend-items" class="flex flex-wrap gap-2"></div>
+  <div id="map-legend" class="hidden mt-6">
+    <div class="bg-white rounded-2xl shadow-lg p-4">
+      <h3 class="font-semibold text-gray-700 mb-3 flex items-center gap-2">
+        <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+        </svg>
+        Varianti dialettali
+      </h3>
+      <div id="legend-items" class="flex flex-wrap gap-2"></div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div id="map-stats" class="hidden mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
   </div>
 </div>
 
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
 <script define:vars={{ wordSlug }}>
-  // D3.js map visualization
+  // Load Leaflet dynamically
+  const script = document.createElement('script');
+  script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+  script.onload = initMap;
+  document.head.appendChild(script);
+
   async function initMap() {
     const loading = document.getElementById('map-loading');
-    const tooltip = document.getElementById('map-tooltip');
-    const tooltipMunicipality = document.getElementById('tooltip-municipality');
-    const tooltipVariant = document.getElementById('tooltip-variant');
-    const legendContainer = document.getElementById('legend-items');
-    const svg = d3.select('#bergamo-map');
+    const mapContainer = document.getElementById('map-container');
+    const legendDiv = document.getElementById('map-legend');
+    const legendItems = document.getElementById('legend-items');
+    const statsDiv = document.getElementById('map-stats');
 
     try {
-      // Load data in parallel
+      // Load data
       const [geoData, wordData] = await Promise.all([
         fetch('/data/bergamo.geojson').then(r => r.json()),
         fetch(`/data/words/${wordSlug}.json`).then(r => r.json())
       ]);
 
-      // Hide loading
-      loading.style.display = 'none';
+      // Hide loading, show map
+      loading.classList.add('hidden');
+      mapContainer.classList.remove('hidden');
+      legendDiv.classList.remove('hidden');
+      statsDiv.classList.remove('hidden');
 
-      // Setup dimensions
-      const container = document.getElementById('map-container');
-      const width = container.clientWidth;
-      const height = 600;
+      // Color palette - vivid and distinct
+      const colors = [
+        '#ef4444', '#f97316', '#eab308', '#22c55e', '#14b8a6',
+        '#06b6d4', '#3b82f6', '#6366f1', '#8b5cf6', '#d946ef',
+        '#ec4899', '#f43f5e', '#84cc16', '#10b981', '#0ea5e9',
+        '#a855f7', '#f59e0b', '#64748b', '#78716c', '#71717a'
+      ];
 
-      svg.attr('viewBox', `0 0 ${width} ${height}`);
-
-      // Create projection centered on Bergamo province
-      const projection = d3.geoMercator()
-        .fitSize([width - 40, height - 40], geoData);
-
-      const path = d3.geoPath().projection(projection);
-
-      // Color scale based on variants
-      const variants = [...new Set(Object.values(wordData.municipalities))];
-      const colorScale = d3.scaleOrdinal()
-        .domain(variants)
-        .range(d3.schemeTableau10.concat(d3.schemePastel1));
-
-      // Custom colors from data if available
-      const getColor = (variant) => {
-        if (variant === 'Nessun Dato') return '#e5e7eb';
-        return wordData.colors?.[variant] || colorScale(variant);
-      };
-
-      // Create gradient definitions for hover effect
-      const defs = svg.append('defs');
-
-      // Add drop shadow filter
-      const filter = defs.append('filter')
-        .attr('id', 'drop-shadow')
-        .attr('height', '130%');
-
-      filter.append('feGaussianBlur')
-        .attr('in', 'SourceAlpha')
-        .attr('stdDeviation', 3)
-        .attr('result', 'blur');
-
-      filter.append('feOffset')
-        .attr('in', 'blur')
-        .attr('dx', 2)
-        .attr('dy', 2)
-        .attr('result', 'offsetBlur');
-
-      const feMerge = filter.append('feMerge');
-      feMerge.append('feMergeNode').attr('in', 'offsetBlur');
-      feMerge.append('feMergeNode').attr('in', 'SourceGraphic');
-
-      // Draw map
-      const g = svg.append('g').attr('transform', 'translate(20, 20)');
-
-      const municipalities = g.selectAll('path')
-        .data(geoData.features)
-        .enter()
-        .append('path')
-        .attr('d', path)
-        .attr('fill', d => {
-          const variant = wordData.municipalities[d.properties.name];
-          return getColor(variant || 'Nessun Dato');
-        })
-        .attr('stroke', '#fff')
-        .attr('stroke-width', 0.5)
-        .attr('class', 'municipality')
-        .style('cursor', 'pointer')
-        .style('transition', 'all 0.2s ease')
-        .on('mouseenter', function(event, d) {
-          const variant = wordData.municipalities[d.properties.name] || 'Nessun Dato';
-
-          // Highlight
-          d3.select(this)
-            .raise()
-            .attr('stroke', '#1f2937')
-            .attr('stroke-width', 2)
-            .attr('filter', 'url(#drop-shadow)');
-
-          // Show tooltip
-          tooltipMunicipality.textContent = d.properties.name;
-          tooltipVariant.textContent = variant === 'Nessun Dato' ? 'Nessun dato disponibile' : `"${variant}"`;
-
-          tooltip.style.opacity = '1';
-          tooltip.style.left = `${event.clientX + 10}px`;
-          tooltip.style.top = `${event.clientY - 60}px`;
-        })
-        .on('mousemove', function(event) {
-          tooltip.style.left = `${event.clientX + 10}px`;
-          tooltip.style.top = `${event.clientY - 60}px`;
-        })
-        .on('mouseleave', function() {
-          d3.select(this)
-            .attr('stroke', '#fff')
-            .attr('stroke-width', 0.5)
-            .attr('filter', null);
-
-          tooltip.style.opacity = '0';
-        });
-
-      // Initial animation
-      municipalities
-        .attr('opacity', 0)
-        .transition()
-        .duration(800)
-        .delay((d, i) => i * 3)
-        .attr('opacity', 1);
-
-      // Create legend
+      // Count variants and assign colors
       const variantCounts = {};
+      const variantColors = {};
+      let colorIndex = 0;
+
       Object.values(wordData.municipalities).forEach(v => {
         variantCounts[v] = (variantCounts[v] || 0) + 1;
+        if (!variantColors[v] && v !== 'Nessun Dato') {
+          variantColors[v] = colors[colorIndex % colors.length];
+          colorIndex++;
+        }
       });
+      variantColors['Nessun Dato'] = '#d1d5db';
 
       // Sort variants by count
       const sortedVariants = Object.entries(variantCounts)
-        .filter(([v]) => v !== 'Nessun Dato')
         .sort((a, b) => b[1] - a[1]);
 
-      // Add Nessun Dato at the end if exists
-      if (variantCounts['Nessun Dato']) {
-        sortedVariants.push(['Nessun Dato', variantCounts['Nessun Dato']]);
+      // Initialize map centered on Bergamo province
+      const map = L.map('bergamo-map', {
+        zoomControl: true,
+        scrollWheelZoom: true
+      }).setView([45.75, 9.85], 10);
+
+      // Add tile layer (subtle gray style)
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap, &copy; CARTO',
+        maxZoom: 19
+      }).addTo(map);
+
+      // Style function for features
+      function getStyle(feature) {
+        const variant = wordData.municipalities[feature.properties.name] || 'Nessun Dato';
+        return {
+          fillColor: variantColors[variant] || '#d1d5db',
+          weight: 1,
+          opacity: 1,
+          color: '#ffffff',
+          fillOpacity: 0.75
+        };
       }
 
-      legendContainer.innerHTML = sortedVariants.map(([variant, count]) => `
+      // Highlight style
+      function highlightStyle(feature) {
+        const variant = wordData.municipalities[feature.properties.name] || 'Nessun Dato';
+        return {
+          fillColor: variantColors[variant] || '#d1d5db',
+          weight: 3,
+          opacity: 1,
+          color: '#1f2937',
+          fillOpacity: 0.9
+        };
+      }
+
+      // Add GeoJSON layer
+      let activeVariant = null;
+      const geoLayer = L.geoJSON(geoData, {
+        style: getStyle,
+        onEachFeature: function(feature, layer) {
+          const name = feature.properties.name;
+          const variant = wordData.municipalities[name] || 'Nessun Dato';
+
+          // Tooltip
+          layer.bindTooltip(`
+            <div class="font-sans">
+              <strong class="text-base">${name}</strong><br>
+              <span class="text-amber-600 font-medium">${variant === 'Nessun Dato' ? 'Nessun dato' : '"' + variant + '"'}</span>
+            </div>
+          `, {
+            sticky: true,
+            className: 'custom-tooltip'
+          });
+
+          // Popup on click
+          layer.bindPopup(`
+            <div class="font-sans text-center p-2">
+              <h3 class="font-bold text-lg mb-1">${name}</h3>
+              <p class="text-xl" style="color: ${variantColors[variant]}">${variant === 'Nessun Dato' ? 'Nessun dato disponibile' : variant}</p>
+            </div>
+          `);
+
+          // Hover effects
+          layer.on({
+            mouseover: function(e) {
+              if (!activeVariant || activeVariant === variant) {
+                layer.setStyle(highlightStyle(feature));
+                layer.bringToFront();
+              }
+            },
+            mouseout: function(e) {
+              geoLayer.resetStyle(layer);
+              if (activeVariant && activeVariant !== variant) {
+                layer.setStyle({ fillOpacity: 0.2 });
+              }
+            }
+          });
+        }
+      }).addTo(map);
+
+      // Fit map to bounds
+      map.fitBounds(geoLayer.getBounds(), { padding: [20, 20] });
+
+      // Create legend
+      legendItems.innerHTML = sortedVariants.map(([variant, count]) => `
         <button
-          class="legend-item flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-all hover:scale-105 hover:shadow-md"
-          style="background-color: ${getColor(variant)}20; border: 2px solid ${getColor(variant)}"
+          class="legend-btn flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 border-2"
+          style="background-color: ${variantColors[variant]}15; border-color: ${variantColors[variant]}"
           data-variant="${variant}"
         >
-          <span class="w-3 h-3 rounded-full" style="background-color: ${getColor(variant)}"></span>
-          <span class="text-gray-700">${variant}</span>
-          <span class="text-gray-400 text-xs">(${count})</span>
+          <span class="w-4 h-4 rounded-full flex-shrink-0" style="background-color: ${variantColors[variant]}"></span>
+          <span class="text-gray-700 truncate max-w-[150px]">${variant}</span>
+          <span class="text-gray-400 text-xs flex-shrink-0">${count}</span>
         </button>
       `).join('');
 
-      // Legend interactivity
-      let activeVariant = null;
-      document.querySelectorAll('.legend-item').forEach(btn => {
+      // Legend click handlers
+      document.querySelectorAll('.legend-btn').forEach(btn => {
         btn.addEventListener('click', function() {
           const variant = this.dataset.variant;
 
+          // Toggle active state
           if (activeVariant === variant) {
-            // Reset
             activeVariant = null;
-            municipalities.transition().duration(300).attr('opacity', 1);
-            document.querySelectorAll('.legend-item').forEach(b => b.classList.remove('ring-2', 'ring-amber-500'));
+            document.querySelectorAll('.legend-btn').forEach(b => {
+              b.classList.remove('ring-2', 'ring-amber-500', 'ring-offset-2');
+            });
+            geoLayer.eachLayer(layer => {
+              geoLayer.resetStyle(layer);
+            });
           } else {
-            // Highlight only this variant
             activeVariant = variant;
-            municipalities.transition().duration(300)
-              .attr('opacity', d => {
-                const v = wordData.municipalities[d.properties.name] || 'Nessun Dato';
-                return v === variant ? 1 : 0.2;
-              });
-            document.querySelectorAll('.legend-item').forEach(b => b.classList.remove('ring-2', 'ring-amber-500'));
-            this.classList.add('ring-2', 'ring-amber-500');
+            document.querySelectorAll('.legend-btn').forEach(b => {
+              b.classList.remove('ring-2', 'ring-amber-500', 'ring-offset-2');
+            });
+            this.classList.add('ring-2', 'ring-amber-500', 'ring-offset-2');
+
+            geoLayer.eachLayer(layer => {
+              const v = wordData.municipalities[layer.feature.properties.name] || 'Nessun Dato';
+              if (v === variant) {
+                layer.setStyle({ fillOpacity: 0.9, weight: 2 });
+                layer.bringToFront();
+              } else {
+                layer.setStyle({ fillOpacity: 0.15, weight: 0.5 });
+              }
+            });
           }
         });
       });
 
-      // Zoom functionality
-      const zoom = d3.zoom()
-        .scaleExtent([1, 8])
-        .on('zoom', (event) => {
-          g.attr('transform', `translate(20, 20) ${event.transform}`);
-        });
+      // Stats
+      const uniqueVariants = Object.keys(variantCounts).filter(v => v !== 'Nessun Dato').length;
+      const topVariant = sortedVariants.find(([v]) => v !== 'Nessun Dato');
+      const coverage = Math.round((1 - (variantCounts['Nessun Dato'] || 0) / 243) * 100);
 
-      svg.call(zoom);
-
-      // Add zoom controls
-      const zoomControls = document.createElement('div');
-      zoomControls.className = 'absolute top-4 right-4 flex flex-col gap-2';
-      zoomControls.innerHTML = `
-        <button id="zoom-in" class="w-10 h-10 bg-white rounded-lg shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors">
-          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-          </svg>
-        </button>
-        <button id="zoom-out" class="w-10 h-10 bg-white rounded-lg shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors">
-          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
-          </svg>
-        </button>
-        <button id="zoom-reset" class="w-10 h-10 bg-white rounded-lg shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors">
-          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-          </svg>
-        </button>
+      statsDiv.innerHTML = `
+        <div class="bg-white rounded-xl p-4 shadow text-center">
+          <div class="text-2xl font-bold text-amber-500">${uniqueVariants}</div>
+          <div class="text-xs text-gray-500">Varianti</div>
+        </div>
+        <div class="bg-white rounded-xl p-4 shadow text-center">
+          <div class="text-2xl font-bold text-green-500">${coverage}%</div>
+          <div class="text-xs text-gray-500">Copertura</div>
+        </div>
+        <div class="bg-white rounded-xl p-4 shadow text-center">
+          <div class="text-2xl font-bold text-blue-500">${topVariant ? topVariant[1] : 0}</div>
+          <div class="text-xs text-gray-500">Comuni top</div>
+        </div>
+        <div class="bg-white rounded-xl p-4 shadow text-center">
+          <div class="text-2xl font-bold text-purple-500">243</div>
+          <div class="text-xs text-gray-500">Totale comuni</div>
+        </div>
       `;
-      document.querySelector('.bergamo-map-container').appendChild(zoomControls);
-
-      document.getElementById('zoom-in').addEventListener('click', () => {
-        svg.transition().call(zoom.scaleBy, 1.5);
-      });
-      document.getElementById('zoom-out').addEventListener('click', () => {
-        svg.transition().call(zoom.scaleBy, 0.67);
-      });
-      document.getElementById('zoom-reset').addEventListener('click', () => {
-        svg.transition().call(zoom.transform, d3.zoomIdentity);
-      });
 
     } catch (error) {
       console.error('Error loading map:', error);
       loading.innerHTML = `
-        <div class="text-center">
+        <div class="text-center py-10">
           <div class="text-6xl mb-4">🗺️</div>
-          <p class="text-gray-500 mb-2">Mappa non disponibile</p>
+          <p class="text-gray-500 mb-2">Errore nel caricamento della mappa</p>
           <p class="text-sm text-gray-400">${error.message}</p>
         </div>
       `;
     }
   }
-
-  // Initialize when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMap);
-  } else {
-    initMap();
-  }
 </script>
 
-<style>
-  .municipality:hover {
-    filter: brightness(1.1);
+<style is:global>
+  .custom-tooltip {
+    background: white;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    padding: 8px 12px;
+  }
+
+  .custom-tooltip .leaflet-tooltip-tip {
+    display: none;
+  }
+
+  .leaflet-popup-content-wrapper {
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+
+  .leaflet-popup-content {
+    margin: 8px 12px;
+  }
+
+  .leaflet-container {
+    font-family: 'Inter', system-ui, sans-serif;
   }
 </style>
