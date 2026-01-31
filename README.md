@@ -1,12 +1,49 @@
-# Come si dice ...? 
-Una pagina per vedere come si distribuisce il dialetto nella provincia di Bergamo.
-Si ringrazia https://github.com/guglielmo per il file geojson della provincia di Bergamo.
+# BergaWords - Come si dice...?
 
-Made with love by AverageBerghemGuy
-Seguici su Instagram https://www.instagram.com/averageberghemguy/
+Una webapp interattiva per esplorare le varianti dialettali nella provincia di Bergamo.
 
-# Cosa fanno i vari file?
-  - run.py: file principale, contiene il codice per la creazione della mappa. -> è il file chiamato da github pages per buildare l'ultima mappa a partire dai dati dell'ultimo foglio google sheet inserito
-  - run_all.py: file per buildare tutte le mappe a partire dai dati di tutti i fogli google sheet inseriti. Si è reso necessario perché avevo fatto casino e mi serviva ripartire da zero. -> non è chiamato da github pages
-  - comesidice.xlsx: file excel con i dati è il file che viene utilizzato da run_all.py -> non è chiamato da github pages
-  - 
+## Stack Tecnologico
+
+- **Astro** - Framework per siti statici
+- **Tailwind CSS** - Styling moderno e responsivo
+- **D3.js** - Visualizzazioni interattive delle mappe
+- **TypeScript** - Type safety
+
+## Sviluppo locale
+
+```bash
+# Installa le dipendenze
+npm install
+
+# Avvia il server di sviluppo
+npm run dev
+
+# Build per produzione
+npm run build
+```
+
+## Struttura del progetto
+
+```
+src/
+  components/     # Componenti Astro (BergamoMap, WordCard)
+  data/          # Dati delle parole (words.ts)
+  layouts/       # Layout principale
+  pages/         # Pagine (index, [word])
+
+public/
+  data/          # Dati JSON per le mappe
+    bergamo.geojson   # GeoJSON dei 243 comuni
+    words/            # Dati varianti per ogni parola
+```
+
+## Deploy
+
+Il progetto è configurato per Vercel. Basta collegare il repository e deployare.
+
+## Crediti
+
+- GeoJSON provincia di Bergamo: [guglielmo](https://github.com/guglielmo)
+- Made with love by AverageBerghemGuy
+
+Seguici su Instagram: [@averageberghemguy](https://www.instagram.com/averageberghemguy/)
