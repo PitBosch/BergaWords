@@ -1,0 +1,240 @@
+---
+import Layout from '../layouts/Layout.astro';
+import WordCard from '../components/WordCard.astro';
+import { words, categories, getWordsByCategory } from '../data/words';
+---
+
+<Layout title="Come si dice...?">
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden">
+    <!-- Background decoration -->
+    <div class="absolute inset-0 -z-10">
+      <div class="absolute top-20 left-10 w-72 h-72 bg-amber-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+      <div class="absolute top-40 right-10 w-72 h-72 bg-green-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" style="animation-delay: 1s"></div>
+      <div class="absolute bottom-20 left-1/2 w-72 h-72 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" style="animation-delay: 2s"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+      <div class="text-center max-w-4xl mx-auto">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 text-amber-700 text-sm font-medium mb-8 animate-fade-in">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+          </span>
+          244 comuni della provincia di Bergamo
+        </div>
+
+        <!-- Title -->
+        <h1 class="font-display text-5xl md:text-7xl font-bold text-gray-900 mb-6 animate-slide-up">
+          Come si dice
+          <span class="bg-gradient-to-r from-amber-500 via-orange-500 to-green-500 bg-clip-text text-transparent">
+            ...?
+          </span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="text-xl md:text-2xl text-gray-600 mb-10 animate-slide-up" style="animation-delay: 0.1s">
+          Esplora le infinite varianti del dialetto bergamasco
+          <br class="hidden md:block" />
+          attraverso mappe interattive della provincia
+        </p>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-8 max-w-2xl mx-auto mb-12 animate-slide-up" style="animation-delay: 0.2s">
+          <div class="text-center">
+            <div class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
+              244
+            </div>
+            <div class="text-sm text-gray-500 mt-1">Comuni</div>
+          </div>
+          <div class="text-center">
+            <div class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-orange-500 to-green-500 bg-clip-text text-transparent">
+              {words.length}
+            </div>
+            <div class="text-sm text-gray-500 mt-1">Parole</div>
+          </div>
+          <div class="text-center">
+            <div class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent">
+              &infin;
+            </div>
+            <div class="text-sm text-gray-500 mt-1">Varianti</div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style="animation-delay: 0.3s">
+          <a
+            href="#parole"
+            class="px-8 py-4 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+          >
+            Esplora le parole
+          </a>
+          <a
+            href="https://github.com/PitBosch/BergaWords"
+            target="_blank"
+            rel="noopener"
+            class="px-8 py-4 rounded-xl border-2 border-gray-200 text-gray-700 font-semibold text-lg hover:border-amber-300 hover:bg-amber-50 transition-all duration-300"
+          >
+            Vedi il progetto
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="py-20 bg-white/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            Un viaggio nel dialetto
+            <span class="text-amber-500">bergamasco</span>
+          </h2>
+          <p class="text-lg text-gray-600 mb-6">
+            BergaWords nasce dalla curiosit&agrave; di scoprire come le stesse parole vengono pronunciate
+            in modi completamente diversi nei vari comuni della provincia di Bergamo.
+          </p>
+          <p class="text-lg text-gray-600 mb-8">
+            Attraverso un sondaggio che ha coinvolto centinaia di partecipanti, abbiamo mappato
+            le varianti dialettali di parole di uso quotidiano, creando una mappa linguistica
+            unica nel suo genere.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            {categories.map((cat) => (
+              <span class="px-4 py-2 rounded-lg bg-amber-100 text-amber-700 text-sm font-medium">
+                {cat}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div class="relative">
+          <div class="aspect-square rounded-3xl bg-gradient-to-br from-amber-100 via-orange-50 to-green-100 p-8 shadow-2xl">
+            <div class="w-full h-full rounded-2xl bg-white/80 backdrop-blur flex items-center justify-center">
+              <div class="text-center">
+                <div class="text-8xl mb-4">🗺️</div>
+                <p class="text-gray-600 font-medium">Mappe interattive</p>
+                <p class="text-sm text-gray-400">con Plotly.js</p>
+              </div>
+            </div>
+          </div>
+          <!-- Decorative elements -->
+          <div class="absolute -top-4 -right-4 w-24 h-24 bg-amber-400 rounded-2xl -z-10 opacity-50"></div>
+          <div class="absolute -bottom-4 -left-4 w-32 h-32 bg-green-400 rounded-2xl -z-10 opacity-30"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Words Section -->
+  <section id="parole" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center mb-16">
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          Le parole
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Seleziona una parola per esplorare come viene detta nei diversi comuni
+        </p>
+      </div>
+
+      <!-- Category Filter -->
+      <div class="flex flex-wrap justify-center gap-3 mb-12">
+        <button
+          data-category="all"
+          class="category-btn px-5 py-2.5 rounded-full font-medium text-sm transition-all duration-300 bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg"
+        >
+          Tutte
+        </button>
+        {categories.map((cat) => (
+          <button
+            data-category={cat}
+            class="category-btn px-5 py-2.5 rounded-full font-medium text-sm transition-all duration-300 bg-white text-gray-600 hover:bg-amber-50 hover:text-amber-600 border border-gray-200"
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      <!-- Words Grid -->
+      <div id="words-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {words.map((word, index) => (
+          <div data-category={word.category}>
+            <WordCard
+              name={word.name}
+              slug={word.slug}
+              emoji={word.emoji}
+              description={word.description}
+              category={word.category}
+              index={index}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-gradient-to-r from-amber-500 via-orange-500 to-green-500">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-white mb-6">
+        Vuoi contribuire?
+      </h2>
+      <p class="text-xl text-white/90 mb-8">
+        Il progetto &egrave; open source e accoglie nuovi contributi.
+        Aiutaci a mappare sempre pi&ugrave; parole del dialetto bergamasco!
+      </p>
+      <a
+        href="https://github.com/PitBosch/BergaWords"
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-white text-amber-600 font-semibold text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+      >
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+        </svg>
+        Contribuisci su GitHub
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Category filter functionality
+  const buttons = document.querySelectorAll('.category-btn');
+  const cards = document.querySelectorAll('#words-grid > div');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const category = btn.getAttribute('data-category');
+
+      // Update button styles
+      buttons.forEach(b => {
+        b.classList.remove('bg-gradient-to-r', 'from-amber-500', 'to-orange-500', 'text-white', 'shadow-lg');
+        b.classList.add('bg-white', 'text-gray-600', 'border', 'border-gray-200');
+      });
+      btn.classList.remove('bg-white', 'text-gray-600', 'border', 'border-gray-200');
+      btn.classList.add('bg-gradient-to-r', 'from-amber-500', 'to-orange-500', 'text-white', 'shadow-lg');
+
+      // Filter cards
+      cards.forEach((card, index) => {
+        const cardCategory = card.getAttribute('data-category');
+        if (category === 'all' || cardCategory === category) {
+          card.style.display = 'block';
+          card.style.animationDelay = `${index * 50}ms`;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

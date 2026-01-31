@@ -1,0 +1,275 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { words, getWordBySlug } from '../data/words';
+
+export async function getStaticPaths() {
+  return words.map(word => ({
+    params: { word: word.slug },
+    props: { word }
+  }));
+}
+
+const { word } = Astro.props;
+
+// Get adjacent words for navigation
+const currentIndex = words.findIndex(w => w.slug === word.slug);
+const prevWord = currentIndex > 0 ? words[currentIndex - 1] : null;
+const nextWord = currentIndex < words.length - 1 ? words[currentIndex + 1] : null;
+
+const categoryColors: Record<string, string> = {
+  "Cibo": "from-orange-400 to-red-500",
+  "Mestieri": "from-blue-400 to-indigo-500",
+  "Oggetti": "from-emerald-400 to-teal-500",
+  "Natura": "from-green-400 to-lime-500",
+  "Corpo": "from-pink-400 to-rose-500",
+  "Stati": "from-purple-400 to-violet-500",
+  "Carte": "from-amber-400 to-yellow-500",
+};
+
+const gradient = categoryColors[word.category] || "from-gray-400 to-gray-500";
+
+// JSON path for plotly - loading from GitHub Pages to avoid large file duplication
+const plotlyJsonPath = `https://pitbosch.github.io/BergaWords/plotly/${encodeURIComponent(word.slug)}.json`;
+---
+
+<Layout title={`Come si dice "${word.name}"?`} description={`Scopri come si dice "${word.name}" nei 244 comuni della provincia di Bergamo`}>
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden py-12 md:py-20">
+    <!-- Background decoration -->
+    <div class="absolute inset-0 -z-10">
+      <div class={`absolute top-10 left-10 w-96 h-96 bg-gradient-to-br ${gradient} rounded-full mix-blend-multiply filter blur-3xl opacity-20`}></div>
+      <div class="absolute bottom-10 right-10 w-72 h-72 bg-amber-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 text-sm text-gray-500 mb-8 animate-fade-in">
+        <a href="/" class="hover:text-amber-600 transition-colors">Home</a>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+        <a href="/#parole" class="hover:text-amber-600 transition-colors">Parole</a>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+        <span class="text-gray-700 font-medium">{word.name}</span>
+      </nav>
+
+      <!-- Header -->
+      <div class="flex flex-col md:flex-row md:items-center gap-6 mb-12">
+        <!-- Emoji badge -->
+        <div class={`w-24 h-24 rounded-3xl bg-gradient-to-br ${gradient} flex items-center justify-center shadow-2xl animate-scale-in`}>
+          <span class="text-5xl">{word.emoji}</span>
+        </div>
+
+        <div class="animate-slide-up">
+          <!-- Category badge -->
+          <span class={`inline-block text-sm font-medium px-3 py-1 rounded-full bg-gradient-to-r ${gradient} text-white mb-3`}>
+            {word.category}
+          </span>
+
+          <!-- Title -->
+          <h1 class="font-display text-4xl md:text-6xl font-bold text-gray-900 mb-2">
+            Come si dice <span class={`bg-gradient-to-r ${gradient} bg-clip-text text-transparent`}>{word.name}</span>?
+          </h1>
+
+          <!-- Description -->
+          <p class="text-xl text-gray-600">{word.description}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section class="py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white rounded-3xl shadow-2xl overflow-hidden animate-slide-up" style="animation-delay: 0.2s">
+        <!-- Map Header -->
+        <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="flex gap-1.5">
+              <div class="w-3 h-3 rounded-full bg-red-400"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+              <div class="w-3 h-3 rounded-full bg-green-400"></div>
+            </div>
+            <span class="text-sm text-gray-500">Mappa interattiva della provincia di Bergamo</span>
+          </div>
+          <div class="flex items-center gap-2 text-sm text-gray-400">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+            </svg>
+            <span>Clicca per interagire</span>
+          </div>
+        </div>
+
+        <!-- Plotly container -->
+        <div id="plotly-chart" class="w-full" style="height: 600px;">
+          <!-- Loading state -->
+          <div id="loading-state" class="w-full h-full flex flex-col items-center justify-center">
+            <div class="relative">
+              <div class="w-16 h-16 border-4 border-amber-200 rounded-full animate-spin border-t-amber-500"></div>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <span class="text-2xl">{word.emoji}</span>
+              </div>
+            </div>
+            <p class="mt-4 text-gray-500">Caricamento mappa...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Info cards -->
+      <div class="grid md:grid-cols-3 gap-6 mt-8">
+        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow animate-slide-up" style="animation-delay: 0.3s">
+          <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">244 Comuni</h3>
+          <p class="text-sm text-gray-500">Ogni comune della provincia di Bergamo &egrave; mappato con la sua variante dialettale</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow animate-slide-up" style="animation-delay: 0.4s">
+          <div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">Dati reali</h3>
+          <p class="text-sm text-gray-500">Basato su centinaia di risposte raccolte da persone native della zona</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow animate-slide-up" style="animation-delay: 0.5s">
+          <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">Interattivo</h3>
+          <p class="text-sm text-gray-500">Zoom, pan e hover per esplorare ogni dettaglio della mappa</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation Section -->
+  <section class="py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row justify-between gap-4">
+        {prevWord ? (
+          <a
+            href={`/${encodeURIComponent(prevWord.slug)}`}
+            class="group flex items-center gap-4 px-6 py-4 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all hover:-translate-x-1"
+          >
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-amber-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            <div>
+              <p class="text-sm text-gray-400">Precedente</p>
+              <p class="font-semibold text-gray-700 group-hover:text-amber-600 transition-colors">
+                {prevWord.emoji} {prevWord.name}
+              </p>
+            </div>
+          </a>
+        ) : (
+          <div></div>
+        )}
+
+        {nextWord ? (
+          <a
+            href={`/${encodeURIComponent(nextWord.slug)}`}
+            class="group flex items-center gap-4 px-6 py-4 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all hover:translate-x-1 text-right"
+          >
+            <div>
+              <p class="text-sm text-gray-400">Successiva</p>
+              <p class="font-semibold text-gray-700 group-hover:text-amber-600 transition-colors">
+                {nextWord.name} {nextWord.emoji}
+              </p>
+            </div>
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-amber-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        ) : (
+          <div></div>
+        )}
+      </div>
+
+      <!-- Back to all -->
+      <div class="text-center mt-8">
+        <a
+          href="/#parole"
+          class="inline-flex items-center gap-2 text-amber-600 hover:text-amber-700 font-medium transition-colors"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+          </svg>
+          Vedi tutte le parole
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script define:vars={{ plotlyJsonPath }}>
+  // Load Plotly chart
+  async function loadChart() {
+    const container = document.getElementById('plotly-chart');
+    const loadingState = document.getElementById('loading-state');
+
+    try {
+      const response = await fetch(plotlyJsonPath);
+
+      if (!response.ok) {
+        throw new Error('Mappa non disponibile');
+      }
+
+      const data = await response.json();
+
+      // Hide loading
+      if (loadingState) {
+        loadingState.style.display = 'none';
+      }
+
+      // Customize layout for better appearance
+      const layout = {
+        ...data.layout,
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        margin: { l: 0, r: 0, t: 0, b: 0 },
+        geo: {
+          ...data.layout?.geo,
+          bgcolor: 'rgba(0,0,0,0)',
+        }
+      };
+
+      const config = {
+        responsive: true,
+        displayModeBar: true,
+        displaylogo: false,
+        modeBarButtonsToRemove: ['lasso2d', 'select2d']
+      };
+
+      Plotly.newPlot(container, data.data, layout, config);
+    } catch (error) {
+      console.error('Error loading chart:', error);
+      if (loadingState) {
+        loadingState.innerHTML = `
+          <div class="text-center">
+            <div class="text-6xl mb-4">🗺️</div>
+            <p class="text-gray-500 mb-2">Mappa non ancora disponibile</p>
+            <p class="text-sm text-gray-400">Stiamo lavorando per aggiungerla</p>
+          </div>
+        `;
+      }
+    }
+  }
+
+  // Load on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadChart);
+  } else {
+    loadChart();
+  }
+</script>
