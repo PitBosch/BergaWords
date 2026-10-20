@@ -152,4 +152,4 @@ Regole applicate automaticamente nella bozza (da confermare):
 - **D4** `l'ass de ori/coppe/bastù/spade` resta come variante.
 - **D5** Fradicio e Bagnato restano due mappe distinte.
 - **D6** Il tab Commenti si prova con le 39 risposte esplicative, mostrando solo il comune.
-- **D7** Parametri da valutare sui risultati della fase 2.
+- **D7** Parametri scelti con la validazione incrociata della fase 2: k = 15 per tutte le parole, banda massima 6 km, α = 2 (vedi `VALIDAZIONE.md`).

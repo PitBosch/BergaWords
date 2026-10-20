@@ -33,7 +33,10 @@ OUT = ROOT / "analisi" / "fase2"
 BLOCCHI = 5
 SEED_CV = 3
 PAROLE_CV_BYM2 = ["Roncola", "Sasso", "Pop Corn", "Libellula"]
-CONFIGURAZIONI = {  # variazioni attorno ai parametri scelti, una alla volta
+# punto di partenza della validazione: i parametri proposti in ANALISI.md § 6. "base" nelle tabelle
+# indica questi; le variazioni e le combinazioni si applicano sopra di essi
+PARTENZA = {"k_vicini": 30, "k_vicini_poche": 20, "banda_max_km": 10.0, "alpha_prior": 5.0}
+CONFIGURAZIONI = {  # variazioni attorno al punto di partenza, una alla volta
     "base": {},
     "k=15": {"k_vicini": 15, "k_vicini_poche": 15},
     "k=50": {"k_vicini": 50, "k_vicini_poche": 50},
@@ -133,7 +136,7 @@ def cv(ctx, configurazioni=CONFIGURAZIONI, file="cv_blocchi.csv", confronti=True
             prior = Y[tr].sum(0) / Y[tr].sum()
             r = {"parola": parola, "blocco": b, "n_test": int(te.sum())}
             for nome, mod in configurazioni.items():
-                par = {**PARAMETRI_H3, **mod}
+                par = {**PARAMETRI_H3, **PARTENZA, **mod}
                 p = ctx.kernel_comune(comuni[tr], Y[tr], par, range(SEED_CV))
                 r[f"esagoni: {nome}"] = punteggio(p, ctx.ci, comuni[te], Y[te])
             righe.append(r)
@@ -207,7 +210,7 @@ def bym2(ctx):
                       "comuni_osservati": int(osservati.sum()),
                       "rho_medio": round(float(np.mean(info["rho"])), 3),
                       "sigma_medio": round(float(np.mean(info["sigma"])), 3),
-                      "divergenze": info["divergenze"], "rhat_max": round(info.get("rhat_max", np.nan), 3),
+                      "divergenze": info["divergenze"],
                       "secondi": round(time.time() - t)})
         print("  bym2", parola, righe[-1]["dominante_uguale_pop"])
         if parola in PAROLE_CV_BYM2:
@@ -229,6 +232,36 @@ def bym2(ctx):
     pd.DataFrame(cvr).to_csv(OUT / "bym2_cv.csv", index=False)
     (OUT / "bym2_stime.json").write_text(json.dumps({"comuni": ctx.nomi, "parole": stime}, ensure_ascii=False))
     return df
+
+
+def bym2_kernel(ctx):
+    """Ricalcola la parte kernel del confronto con i parametri attuali, riusando le stime BYM2 salvate."""
+    st = json.loads((OUT / "bym2_stime.json").read_text())
+    conf = pd.read_csv(OUT / "bym2_confronto.csv").set_index("parola")
+    cvr = pd.read_csv(OUT / "bym2_cv.csv")
+    w = ctx.pop / ctx.pop.sum()
+    for parola, s in st["parole"].items():
+        ctx.parola = parola
+        comuni, varianti, Y = ctx.dati(parola)
+        _, nomi, tieni, resto = _bym2_input(ctx, comuni, Y, varianti)
+        pb = np.array(s["bym2"])
+        pk = _riduci(ctx.kernel_comune(comuni, Y, PARAMETRI_H3, range(PARAMETRI_H3["seed"])), tieni, resto)
+        s["kernel"] = pk.round(4).tolist()
+        conf.loc[parola, "dominante_uguale_pop"] = round(float(((pb.argmax(1) == pk.argmax(1)) * w).sum()), 4)
+        conf.loc[parola, "dominante_uguale_comuni"] = round(float((pb.argmax(1) == pk.argmax(1)).mean()), 4)
+        conf.loc[parola, "diff_media_prob"] = round(float(np.abs(pb - pk).sum(1).mean() / 2), 4)
+        conf.loc[parola, "corr_prob"] = round(float(np.corrcoef(pb.ravel(), pk.ravel())[0, 1]), 4)
+        if parola in set(cvr.parola):
+            f = blocchi(len(Y))
+            for b in range(BLOCCHI):
+                tr, te = f != b, f == b
+                pkt = _riduci(ctx.kernel_comune(comuni[tr], Y[tr], PARAMETRI_H3, range(SEED_CV)), tieni, resto)
+                cvr.loc[(cvr.parola == parola) & (cvr.blocco == b), "kernel esagoni"] = \
+                    punteggio(pkt, ctx.ci, comuni[te], _riduci(Y[te], tieni, resto))
+    conf.reset_index().to_csv(OUT / "bym2_confronto.csv", index=False)
+    cvr.to_csv(OUT / "bym2_cv.csv", index=False)
+    (OUT / "bym2_stime.json").write_text(json.dumps(st, ensure_ascii=False))
+    print("  bym2_kernel ok")
 
 
 # ---------------------------------------------------------------- mappe
@@ -370,7 +403,7 @@ def main():
     parti = sys.argv[1:] or ["semi", "cv", "bym2", "mappe", "report"]
     with sqlite3.connect(DB) as con:
         ctx = Contesto(con)
-        for p in parti:
+        for p in parti:  # "bym2_kernel" e "combinazioni" si lanciano a parte
             globals()[p](ctx)
 
 
