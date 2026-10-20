@@ -44,8 +44,8 @@ PARAMETRI_H3 = {
     "taglio_kernel": 3.0,   # pesi nulli oltre 3 bande
     "jitter_km": 0.35,      # raggio del punto casuale attorno al centro del pezzo
     # differenza di probabilità tra esagoni confinanti (centri a ~0,8 km) per un'isoglossa netta:
-    # ~5% delle isoglosse con le sezioni ISTAT 2021 (con la maschera provvisoria ne marca ~2%)
-    "salto_netto": 0.065,
+    # ~5% delle isoglosse con le sezioni ISTAT 2021 e i parametri della validazione incrociata
+    "salto_netto": 0.09,
 }
 
 
