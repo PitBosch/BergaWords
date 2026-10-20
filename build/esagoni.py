@@ -33,12 +33,13 @@ CRS = 32632  # UTM 32N, metri
 PARAMETRI_H3 = {
     "risoluzione": 8,
     "seed": 10,
-    "k_vicini": 30,
-    "k_vicini_poche": 20,
+    # k, banda massima e alpha scelti con la validazione incrociata (VALIDAZIONE.md)
+    "k_vicini": 15,
+    "k_vicini_poche": 15,
     "parole_poche": ["Pop Corn", "Libellula", "talpa"],
     "banda_min_km": 1.5,
-    "banda_max_km": 10.0,   # oltre questa distanza i dati non vengono più cercati: decide il prior
-    "alpha_prior": 5.0,
+    "banda_max_km": 6.0,   # oltre questa distanza i dati non vengono più cercati: decide il prior
+    "alpha_prior": 2.0,
     "n_eff_min": 8.0,       # sotto: esagono sbiadito
     "taglio_kernel": 3.0,   # pesi nulli oltre 3 bande
     "jitter_km": 0.35,      # raggio del punto casuale attorno al centro del pezzo

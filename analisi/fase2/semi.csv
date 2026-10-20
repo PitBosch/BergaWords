@@ -1,11 +1,11 @@
 parola,livello,dominante_diversa_10_vs_10,dominante_diversa_1_vs_10,max_diff_prob_10_vs_10
-Roncola,lessema,0.0028,0.0094,0.0602
-Roncola,pronuncia,0.0091,0.019,0.0596
-Sasso,lessema,0.0015,0.0014,0.0249
-Sasso,pronuncia,0.008,0.008,0.0331
-l'Asso di Coppe,lessema,0.0279,0.0755,0.0207
-l'Asso di Coppe,pronuncia,0.0292,0.0781,0.0207
-Pop Corn,lessema,0.023,0.0507,0.0322
-Pop Corn,pronuncia,0.0265,0.0267,0.0263
-ciabatta,lessema,0.0,0.0,0.0169
-ciabatta,pronuncia,0.0063,0.0178,0.0354
+Roncola,lessema,0.0089,0.0241,0.0784
+Roncola,pronuncia,0.0212,0.0394,0.0784
+Sasso,lessema,0.0057,0.0162,0.0458
+Sasso,pronuncia,0.0054,0.0154,0.0458
+l'Asso di Coppe,lessema,0.0607,0.0876,0.0354
+l'Asso di Coppe,pronuncia,0.0611,0.0885,0.0355
+Pop Corn,lessema,0.0231,0.0646,0.0365
+Pop Corn,pronuncia,0.0255,0.0606,0.0381
+ciabatta,lessema,0.0013,0.0066,0.0303
+ciabatta,pronuncia,0.0115,0.0227,0.0495

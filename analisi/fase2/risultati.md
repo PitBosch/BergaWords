@@ -8,16 +8,16 @@ Maschera: provvisoria: popolazione comunale uniforme sulla superficie (sezioni I
 
 | parola | livello | dominante_diversa_10_vs_10 | dominante_diversa_1_vs_10 | max_diff_prob_10_vs_10 |
 |---|---|---|---|---|
-| Roncola | lessema | 0.003 | 0.009 | 0.060 |
-| Roncola | pronuncia | 0.009 | 0.019 | 0.060 |
-| Sasso | lessema | 0.002 | 0.001 | 0.025 |
-| Sasso | pronuncia | 0.008 | 0.008 | 0.033 |
-| l'Asso di Coppe | lessema | 0.028 | 0.075 | 0.021 |
-| l'Asso di Coppe | pronuncia | 0.029 | 0.078 | 0.021 |
-| Pop Corn | lessema | 0.023 | 0.051 | 0.032 |
-| Pop Corn | pronuncia | 0.026 | 0.027 | 0.026 |
-| ciabatta | lessema | 0.000 | 0.000 | 0.017 |
-| ciabatta | pronuncia | 0.006 | 0.018 | 0.035 |
+| Roncola | lessema | 0.009 | 0.024 | 0.078 |
+| Roncola | pronuncia | 0.021 | 0.039 | 0.078 |
+| Sasso | lessema | 0.006 | 0.016 | 0.046 |
+| Sasso | pronuncia | 0.005 | 0.015 | 0.046 |
+| l'Asso di Coppe | lessema | 0.061 | 0.088 | 0.035 |
+| l'Asso di Coppe | pronuncia | 0.061 | 0.088 | 0.035 |
+| Pop Corn | lessema | 0.023 | 0.065 | 0.036 |
+| Pop Corn | pronuncia | 0.025 | 0.061 | 0.038 |
+| ciabatta | lessema | 0.001 | 0.007 | 0.030 |
+| ciabatta | pronuncia | 0.011 | 0.023 | 0.050 |
 
 ## Validazione incrociata (5 blocchi, livello lessema)
 
@@ -69,3 +69,46 @@ Per parola:
 | ragnatela | -0.809 | -0.600 | -0.567 | -0.567 | -0.549 | -0.587 | -0.559 | -0.568 | -0.564 | -0.594 |
 | talpa | -1.063 | -0.937 | -0.871 | -0.863 | -0.859 | -0.891 | -0.857 | -0.864 | -0.855 | -0.894 |
 | tasca | -0.901 | -0.600 | -0.584 | -0.582 | -0.559 | -0.608 | -0.574 | -0.585 | -0.575 | -0.617 |
+
+## Confronto con BYM2 (livello lessema, per comune)
+
+| parola | categorie | dominante_uguale_pop | dominante_uguale_comuni | diff_media_prob | corr_prob | comuni_osservati | rho_medio | sigma_medio | divergenze | secondi |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Fradicio | 6 | 0.953 | 0.893 | 0.097 | 0.967 | 209 | 0.934 | 1.621 | 0 | 27 |
+| l'Asso di Spade | 3 | 1.000 | 1.000 | 0.020 | 0.999 | 175 | 0.615 | 0.574 | 0 | 16 |
+| l'Asso di Ori | 7 | 0.809 | 0.811 | 0.106 | 0.962 | 173 | 0.817 | 1.601 | 0 | 29 |
+| Bagnato | 3 | 0.995 | 0.988 | 0.041 | 0.993 | 206 | 0.769 | 1.376 | 0 | 21 |
+| Ombelico | 3 | 0.952 | 0.942 | 0.060 | 0.979 | 191 | 0.825 | 1.633 | 0 | 19 |
+| l'Asso di Coppe | 5 | 0.851 | 0.807 | 0.108 | 0.930 | 175 | 0.849 | 1.258 | 0 | 28 |
+| l'Asso di Bastoni | 4 | 0.889 | 0.864 | 0.064 | 0.977 | 175 | 0.582 | 0.366 | 0 | 27 |
+| Scapolo | 4 | 0.977 | 0.955 | 0.071 | 0.983 | 189 | 0.939 | 1.826 | 0 | 22 |
+| Pettegola | 3 | 1.000 | 1.000 | 0.020 | 0.999 | 217 | 0.923 | 0.960 | 0 | 22 |
+| Libellula | 4 | 0.942 | 0.942 | 0.059 | 0.990 | 157 | 0.706 | 1.364 | 0 | 27 |
+| Macellaio | 3 | 0.907 | 0.831 | 0.047 | 0.985 | 209 | 0.676 | 0.770 | 0 | 18 |
+| Panettiere | 4 | 0.954 | 0.909 | 0.057 | 0.984 | 210 | 0.784 | 0.978 | 0 | 25 |
+| Briciole | 4 | 0.951 | 0.955 | 0.075 | 0.983 | 201 | 0.925 | 1.702 | 0 | 21 |
+| Albicocca | 2 | 0.998 | 0.992 | 0.033 | 0.992 | 184 | 0.872 | 0.808 | 0 | 24 |
+| Gallina | 3 | 0.933 | 0.914 | 0.064 | 0.975 | 225 | 0.852 | 1.527 | 0 | 21 |
+| Sasso | 4 | 0.957 | 0.909 | 0.075 | 0.979 | 225 | 0.945 | 1.856 | 0 | 25 |
+| Pop Corn | 4 | 0.854 | 0.893 | 0.096 | 0.946 | 160 | 0.827 | 1.529 | 0 | 19 |
+| Roncola | 4 | 0.946 | 0.942 | 0.094 | 0.972 | 232 | 0.969 | 2.329 | 0 | 18 |
+| Imbuto | 3 | 0.975 | 0.963 | 0.038 | 0.989 | 216 | 0.723 | 1.295 | 0 | 21 |
+| Fiammifero | 5 | 0.939 | 0.905 | 0.067 | 0.980 | 210 | 0.860 | 1.300 | 0 | 28 |
+| coperchio | 3 | 1.000 | 1.000 | 0.017 | 0.999 | 213 | 0.546 | 0.603 | 0 | 21 |
+| talpa | 4 | 0.960 | 0.914 | 0.090 | 0.969 | 178 | 0.791 | 1.489 | 0 | 27 |
+| ragnatela | 3 | 0.937 | 0.942 | 0.083 | 0.973 | 211 | 0.939 | 2.018 | 0 | 18 |
+| tasca | 3 | 0.945 | 0.897 | 0.106 | 0.951 | 219 | 0.971 | 2.162 | 0 | 19 |
+| cotechino grigliato | 3 | 0.986 | 0.971 | 0.051 | 0.989 | 209 | 0.909 | 1.236 | 0 | 21 |
+| orologio | 2 | 0.923 | 0.918 | 0.061 | 0.971 | 195 | 0.972 | 1.358 | 0 | 15 |
+| ciabatta | 2 | 0.971 | 0.955 | 0.042 | 0.983 | 218 | 0.898 | 1.620 | 0 | 16 |
+| maiale | 5 | 0.941 | 0.926 | 0.076 | 0.979 | 225 | 0.850 | 1.269 | 0 | 31 |
+| grembiule | 3 | 0.911 | 0.893 | 0.053 | 0.983 | 219 | 0.722 | 0.769 | 0 | 21 |
+
+Validazione incrociata BYM2 contro kernel (log-score medio, 5 blocchi):
+
+| parola | bym2 | kernel esagoni |
+|---|---|---|
+| Libellula | -0.543 | -0.546 |
+| Pop Corn | -0.975 | -1.014 |
+| Roncola | -0.467 | -0.496 |
+| Sasso | -0.505 | -0.516 |
