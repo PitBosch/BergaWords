@@ -1,0 +1,1005 @@
+{
+ "risposte": 36130,
+ "parole": {
+  "Fradicio": {
+   "risposte": 1698,
+   "grafie_distinte": 167,
+   "principali": [
+    [
+     "Maserét",
+     757
+    ],
+    [
+     "Bagnàt",
+     537
+    ],
+    [
+     "Trebatit",
+     101
+    ],
+    [
+     "Méss",
+     60
+    ],
+    [
+     "Trabatit",
+     37
+    ],
+    [
+     "Maser",
+     29
+    ]
+   ],
+   "rare": 93,
+   "rare_risposte": 171,
+   "multiple": 4,
+   "commenti": 0,
+   "escluse": 2,
+   "coppie_dubbie": [],
+   "comuni": 209
+  },
+  "l'Asso di Spade": {
+   "risposte": 882,
+   "grafie_distinte": 15,
+   "principali": [
+    [
+     "l'ass de spade",
+     810
+    ],
+    [
+     "ol taiamerde",
+     58
+    ]
+   ],
+   "rare": 11,
+   "rare_risposte": 13,
+   "multiple": 0,
+   "commenti": 0,
+   "escluse": 1,
+   "coppie_dubbie": [],
+   "comuni": 175
+  },
+  "l'Asso di Ori": {
+   "risposte": 882,
+   "grafie_distinte": 122,
+   "principali": [
+    [
+     "ol borla",
+     317
+    ],
+    [
+     "l'ass de ori",
+     288
+    ],
+    [
+     "la bola",
+     65
+    ],
+    [
+     "La polenta",
+     52
+    ],
+    [
+     "La cüla",
+     32
+    ],
+    [
+     "la formaggia",
+     30
+    ],
+    [
+     "la burlina",
+     11
+    ]
+   ],
+   "rare": 71,
+   "rare_risposte": 82,
+   "multiple": 4,
+   "commenti": 1,
+   "escluse": 0,
+   "coppie_dubbie": [],
+   "comuni": 175
+  },
+  "Bagnato": {
+   "risposte": 1469,
+   "grafie_distinte": 34,
+   "principali": [
+    [
+     "Bagnàt",
+     1277
+    ],
+    [
+     "Méss",
+     145
+    ]
+   ],
+   "rare": 28,
+   "rare_risposte": 46,
+   "multiple": 0,
+   "commenti": 1,
+   "escluse": 0,
+   "coppie_dubbie": [],
+   "comuni": 206
+  },
+  "Ombelico": {
+   "risposte": 827,
+   "grafie_distinte": 50,
+   "principali": [
+    [
+     "butù",
+     686
+    ],
+    [
+     "bigol",
+     88
+    ]
+   ],
+   "rare": 41,
+   "rare_risposte": 51,
+   "multiple": 0,
+   "commenti": 1,
+   "escluse": 1,
+   "coppie_dubbie": [],
+   "comuni": 191
+  },
+  "l'Asso di Coppe": {
+   "risposte": 882,
+   "grafie_distinte": 38,
+   "principali": [
+    [
+     "ol pisì",
+     274
+    ],
+    [
+     "l'ass de coppe",
+     245
+    ],
+    [
+     "ol pisalobia",
+     179
+    ],
+    [
+     "ol pisagì",
+     156
+    ]
+   ],
+   "rare": 25,
+   "rare_risposte": 26,
+   "multiple": 0,
+   "commenti": 1,
+   "escluse": 1,
+   "coppie_dubbie": [],
+   "comuni": 175
+  },
+  "l'Asso di Bastoni": {
+   "risposte": 882,
+   "grafie_distinte": 6,
+   "principali": [
+    [
+     "l'ass de bastù",
+     458
+    ],
+    [
+     "ol vincerai",
+     329
+    ],
+    [
+     "ol bastù",
+     93
+    ]
+   ],
+   "rare": 2,
+   "rare_risposte": 2,
+   "multiple": 0,
+   "commenti": 0,
+   "escluse": 0,
+   "coppie_dubbie": [],
+   "comuni": 175
+  },
+  "Scapolo": {
+   "risposte": 779,
+   "grafie_distinte": 26,
+   "principali": [
+    [
+     "Pötvecc",
+     326
+    ],
+    [
+     "Barba",
+     206
+    ],
+    [
+     "Marèll",
+     106
+    ],
+    [
+     "Pöt",
+     99
+    ],
+    [
+     "Barbì",
+     26
+    ]
+   ],
+   "rare": 12,
+   "rare_risposte": 15,
+   "multiple": 0,
+   "commenti": 1,
+   "escluse": 0,
+   "coppie_dubbie": [],
+   "comuni": 190
+  },
+  "Pettegola": {
+   "risposte": 1741,
+   "grafie_distinte": 50,
+   "principali": [
+    [
+     "petònega",
+     1520
+    ],
+    [
+     "zabèta",
+     145
+    ],
+    [
+     "tofa",
+     30
+    ]
+   ],
+   "rare": 25,
+   "rare_risposte": 32,
+   "multiple": 12,
+   "commenti": 1,
+   "escluse": 1,
+   "coppie_dubbie": [],
+   "comuni": 217
+  },
+  "Libellula": {
+   "risposte": 496,
+   "grafie_distinte": 22,
+   "principali": [
+    [
+     "becaöcc",
+     388
+    ],
+    [
+     "scanaöcc",
+     78
+    ],
+    [
+     "Caaöcc",
+     13
+    ]
+   ],
+   "rare": 12,
+   "rare_risposte": 15,
+   "multiple": 0,
+   "commenti": 1,
+   "escluse": 1,
+   "coppie_dubbie": [],
+   "comuni": 159
+  },
+  "Macellaio": {
+   "risposte": 1273,
+   "grafie_distinte": 25,
+   "principali": [
+    [
+     "Macelér",
+     755
+    ],
+    [
+     "Bechér",
+     504
+    ]
+   ],
+   "rare": 14,
+   "rare_risposte": 14,
+   "multiple": 0,
+   "commenti": 0,
+   "escluse": 0,
+   "coppie_dubbie": [],
+   "comuni": 209
+  },
+  "Panettiere": {
+   "risposte": 1359,
+   "grafie_distinte": 32,
+   "principali": [
+    [
+     "Fornér",
+     880
+    ],
+    [
+     "Prestinér",
+     270
+    ],
+    [
+     "Panetér",
+     196
+    ]
+   ],
+   "rare": 10,
+   "rare_risposte": 10,
+   "multiple": 3,
+   "commenti": 0,
+   "escluse": 0,
+   "coppie_dubbie": [],
+   "comuni": 210
+  },
+  "Briciole": {
+   "risposte": 855,
+   "grafie_distinte": 43,
+   "principali": [
+    [
+     "Migole",
+     309
+    ],
+    [
+     "Migle",
+     194
+    ],
+    [
+     "Gandaie",
+     138
+    ],
+    [
+     "Fregoie",
+     103
+    ],
+    [
+     "Fregói",
+     40
+    ],
+    [
+     "Gandài",
+     37
+    ]
+   ],
+   "rare": 24,
+   "rare_risposte": 33,
+   "multiple": 0,
+   "commenti": 0,
+   "escluse": 1,
+   "coppie_dubbie": [],
+   "comuni": 201
+  },
+  "Albicocca": {
+   "risposte": 934,
+   "grafie_distinte": 29,
+   "principali": [
+    [
+     "Bignaga",
+     474
+    ],
+    [
+     "Mignaga",
+     266
+    ],
+    [
+     "Albicòch",
+     165
+    ],
+    [
+     "Mugnaga",
+     25
+    ]
+   ],
+   "rare": 3,
+   "rare_risposte": 3,
+   "multiple": 0,
+   "commenti": 1,
+   "escluse": 0,
+   "coppie_dubbie": [],
+   "comuni": 186
+  },
+  "Gallina": {
+   "risposte": 2244,
+   "grafie_distinte": 16,
+   "principali": [
+    [
+     "Poia",
+     1926
+    ],
+    [
+     "Galina",
+     308
+    ]
+   ],
+   "rare": 5,
+   "rare_risposte": 8,
+   "multiple": 2,
+   "commenti": 0,
+   "escluse": 0,
+   "coppie_dubbie": [],
+   "comuni": 225
+  },
+  "Sasso": {
+   "risposte": 1810,
+   "grafie_distinte": 62,
+   "principali": [
+    [
+     "Plòch",
+     1022
+    ],
+    [
+     "Sàss",
+     638
+    ],
+    [
+     "Piòch",
+     54
+    ],
+    [
+     "Corna",
+     47
+    ]
+   ],
+   "rare": 24,
+   "rare_risposte": 39,
+   "multiple": 4,
+   "commenti": 6,
+   "escluse": 0,
+   "coppie_dubbie": [],
+   "comuni": 225
+  },
+  "Pop Corn": {
+   "risposte": 485,
+   "grafie_distinte": 56,
+   "principali": [
+    [
+     "s-cioparöle",
+     151
+    ],
+    [
+     "méche",
+     131
+    ],
+    [
+     "culumbine",
+     72
+    ],
+    [
+     "s-ciuparöle",
+     38
+    ],
+    [
+     "colombine",
+     21
+    ],
+    [
+     "culumbele",
+     9
+    ],
+    [
+     "colombele",
+     5
+    ]
+   ],
+   "rare": 44,
+   "rare_risposte": 54,
+   "multiple": 0,
+   "commenti": 0,
+   "escluse": 4,
+   "coppie_dubbie": [],
+   "comuni": 162
+  },
+  "Roncola": {
+   "risposte": 2032,
+   "grafie_distinte": 132,
+   "principali": [
+    [
+     "Podet",
+     943
+    ],
+    [
+     "Pighess",
+     458
+    ],
+    [
+     "Corlass",
+     234
+    ],
+    [
+     "Pigassa",
+     175
+    ],
+    [
+     "Podeta",
+     65
+    ],
+    [
+     "Fols",
+     37
+    ]
+   ],
+   "rare": 66,
+   "rare_risposte": 112,
+   "multiple": 4,
+   "commenti": 4,
+   "escluse": 0,
+   "coppie_dubbie": [],
+   "comuni": 232
+  },
+  "Imbuto": {
+   "risposte": 1241,
+   "grafie_distinte": 25,
+   "principali": [
+    [
+     "Pedriöl",
+     1171
+    ],
+    [
+     "Turtaröl",
+     56
+    ]
+   ],
+   "rare": 13,
+   "rare_risposte": 14,
+   "multiple": 0,
+   "commenti": 0,
+   "escluse": 0,
+   "coppie_dubbie": [],
+   "comuni": 216
+  },
+  "Fiammifero": {
+   "risposte": 1091,
+   "grafie_distinte": 40,
+   "principali": [
+    [
+     "Solfanèl",
+     537
+    ],
+    [
+     "Fiamifer",
+     333
+    ],
+    [
+     "Solferì",
+     153
+    ],
+    [
+     "Fölminànt",
+     34
+    ]
+   ],
+   "rare": 25,
+   "rare_risposte": 33,
+   "multiple": 1,
+   "commenti": 0,
+   "escluse": 0,
+   "coppie_dubbie": [],
+   "comuni": 210
+  },
+  "coperchio": {
+   "risposte": 1436,
+   "grafie_distinte": 26,
+   "principali": [
+    [
+     "Coèrcc",
+     1343
+    ],
+    [
+     "Taèl",
+     51
+    ],
+    [
+     "Cuèrcc",
+     38
+    ]
+   ],
+   "rare": 2,
+   "rare_risposte": 2,
+   "multiple": 0,
+   "commenti": 2,
+   "escluse": 0,
+   "coppie_dubbie": [],
+   "comuni": 213
+  },
+  "talpa": {
+   "risposte": 547,
+   "grafie_distinte": 41,
+   "principali": [
+    [
+     "tópa",
+     282
+    ],
+    [
+     "topinéra",
+     120
+    ],
+    [
+     "tarfù",
+     69
+    ],
+    [
+     "Talpa",
+     22
+    ],
+    [
+     "Tapinera",
+     22
+    ],
+    [
+     "Tupina",
+     16
+    ],
+    [
+     "farfù",
+     6
+    ]
+   ],
+   "rare": 8,
+   "rare_risposte": 9,
+   "multiple": 0,
+   "commenti": 1,
+   "escluse": 0,
+   "coppie_dubbie": [],
+   "comuni": 179
+  },
+  "ragnatela": {
+   "risposte": 1250,
+   "grafie_distinte": 53,
+   "principali": [
+    [
+     "Tiramola",
+     677
+    ],
+    [
+     "Telemora",
+     246
+    ],
+    [
+     "Talamora",
+     99
+    ],
+    [
+     "Tilamora",
+     50
+    ],
+    [
+     "Tilimora",
+     44
+    ],
+    [
+     "Telimora",
+     44
+    ],
+    [
+     "Tiramora",
+     43
+    ],
+    [
+     "Porana",
+     20
+    ]
+   ],
+   "rare": 14,
+   "rare_risposte": 23,
+   "multiple": 2,
+   "commenti": 1,
+   "escluse": 1,
+   "coppie_dubbie": [],
+   "comuni": 211
+  },
+  "tasca": {
+   "risposte": 1657,
+   "grafie_distinte": 34,
+   "principali": [
+    [
+     "Scarsèla",
+     1005
+    ],
+    [
+     "Sacòcia",
+     460
+    ],
+    [
+     "Gaiòfa",
+     175
+    ]
+   ],
+   "rare": 11,
+   "rare_risposte": 11,
+   "multiple": 4,
+   "commenti": 2,
+   "escluse": 0,
+   "coppie_dubbie": [],
+   "comuni": 219
+  },
+  "cotechino grigliato": {
+   "risposte": 1314,
+   "grafie_distinte": 21,
+   "principali": [
+    [
+     "Codeghì",
+     467
+    ],
+    [
+     "Strinù",
+     439
+    ],
+    [
+     "Cudeghì",
+     377
+    ]
+   ],
+   "rare": 6,
+   "rare_risposte": 23,
+   "multiple": 4,
+   "commenti": 4,
+   "escluse": 0,
+   "coppie_dubbie": [],
+   "comuni": 209
+  },
+  "orologio": {
+   "risposte": 929,
+   "grafie_distinte": 38,
+   "principali": [
+    [
+     "Orolòi",
+     414
+    ],
+    [
+     "Leròi",
+     240
+    ],
+    [
+     "Urlòi",
+     147
+    ],
+    [
+     "Relòi",
+     107
+    ]
+   ],
+   "rare": 17,
+   "rare_risposte": 21,
+   "multiple": 0,
+   "commenti": 0,
+   "escluse": 0,
+   "coppie_dubbie": [],
+   "comuni": 195
+  },
+  "ciabatta": {
+   "risposte": 1547,
+   "grafie_distinte": 65,
+   "principali": [
+    [
+     "sibra",
+     819
+    ],
+    [
+     "sébra",
+     410
+    ],
+    [
+     "saàta",
+     160
+    ],
+    [
+     "söbra",
+     128
+    ]
+   ],
+   "rare": 18,
+   "rare_risposte": 19,
+   "multiple": 7,
+   "commenti": 4,
+   "escluse": 0,
+   "coppie_dubbie": [],
+   "comuni": 219
+  },
+  "maiale": {
+   "risposte": 2160,
+   "grafie_distinte": 79,
+   "principali": [
+    [
+     "Sunì",
+     988
+    ],
+    [
+     "Porsèl",
+     532
+    ],
+    [
+     "Pursèl",
+     230
+    ],
+    [
+     "Ciù",
+     124
+    ],
+    [
+     "Roi",
+     87
+    ],
+    [
+     "Cì",
+     51
+    ],
+    [
+     "Bresà",
+     34
+    ],
+    [
+     "Ciunì",
+     30
+    ]
+   ],
+   "rare": 25,
+   "rare_risposte": 56,
+   "multiple": 21,
+   "commenti": 7,
+   "escluse": 0,
+   "coppie_dubbie": [],
+   "comuni": 225
+  },
+  "grembiule": {
+   "risposte": 1428,
+   "grafie_distinte": 55,
+   "principali": [
+    [
+     "bigaröla",
+     458
+    ],
+    [
+     "scossàl",
+     318
+    ],
+    [
+     "bigaröl",
+     220
+    ],
+    [
+     "scossalina",
+     124
+    ],
+    [
+     "scussàl",
+     94
+    ],
+    [
+     "scussalina",
+     50
+    ],
+    [
+     "bigarla",
+     45
+    ],
+    [
+     "scossalì",
+     39
+    ],
+    [
+     "scussàlì",
+     27
+    ],
+    [
+     "bigarlina",
+     26
+    ]
+   ],
+   "rare": 11,
+   "rare_risposte": 12,
+   "multiple": 8,
+   "commenti": 7,
+   "escluse": 0,
+   "coppie_dubbie": [],
+   "comuni": 219
+  }
+ },
+ "comuni_lista": 243,
+ "comuni_con_risposte": 242,
+ "moduli_gemelli": [
+  [
+   23,
+   24,
+   27,
+   28
+  ]
+ ],
+ "comuni_scoperti_per_parola": {
+  "Albicocca": 57,
+  "Bagnato": 37,
+  "Briciole": 42,
+  "Fiammifero": 33,
+  "Fradicio": 34,
+  "Gallina": 18,
+  "Imbuto": 27,
+  "Libellula": 84,
+  "Macellaio": 34,
+  "Ombelico": 52,
+  "Panettiere": 33,
+  "Pettegola": 26,
+  "Pop Corn": 81,
+  "Roncola": 11,
+  "Sasso": 18,
+  "Scapolo": 53,
+  "ciabatta": 24,
+  "coperchio": 30,
+  "cotechino grigliato": 34,
+  "grembiule": 24,
+  "l'Asso di Bastoni": 68,
+  "l'Asso di Coppe": 68,
+  "l'Asso di Ori": 68,
+  "l'Asso di Spade": 68,
+  "maiale": 18,
+  "orologio": 48,
+  "ragnatela": 32,
+  "talpa": 64,
+  "tasca": 24
+ },
+ "comuni_sotto_5_per_parola": {
+  "Albicocca": 169,
+  "Bagnato": 129,
+  "Briciole": 177,
+  "Fiammifero": 160,
+  "Fradicio": 117,
+  "Gallina": 94,
+  "Imbuto": 137,
+  "Libellula": 213,
+  "Macellaio": 128,
+  "Ombelico": 177,
+  "Panettiere": 136,
+  "Pettegola": 119,
+  "Pop Corn": 209,
+  "Roncola": 92,
+  "Sasso": 104,
+  "Scapolo": 181,
+  "ciabatta": 121,
+  "coperchio": 125,
+  "cotechino grigliato": 140,
+  "grembiule": 130,
+  "l'Asso di Bastoni": 178,
+  "l'Asso di Coppe": 178,
+  "l'Asso di Ori": 178,
+  "l'Asso di Spade": 178,
+  "maiale": 99,
+  "orologio": 165,
+  "ragnatela": 139,
+  "talpa": 213,
+  "tasca": 123
+ },
+ "mediana_per_comune_per_parola": {
+  "Albicocca": 2.0,
+  "Bagnato": 4.0,
+  "Briciole": 3.0,
+  "Fiammifero": 3.0,
+  "Fradicio": 5.0,
+  "Gallina": 6.0,
+  "Imbuto": 4.0,
+  "Libellula": 1.0,
+  "Macellaio": 4.0,
+  "Ombelico": 2.0,
+  "Panettiere": 4.0,
+  "Pettegola": 5.0,
+  "Pop Corn": 1.0,
+  "Roncola": 6.0,
+  "Sasso": 5.0,
+  "Scapolo": 2.0,
+  "ciabatta": 5.0,
+  "coperchio": 4.0,
+  "cotechino grigliato": 4.0,
+  "grembiule": 4.0,
+  "l'Asso di Bastoni": 2.0,
+  "l'Asso di Coppe": 2.0,
+  "l'Asso di Ori": 2.0,
+  "l'Asso di Spade": 2.0,
+  "maiale": 6.0,
+  "orologio": 3.0,
+  "ragnatela": 4.0,
+  "talpa": 1.0,
+  "tasca": 4.0
+ },
+ "top_comuni": {
+  "Bergamo": 1488,
+  "Albino": 827,
+  "Dalmine": 764,
+  "Bonate Sopra": 598,
+  "Bonate Sotto": 573,
+  "Zogno": 555,
+  "Treviolo": 518,
+  "Stezzano": 497,
+  "Seriate": 489,
+  "Nembro": 480
+ }
+}
