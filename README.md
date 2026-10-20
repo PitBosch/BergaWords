@@ -74,4 +74,24 @@ python3 build/db.py gold     # solo gold (es. dopo aver cambiato i parametri)
 | gold | `gold_meta` | data di generazione, metodo, parametri |
 
 Il frontend legge l'export statico del gold in `public/data/gold/` (`indice.json`, `commenti.json`, `parole/<slug>.json`).
-La stima attuale è per comune; la griglia H3 della fase 2 si aggiungerà come nuove tabelle gold.
+
+### Stima su esagoni (fase 2)
+
+```bash
+python3 build/esagoni.py        # griglia H3, stima di tutte le parole, export JSON (~3 minuti)
+python3 build/validazione.py    # validazione: seed, validazione incrociata, BYM2, mappe (analisi/fase2/)
+python3 build/scarica_istat.py  # sezioni di censimento ISTAT in data/istat/ (serve www.istat.it)
+```
+
+`python3 build/db.py` esegue anche `esagoni.py` dopo il gold per comune. Il metodo e i risultati della validazione sono in `VALIDAZIONE.md`.
+
+| Livello | Tabella | Contenuto |
+|---|---|---|
+| gold | `gold_esagoni` | celle H3 risoluzione 8: comune prevalente, popolazione, area, abitato, centro |
+| gold | `gold_stima_esagono` | per parola, livello ed esagono: dominante, consenso, seconda variante, n effettivo, banda, sbiadito, stabilità tra i seed |
+| gold | `gold_isoglosse_esagono` | coppie di esagoni confinanti con dominante diversa, nette o sfumate |
+| gold | `gold_parole_esagoni` | divisività calcolata sugli esagoni e pesata per popolazione, quota di confini netti, quota sbiadita |
+
+Export per il frontend: `public/data/gold/esagoni.geojson` (geometria, un esagono per feature con `id` progressivo) e `public/data/gold/esagoni/<slug>.json`, dove `celle[i]` si riferisce alla feature `i` e vale `[dominante, consenso, seconda, prob_seconda, n_eff, sbiadito, stabilità]` (le varianti sono indici nella lista `varianti`, con i colori). `isoglosse` elenca `[i, j, netta]`.
+
+La maschera dell'abitato usa le sezioni di censimento ISTAT se sono in `data/istat/` (cartella esclusa dal repository). Senza, usa una maschera provvisoria: la popolazione di ogni comune (`data/popolazione_comuni.csv`, censimento ISTAT 2011 da [comuni-json](https://github.com/matteocontrini/comuni-json)) spalmata uniformemente sulla sua superficie. La maschera in uso è scritta in `gold_meta` e in `esagoni.geojson`.

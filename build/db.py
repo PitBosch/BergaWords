@@ -9,8 +9,8 @@
     python3 build/db.py            # ricostruisce tutto
     python3 build/db.py silver     # solo un livello (e i successivi)
 
-La stima gold è per comune (kernel gaussiano a k vicini + prior di Dirichlet):
-è la base provvisoria in attesa della griglia H3 della fase 2.
+Il gold ha due stime: per comune (kernel gaussiano a k vicini sui centroidi + prior di
+Dirichlet) e per esagono H3 (build/esagoni.py, fase 2).
 """
 import hashlib
 import json
@@ -311,13 +311,17 @@ def esporta(con):
 
 
 def main():
-    livelli = {"bronze": [bronze, silver, gold], "silver": [silver, gold], "gold": [gold]}
+    from esagoni import esagoni
+    livelli = {"bronze": [bronze, silver, gold, esagoni], "silver": [silver, gold, esagoni],
+               "gold": [gold, esagoni], "esagoni": [esagoni]}
     passi = livelli[sys.argv[1] if len(sys.argv) > 1 else "bronze"]
     DB.parent.mkdir(exist_ok=True)
     with sqlite3.connect(DB) as con:
         for passo in passi:
             passo(con)
             print(f"{passo.__name__}: ok")
+        con.commit()
+        con.execute("vacuum")
         for (nome,) in con.execute("select name from sqlite_master where type='table' order by name"):
             print(f"  {nome}: {con.execute(f'select count(*) from {nome}').fetchone()[0]} righe")
 
