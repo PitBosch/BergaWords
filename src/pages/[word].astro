@@ -1,4 +1,6 @@
 ---
+import fs from 'node:fs';
+import path from 'node:path';
 import Layout from '../layouts/Layout.astro';
 import HexMap from '../components/HexMap.astro';
 import { words } from '../data/words';
@@ -13,138 +15,71 @@ export async function getStaticPaths() {
 const { word } = Astro.props;
 
 // stesso slug dei file in public/data/gold (build/db.py: slug)
-const goldSlug = word.slug.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const goldSlug = word.slug.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
-// Get adjacent words for navigation
-const currentIndex = words.findIndex(w => w.slug === word.slug);
-const prevWord = currentIndex > 0 ? words[currentIndex - 1] : null;
-const nextWord = currentIndex < words.length - 1 ? words[currentIndex + 1] : null;
+// numeri per il testo d'apertura, letti dall'export gold al momento della build
+const gold = path.join(process.cwd(), 'public', 'data', 'gold');
+const indice = JSON.parse(fs.readFileSync(path.join(gold, 'indice.json'), 'utf8'));
+const voce = indice.parole.find((p: any) => p.slug === goldSlug);
+const esagoni = JSON.parse(fs.readFileSync(path.join(gold, 'esagoni', `${goldSlug}.json`), 'utf8'));
+const varianti = esagoni.livelli.lessema.varianti.filter((v: any) => v.variante !== 'Altre forme');
+const rango = voce?.rango_divisivita ?? 0;
+const totale = indice.parole.length;
+const pct = (x: number) => `${Math.round(x * 100)}%`;
+const numero = (n: number) => n.toLocaleString('it-IT');
 
-const categoryColors: Record<string, string> = {
-  "Cibo": "from-orange-400 to-red-500",
-  "Mestieri": "from-blue-400 to-indigo-500",
-  "Oggetti": "from-emerald-400 to-teal-500",
-  "Natura": "from-green-400 to-lime-500",
-  "Corpo": "from-pink-400 to-rose-500",
-  "Stati": "from-purple-400 to-violet-500",
-  "Carte": "from-amber-400 to-yellow-500",
-};
+const [a, b, c] = varianti;
+let apertura = `Su ${numero(voce?.risposte_valide ?? 0)} risposte da ${voce?.comuni_con_risposte ?? 0} comuni, `;
+apertura += b
+  ? `il ${pct(a.quota_provincia)} dice «${a.variante}» e il ${pct(b.quota_provincia)} «${b.variante}»${c && c.quota_provincia >= 0.05 ? `; poi viene «${c.variante}», col ${pct(c.quota_provincia)}` : ''}.`
+  : `quasi tutti dicono «${a.variante}».`;
+const giudizio = rango <= Math.ceil(totale / 4)
+  ? `È tra le parole che dividono di più la provincia: ${rango}ª su ${totale}.`
+  : rango > totale - Math.ceil(totale / 4)
+    ? `È tra le parole più uniformi: ${rango}ª su ${totale} per quanto divide la provincia.`
+    : `Per quanto divide la provincia è ${rango}ª su ${totale}.`;
 
-const gradient = categoryColors[word.category] || "from-gray-400 to-gray-500";
+const i = words.findIndex(w => w.slug === word.slug);
+const prima = i > 0 ? words[i - 1] : null;
+const dopo = i < words.length - 1 ? words[i + 1] : null;
+const titolo = word.name.replace(/^L'/, "l'");
 ---
 
-<Layout title={`Come si dice "${word.name}"?`} description={`Scopri come si dice "${word.name}" nei 243 comuni della provincia di Bergamo`}>
-  <!-- Hero Section -->
-  <section class="relative overflow-hidden py-12 md:py-20">
-    <!-- Background decoration -->
-    <div class="absolute inset-0 -z-10">
-      <div class={`absolute top-10 left-10 w-96 h-96 bg-gradient-to-br ${gradient} rounded-full mix-blend-multiply filter blur-3xl opacity-20`}></div>
-      <div class="absolute bottom-10 right-10 w-72 h-72 bg-amber-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
-    </div>
+<Layout title={`Come si dice ${word.name}?`} description={`${apertura} Mappa interattiva del dialetto bergamasco.`}>
+  <div class="contenitore">
+    <nav class="briciole" aria-label="Navigazione tra le parole">
+      <a href="/#parole">Tutte le parole</a>
+      <span class="briciole-vicine">
+        {prima && <a href={`/${encodeURIComponent(prima.slug)}`} rel="prev">{prima.name}</a>}
+        {dopo && <a href={`/${encodeURIComponent(dopo.slug)}`} rel="next">{dopo.name}</a>}
+      </span>
+    </nav>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Breadcrumb -->
-      <nav class="flex items-center gap-2 text-sm text-gray-500 mb-8 animate-fade-in">
-        <a href="/" class="hover:text-amber-600 transition-colors">Home</a>
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-        <a href="/#parole" class="hover:text-amber-600 transition-colors">Parole</a>
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-        <span class="text-gray-700 font-medium">{word.name}</span>
-      </nav>
+    <header class="apertura">
+      <p class="apertura-domanda">Come si dice</p>
+      <h1 class="apertura-parola">{titolo}<span aria-hidden="true">?</span></h1>
+      <p class="apertura-testo">{apertura} {giudizio}</p>
+    </header>
 
-      <!-- Header -->
-      <div class="flex flex-col md:flex-row md:items-center gap-6 mb-12">
-        <!-- Emoji badge -->
-        <div class={`w-24 h-24 rounded-3xl bg-gradient-to-br ${gradient} flex items-center justify-center shadow-2xl animate-scale-in`}>
-          <span class="text-5xl">{word.emoji}</span>
-        </div>
-
-        <div class="animate-slide-up">
-          <!-- Category badge -->
-          <span class={`inline-block text-sm font-medium px-3 py-1 rounded-full bg-gradient-to-r ${gradient} text-white mb-3`}>
-            {word.category}
-          </span>
-
-          <!-- Title -->
-          <h1 class="font-display text-4xl md:text-6xl font-bold text-gray-900 mb-2">
-            Come si dice <span class={`bg-gradient-to-r ${gradient} bg-clip-text text-transparent`}>{word.name}</span>?
-          </h1>
-
-          <!-- Description -->
-          <p class="text-xl text-gray-600">{word.description}</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Map Section -->
-  <section class="py-8">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="bg-white rounded-3xl shadow-2xl animate-slide-up p-4 sm:p-6 md:p-8" style="animation-delay: 0.2s">
-        <HexMap slug={goldSlug} nome={word.name} />
-      </div>
-    </div>
-  </section>
-
-  <!-- Navigation Section -->
-  <section class="py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col sm:flex-row justify-between gap-4">
-        {prevWord ? (
-          <a
-            href={`/${encodeURIComponent(prevWord.slug)}`}
-            class="group flex items-center gap-4 px-6 py-4 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all hover:-translate-x-1"
-          >
-            <svg class="w-5 h-5 text-gray-400 group-hover:text-amber-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-            <div>
-              <p class="text-sm text-gray-400">Precedente</p>
-              <p class="font-semibold text-gray-700 group-hover:text-amber-600 transition-colors">
-                {prevWord.emoji} {prevWord.name}
-              </p>
-            </div>
-          </a>
-        ) : (
-          <div></div>
-        )}
-
-        {nextWord ? (
-          <a
-            href={`/${encodeURIComponent(nextWord.slug)}`}
-            class="group flex items-center gap-4 px-6 py-4 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all hover:translate-x-1 text-right"
-          >
-            <div>
-              <p class="text-sm text-gray-400">Successiva</p>
-              <p class="font-semibold text-gray-700 group-hover:text-amber-600 transition-colors">
-                {nextWord.name} {nextWord.emoji}
-              </p>
-            </div>
-            <svg class="w-5 h-5 text-gray-400 group-hover:text-amber-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-          </a>
-        ) : (
-          <div></div>
-        )}
-      </div>
-
-      <!-- Back to all -->
-      <div class="text-center mt-8">
-        <a
-          href="/#parole"
-          class="inline-flex items-center gap-2 text-amber-600 hover:text-amber-700 font-medium transition-colors"
-        >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-          </svg>
-          Vedi tutte le parole
-        </a>
-      </div>
-    </div>
-  </section>
+    <HexMap slug={goldSlug} nome={word.name} />
+  </div>
 </Layout>
+
+<style>
+  .briciole { display: flex; justify-content: space-between; gap: 16px; margin-top: 40px; font-size: 15px; color: var(--grafite); }
+  .briciole a { color: var(--grafite); text-decoration: none; }
+  .briciole a:hover { color: var(--inchiostro); text-decoration: underline; text-underline-offset: 4px; }
+  .briciole-vicine { display: flex; gap: 20px; }
+  .briciole-vicine a[rel="prev"]::before { content: "‹ "; }
+  .briciole-vicine a[rel="next"]::after { content: " ›"; }
+  .apertura { margin: 56px 0 40px; max-width: 980px; }
+  .apertura-domanda { font-family: var(--serif); font-size: clamp(22px, 3vw, 32px); margin: 0; color: var(--grafite); }
+  .apertura-parola {
+    font-family: var(--serif); font-style: italic; font-weight: 800;
+    font-size: clamp(64px, 13vw, 168px); line-height: 0.9; letter-spacing: -0.03em; margin: 0.04em 0 0.18em -0.04em;
+    font-variation-settings: "opsz" 96;
+  }
+  .apertura-parola span { font-weight: 400; color: var(--grafite); margin-left: 0.02em; }
+  .apertura-testo { font-size: clamp(18px, 2vw, 21px); line-height: 1.45; max-width: 58ch; margin: 0; }
+  @media (max-width: 560px) { .briciole { margin-top: 24px; } .briciole-vicine { gap: 12px; } .apertura { margin: 36px 0 28px; } }
+</style>

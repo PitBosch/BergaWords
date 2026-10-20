@@ -330,6 +330,36 @@ def esporta_esagoni(con, quote=None):
                 out["livelli"][livello]["quote"] = [[round(1000 * q[n][h]) for n in nomi] for h in s.h3]
         (EXPORT / "esagoni" / f"{p.slug}.json").write_text(
             json.dumps(out, ensure_ascii=False, separators=(",", ":")))
+    esporta_atlante(con)
+
+
+def esporta_atlante(con):
+    """public/data/gold/atlante.json: miniature di tutte le parole per la pagina iniziale.
+
+    Per ogni parola (livello lessema) una stringa con un carattere per esagono, nell'ordine di
+    esagoni.geojson: chr(48 + 4 * dominante + fascia di consenso), con fascia 0 = sbiadito o < 0,5,
+    1 = < 0,65, 2 = < 0,8, 3 = oltre."""
+    esa = pd.read_sql("select h3, lon, lat from gold_esagoni where abitato", con)
+    stima = pd.read_sql("select parola, h3, dominante, consenso, sbiadito from gold_stima_esagono "
+                        "where livello = 'lessema'", con)
+    var = pd.read_sql("select parola, variante, quota_provincia from gold_varianti where livello = 'lessema'", con)
+    div = pd.read_sql("select parola, divisivita from gold_parole_esagoni where livello = 'lessema'", con)
+    parole = pd.read_sql("select parola, slug from gold_parole", con).merge(div, on="parola")
+    pos = {c: i for i, c in enumerate(esa.h3)}
+    out = {"centri": [[round(r.lon, 4), round(r.lat, 4)] for r in esa.itertuples()], "parole": []}
+    for p in parole.sort_values("divisivita", ascending=False).itertuples():
+        v = var[var.parola == p.parola]
+        iv = {n: i for i, n in enumerate(v.variante)}
+        s = stima[stima.parola == p.parola].copy()
+        s["i"] = s.h3.map(pos)
+        s = s.sort_values("i")
+        fascia = np.where(s.sbiadito.astype(bool), 0, np.digitize(s.consenso, [0.5, 0.65, 0.8]))
+        out["parole"].append({
+            "parola": p.parola, "slug": p.slug, "divisivita": round(float(p.divisivita), 4),
+            "varianti": [[r.variante, round(float(r.quota_provincia), 4)] for r in v.itertuples()],
+            "celle": "".join(chr(48 + 4 * iv[d] + int(f)) for d, f in zip(s.dominante, fascia)),
+        })
+    (EXPORT / "atlante.json").write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")))
 
 
 def main():
