@@ -143,3 +143,13 @@ Regole applicate automaticamente nella bozza (da confermare):
 - **D5** Fradicio e Bagnato: due mappe distinte o una sola mappa "bagnato fradicio"?
 - **D6** Commenti: va bene usare le risposte libere esplicative come contenuto del tab Commenti, mostrate senza dati personali (solo comune)?
 - **D7** Parametri del § 6: ok o modifiche?
+
+## 9. Decisioni prese (20/10/2026)
+
+- **D1** Approvato il modello a due livelli. `varianti.yaml` ora contiene le regole (lessema → pronuncia → regex) e `build/normalizza.py` le applica. Il controllo, forma per forma, è in `analisi/assegnazioni.md`. In "Altre forme" resta lo 0,3% delle risposte (114).
+- **D2** In attesa: gli esempi sono nella risposta in chat. Per ora ö e ü restano distinte nella chiave; le varianti grafiche minori (Mügnaga/Mugnaga, cüla/cula) sono già accorpate a livello di pronuncia.
+- **D3** Escluse le risposte in italiano e quelle volgari senza motivo, più le battute (214 in tutto). Bresà resta: è una forma dialettale vera, anche se ironica.
+- **D4** `l'ass de ori/coppe/bastù/spade` resta come variante.
+- **D5** Fradicio e Bagnato restano due mappe distinte.
+- **D6** Il tab Commenti si prova con le 39 risposte esplicative, mostrando solo il comune.
+- **D7** Parametri da valutare sui risultati della fase 2.

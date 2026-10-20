@@ -26,7 +26,7 @@ GEOJSON = ROOT / "data" / "BergamoGiusto.geojson"
 SEPARATORI = re.compile(r"\s*(?:/|\\|,|;|\be/o\b|\boppure\b|\bo\b|\be\b|\bsia\b|\bche\b|\bma anche\b)\s*", re.I)
 MULTI = re.compile(r"/|\\|\be/o\b|\boppure\b|\bsia\b.+\bche\b|\b(o|e)\b", re.I)
 RUMORE = re.compile(r"non (lo )?so|so m[iì]a|al so mia|boh|sconosciut|nessun|non saprei|non si dice|non lo dico", re.I)
-ARTICOLI = re.compile(r"^(ol|la|il|el|lo|l'|l’|al)\s*", re.I)
+ARTICOLI = re.compile(r"^(?:(?:ol|la|il|el|lo|al)\s+|l['’]\s*)", re.I)
 
 
 def chiave(s):
@@ -42,6 +42,7 @@ def chiave(s):
 def chiave_fonetica(s):
     """Come chiave() ma conserva ö/ü, che in bergamasco sono suoni distinti da o/u."""
     s = str(s).strip().lower().replace("ô", "ö").replace("ë", "e")
+    s = re.sub(r"\(.*?\)|\[.*?\]", "", s).strip()
     s = ARTICOLI.sub("", s)
     keep = {"ö", "ü"}
     s = "".join(c for c in s if c in keep or unicodedata.category(c) != "Mn")

@@ -1,0 +1,439 @@
+# Regole di normalizzazione delle varianti.
+#
+# Per ogni parola:
+#   lessemi:   famiglia di parole (livello della mappa di default)
+#     <Lessema>:
+#       <Pronuncia>: [regex, ...]   livello fine, attivabile con "mostra pronunce"
+#   escluse:   risposte scartate, confrontate per testo esatto (maiuscole e spazi ignorati)
+#
+# Le regex si applicano alla CHIAVE della risposta (build/normalizza.py, funzione chiave):
+# minuscole, senza articolo iniziale (ol, la, il, el, lo, al, l'), senza testo tra parentesi,
+# senza accenti tranne ö e ü, senza spazi e punteggiatura, con le doppie ridotte a una lettera.
+# Esempi: "Ol butù de la pansa" -> butudelapansa, "Scossàl" -> scosal, "Pötvecc" -> pötvec.
+# Vince la prima regex che corrisponde, nell'ordine del file.
+# Le risposte che citano più forme ("Poia o Galina") vengono divise in parti uguali.
+# Le risposte lunghe (più di 5 parole) vanno nei commenti e restano fuori dalla stima.
+# Tutto ciò che non corrisponde a nessuna regola finisce in "Altre forme".
+
+Fradicio:
+  lessemi:
+    Maserét:
+      Maserét: ["^s?mas[ae]r[eé]t", "^masnet", "^masero$"]
+      Masér: ["^mas[eè]r$"]
+      Maseràt: ["^mas[ae]rat"]
+    Bagnàt:
+      Bagnàt: ["^(stra)?bagn"]
+    Trebatìt:
+      Trebatìt: ["^s?t?r[aeiouü]+batit?", "^trebati", "^trabati[cd]", "^trebatid"]
+    Imbrombét:
+      Imbrombét: ["^i?m?b?r[ou]mb[eéa]t", "^ntrombat", "^m?piömbet", "^mpiombet"]
+    Ciómbo:
+      Ciómbo: ["^c[iö]*[oi]mb", "^nciombet"]
+    Méss:
+      Méss: ["^m[eéèiì]s", "^me[sz]", "^miz", "^metz", "^mec$", "^mesc"]
+    Laàt:
+      Laàt: ["^la+h?a?t", "^lavat"]
+    Slòzz:
+      Slòzz: ["^sl[oö]z"]
+    Fràdec:
+      Fràdec: ["^fr[aà]de"]
+  escluse: ["Fradicio trebatit", "Bagnato mezzo", "Mezzo", "Lavat", "Pingue", "pezzata", "Stra mezz 😂", "Bagnat trunk", "Non lo dico", "Alagat(allagato) o bagnat"]
+
+Bagnato:
+  lessemi:
+    Bagnàt:
+      Bagnàt: ["^bagn"]
+    Méss:
+      Méss: ["^m[eéèiì]s", "^me[sz]", "^miz", "^mih$", "^mesc"]
+    Maserét:
+      Maserét: ["^mas[ae]r[eé]t"]
+      Masér: ["^mas[eè]r$"]
+    Trebatìt:
+      Trebatìt: ["^t?r[aeiouü]+batit"]
+    Laàt:
+      Laàt: ["^la+t"]
+  escluse: []
+
+l'Asso di Spade:
+  lessemi:
+    L'ass de spade:
+      L'ass de spade: ["^asdespade"]
+    Ol taiamerde:
+      Ol taiamerde: ["^t[ae]i?amerd"]
+    Ol spadù:
+      Ol spadù: ["^spad[uoù]", "^spadone"]
+  escluse: ["Spadino", "La spada vincente"]
+
+l'Asso di Ori:
+  lessemi:
+    L'ass de ori:
+      L'ass de ori: ["^asde(ori|or|ore|òr)$", "^or$"]
+      L'ass de dener: ["^asde(d|z)[ae]n[eé]?r", "^asdedenari", "^(z|d)ener"]
+    Ol borla:
+      Ol borla: ["^b[oöu]rl", "^chorla", "^ciorla", "^forla", "^burtul"]
+      La bola: ["^bola$", "^bobla$"]
+      Ol bosla: ["^b[oöu][sz]l", "^b[oöu]sna", "^b[oö]sn"]
+    La polenta:
+      La polenta: ["^polent"]
+    La cüla:
+      La cüla: ["^c[uü]la$"]
+    La formaggia:
+      La formaggia: ["^forma"]
+    La padèla:
+      La padèla: ["^padel"]
+    La lola:
+      La lola: ["^lola$"]
+  escluse: ["Culo", "Ol cülo", "ol cul isporc", "Il cul de la nona", "Ol cùl del nono", "Ol cul de la suocera",
+            "Büs del cül", "Bus del cül", "Ol cul del nono", "Cul del papa", "Ol cül del nono", "Ol cul de pepa",
+            "ol cül de pèpa", "Ol bùs del gnao", "La culona", "Ol cülatù", "La ciula", "Ciola", "La bufala",
+            "La fulana", "Masenghini", "La masenghini", "Palanche", "La padela o l'ass de dener"]
+
+l'Asso di Coppe:
+  lessemi:
+    L'ass de coppe:
+      L'ass de coppe: ["^asdec[oò]pe"]
+    Ol pisalobia:
+      Ol pisalobia: ["^p[ei]salob", "^pisdelalob"]
+    Ol pisagì:
+      Ol pisagì: ["^p[ei]sa[gc]i$"]
+    Ol pisì:
+      Ol pisì: ["^pis[iì]$", "^pis[oe]", "^pisol$"]
+      Ol pisabuchì: ["^pisa?[bp][uo]chi"]
+    L'angiolèt:
+      L'angiolèt: ["^ang[ei]"]
+  escluse: ["Il nudo", "Pimpin uselì perche hai tempi vedevi il pisellino,se non ricordo male 🤣🤣"]
+
+l'Asso di Bastoni:
+  lessemi:
+    L'ass de bastù:
+      L'ass de bastù: ["^asdebast"]
+    Ol vincerai:
+      Ol vincerai: ["^vincer"]
+    Ol bastù:
+      Ol bastù: ["^bast", "^batist"]
+  escluse: []
+
+Scapolo:
+  lessemi:
+    Pötvècc:
+      Pötvècc: ["^p[oö]t(v|a)?[eë]c", "^p[oö]ta?ec"]
+      Pöt: ["^p[oö]t$"]
+    Barba:
+      Barba: ["^barba$"]
+      Barbì: ["^barbi"]
+    Marèll:
+      Marèll: ["^marel"]
+    Maröc:
+      Maröc: ["^mar[oö]c"]
+  escluse: ["Furbo"]
+
+Pettegola:
+  lessemi:
+    Petònega:
+      Petònega: ["^petone?g", "^peronega"]
+      Betònega: ["^beton[eo]?g", "^betoniga", "^petoniga"]
+    Zabèta:
+      Zabèta: ["^zabet"]
+      Bèta: ["^beta$"]
+    Tòfa:
+      Tòfa: ["^tof"]
+    Méda:
+      Méda: ["^meda$"]
+    Pötaégia:
+      Pötaégia: ["^p[oö]taeg"]
+  escluse: ["Comare", "Comara", "Petegola", "Petégula", "Teresa", "Putána de Brèsa"]
+
+Libellula:
+  lessemi:
+    Becaöcc:
+      Becaöcc: ["^beca"]
+    Scanaöcc:
+      Scanaöcc: ["^scana"]
+    Caaöcc:
+      Caaöcc: ["^s?ca+h?a?ö", "^cavaö", "^cahaö"]
+    Piaöcc:
+      Piaöcc: ["^p[iì]a?ö", "^pungiö"]
+  escluse: ["Libellula", "La libelula", "Libelula", "Elicottero", "chi cazzo ha mai visto le libellule a Bergamo"]
+
+Macellaio:
+  lessemi:
+    Macelér:
+      Macelér: ["^ma[cs]el"]
+    Bechér:
+      Bechér: ["^bech", "^beker"]
+    Masulér:
+      Masulér: ["^masul"]
+  escluse: ["li muerti Ca nu raggenu", "valter beker Telgate 🤣🤣", "Chel de la carne", "Tutti 2", "macelàre"]
+
+Panettiere:
+  lessemi:
+    Fornér:
+      Fornér: ["^forn[eé]r"]
+      Furnér: ["^furn[eé]r", "^furnarer"]
+    Prestinér:
+      Prestinér: ["^pr[ei]stin[eé]r"]
+    Panetér:
+      Panetér: ["^panet", "^paner"]
+  escluse: ["Pristinaio", "furnai", "fornai", "Chel del pá", "Mosè"]
+
+Briciole:
+  lessemi:
+    Mìgole:
+      Mìgole: ["^m[iì]n?g[oöu]l", "^migoi", "^grig[oöu]l"]
+      Migle: ["^s?migl", "^migr"]
+    Gandaie:
+      Gandaie: ["^gandai?e", "^gandol"]
+      Gandài: ["^gandai$"]
+    Fregoie:
+      Fregoie: ["^fr[ea]g[oöó]i?e", "^fr[ea]g[oö]l"]
+      Fregói: ["^freg[oó]i$"]
+    Brise:
+      Brise: ["^s?br[iì]s", "^bras"]
+    Mögazze:
+      Mögazze: ["^m[oöi]gaz"]
+  escluse: ["Briciole", "Bricole", "Briciöle", "Miguel", "diompenut"]
+
+Albicocca:
+  lessemi:
+    Bignaga:
+      Bignaga: ["^b[iieé]gnaga"]
+      Mignaga: ["^m[ie]gnaga", "^r?e?mignaga", "^armignaga", "^magnaga"]
+      Mügnaga: ["^m[uüoö]gnaga", "^b[oö]gnaga", "^a?m?brognaga"]
+    Albicòch:
+      Albicòch: ["^albicoc", "^bicoca"]
+  escluse: ["Albicocca", "Rimane cosí. Albicocca", "Booooooh", "Sia con la m che con la b"]
+
+Gallina:
+  lessemi:
+    Pòia:
+      Pòia: ["^poia$"]
+      Puina: ["^puina$"]
+    Galina:
+      Galina: ["^gal[iíieéè]n", "^galinela"]
+    Pita:
+      Pita: ["^pita$"]
+  escluse: ["La poia Dio can"]
+
+Sasso:
+  lessemi:
+    Plòch:
+      Plòch: ["^plo[ck]"]
+      Piòch: ["^pio[ck]"]
+    Sàss:
+      Sàss: ["^sas$"]
+    Còrna:
+      Còrna: ["^c[oö]rn"]
+    Préda:
+      Préda: ["^pred"]
+    Balòt:
+      Balòt: ["^bal[oö][tc]"]
+  escluse: ["Sasso", "juan musso"]
+
+Pop Corn:
+  lessemi:
+    S-cioparöle:
+      S-cioparöle: ["^s?-?s?cioparö", "^scioparo"]
+      S-ciuparöle: ["^s?ciupar"]
+      S-ciupù: ["^s?-?s?c[iü]?[iuüo]p[uüoiíù]", "^scüpu"]
+    Méche:
+      Méche: ["^m[eé]ch", "^mich", "^möc", "^mec"]
+    Culumbine:
+      Culumbine: ["^culumbin"]
+      Colombine: ["^colombin"]
+      Culumbele: ["^culumbel"]
+      Colombele: ["^colombel"]
+    Biscutì:
+      Biscutì: ["^b[ei][sh]cut", "^s?cut", "^scüt", "^bescot"]
+    Melgòt:
+      Melgòt: ["^melg"]
+    Bombaröi:
+      Bombaröi: ["^bomb"]
+  escluse: ["Pop corn", "pop corn", "Popcoren", "Popicorn", "Cornflex", "pop corn o poccorn", "Ol poccorn",
+            "Poccorn", "Poc corn", "Pöpcörn (tutto attacato)", "puccurní", "Diaol cane mi cogli impreparato"]
+
+Roncola:
+  lessemi:
+    Pódet:
+      Pódet: ["^p[oöuü]de?t$", "^p[oöuü]det$"]
+      Pódeta: ["^p[oöuü]deta", "^podetoppodeta", "^pudetaopodeta"]
+      Pudetò: ["^p[oöuü]det[oöuù]", "^puditi"]
+      Puderöla: ["^p[uü]d[aeö]r[oö]l"]
+    Pighèss:
+      Pighèss: ["^pigh?e[sz]$", "^pighe$", "^pighe?t$", "^piguet", "^sighes", "^seghes"]
+      Pighessòt: ["^pi[e]?ghe[sz][oö][tp]", "^pighe[sz]i", "^pighezin"]
+      Pighésa: ["^pighe[sz]a"]
+      Pigassa: ["^p[ie]ga[sz]a$"]
+      Pigazzòt: ["^p[ie]ga[sz][oö]t", "^p[ie]ga[sz]i", "^pig[oö]z"]
+    Còrlass:
+      Còrlass: ["^s?c[oö]rlas"]
+    Fòls:
+      Fòls: ["^f[oö]l[sc]"]
+    Fursèt:
+      Fursèt: ["^f[oöuü]rs"]
+    Sblam:
+      Sblam: ["^sblam"]
+  escluse: ["Roncola", "Roncola bassa", "Falcetto", "Falceta", "Falcètt", "Ma il paese?", "al falci per l'erba"]
+
+Imbuto:
+  lessemi:
+    Pedriöl:
+      Pedriöl: ["^[pb][eaiu]?d?r[eiì]?[oö]l", "^p[ae]d[rei]+[oö]l", "^pedre$"]
+    Turtaröl:
+      Turtaröl: ["^t[uoö]rt", "^t[uú]rtur"]
+  escluse: ["Imbuto", "Imbuch", "mbüt", "Imböt", "ol laur", "Chel laur le"]
+
+Fiammifero:
+  lessemi:
+    Solfanèl:
+      Solfanèl: ["^s[oöuü]?l?f[ae]n[eè]l", "^sonfan", "^szulfan", "^sofan", "^sufan"]
+      Sufranèl: ["^[sz][oöuü]?[rf]+[ia]?n[eè]l", "^s[uü]rfan", "^sufran", "^sorfan"]
+    Solferì:
+      Solferì: ["^s[oöuü]l?f+er[iì]", "^s[eé]r[ií]$", "^cer[ií]$"]
+      Sùlfer: ["^s[uüú]l?f[eè]r$"]
+    Fiamìfer:
+      Fiamìfer: ["^fiam"]
+    Fölminànt:
+      Fölminànt: ["^f[oöuü]l?min", "^f[uüoö]men", "^f[oö]rmen"]
+    Zac:
+      Zac: ["^za+c"]
+  escluse: ["Cerino"]
+
+coperchio:
+  lessemi:
+    Coèrcc:
+      Coèrcc: ["^coerc$", "^coert", "^coperc"]
+      Cuèrcc: ["^cu[aé]?e?r+c$", "^cua?erch$"]
+      Cuèrciöl: ["^c[uoü]er[cç]i?[oöó]l", "^coercol", "^cüercol"]
+    Taèl:
+      Taèl: ["^t[ae]+l", "^tarel"]
+  escluse: []
+
+talpa:
+  lessemi:
+    Tópa:
+      Tópa: ["^t[oóu]pa$"]
+      Tupina: ["^t[uüoù]p[iìí]n?a?$", "^t[uü]pi$"]
+      Tàpa: ["^tapa$"]
+    Topinéra:
+      Topinéra: ["^t[oua]p[ie]n[eé]?ra", "^topigner"]
+    Tarfù:
+      Tarfù: ["^tar[fp]u"]
+      Farfù: ["^farfu"]
+    Trepùna:
+      Trepùna: ["^tr[eaé]pun"]
+    Bùsa:
+      Bùsa: ["^bus[ae]"]
+  escluse: ["Talpa", "talpa", "Tolpa", "Talpù", "Talpùna", "Talpö/tupì", "Talpö", "Questa è difficile e non la so"]
+
+ragnatela:
+  lessemi:
+    Tiramola:
+      Tiramola: ["^t[iae]ram[oi]l", "^t[ie]r[ie]mol", "^tiramoia"]
+      Tiramora: ["^tir[ai]m[oó]r", "^t[ae]ram[oó]r", "^tiramura"]
+    Telamora:
+      Telemora: ["^t[eé]l[eé]m[oó]r", "^tel[eé]mur"]
+      Talamora: ["^t[aá]l[aá]m[oó]r", "^calamore"]
+      Telamora: ["^tel[aá]m[oó]r", "^teramor", "^teremor"]
+      Tilamora: ["^til[aáe]m[oó]r"]
+      Tilimora: ["^t[ie]l[ií]m[oóö]r", "^talimor"]
+    Poràna:
+      Poràna: ["^p[oö]ran"]
+    Ragnèra:
+      Ragnèra: ["^ragn(era|er|ada|adel)"]
+  escluse: ["Ragnatela", "ragnatela", "Ragnatéla", "ngl non ho mai detto ragnatela in tutta la mia vita"]
+
+tasca:
+  lessemi:
+    Scarsèla:
+      Scarsèla: ["^scar[sh]e"]
+      Carsèla: ["^car[sh]e", "^caraela"]
+    Sacòcia:
+      Sacòcia: ["^sac[oò]ci", "^sachelo"]
+      Secòcia: ["^s[eéi]c[oò]ci"]
+    Gaiòfa:
+      Gaiòfa: ["^gaiof", "^goiof"]
+      Guèfa: ["^gu[eé]f"]
+  escluse: ["Tasca", "2000"]
+
+cotechino grigliato:
+  lessemi:
+    Codeghì:
+      Codeghì: ["^codeg", "^cuteg"]
+      Cudeghì: ["^cud[ei]g"]
+    Strinù:
+      Strinù: ["^strin"]
+    Salamèla:
+      Salamèla: ["^salamel"]
+      Salamina: ["^salamin"]
+  escluse: ["Vegana!!!!!! 😜", "U Zambon", "Chi non lo chiama strinù non è bergamasco"]
+
+orologio:
+  lessemi:
+    Orolòi:
+      Orolòi: ["^[oöu]r[oöu]l[oö]i$", "^[oö]r[oö]l[oö]i"]
+      Urlòi: ["^[oöuü]rl[oö]i"]
+      Urelòc: ["^[uüoö]r[eaouü]l[oö]c", "^[oö]r[oö]l[oö]c", "^uraloch"]
+    Leròi:
+      Leròi: ["^le?r[oö][ie]", "^eroi"]
+      Relòi: ["^r[eou]?l[oö][ie]", "^rel[oö]c"]
+  escluse: ["Orolog", "Cambròi"]
+
+ciabatta:
+  lessemi:
+    Sibra:
+      Sibra: ["^(s|z|tz|h)+[iìí]b?v?r", "^sibret", "^sibratul"]
+      Sébra: ["^(s|z|tz)+[eéè]b", "^s[eé]ber", "^szebr"]
+      Söbra: ["^(t?s|t?z|h)+[oö]b"]
+    Saàta:
+      Saàta: ["^sa+b?a?ta"]
+      Sapata: ["^[sh]a[pb]at"]
+  escluse: ["Ciábátà", "Ciabatta💀", "S semi muta", "Sambróch"]
+
+maiale:
+  lessemi:
+    Sunì:
+      Sunì: ["^s[uü]n[iì]", "^[zh]un[iì]", "^tzun", "^suni"]
+    Ciù:
+      Ciù: ["^ci[uù]$", "^ciuc$"]
+      Ciunì: ["^ciun[iì]"]
+      Cì: ["^ci$"]
+      Zù: ["^(z|tz)+[uüú]$"]
+    Porsèl:
+      Porsèl: ["^p[oö]r[sh][cs]?[eè]l", "^porcel"]
+      Pursèl: ["^pur[sc]h?[eè]l", "^purcel"]
+    Ròi:
+      Ròi: ["^roi$"]
+    Bresà:
+      Bresà: ["^bres+a$", "^bresa$", "^bresasuni"]
+  escluse: ["Bresciano", "bresciano", "Bresciani", "Brèsa", "Cuadrado", "Qualsiasi giocatore del Brescia",
+            "Brescia...no mi dissocio", "\"Tuo padre era un maiale\"", "Hi aspirato", "Tutti tranne Roi"]
+
+grembiule:
+  lessemi:
+    Bigaröla:
+      Bigaröla: ["^b[ie]gar[oö]la"]
+      Bigaröl: ["^b[ie]gar[oö]l$", "^bigarol$"]
+      Bigarla: ["^b[ie]g[ae]?rla$", "^bighela"]
+      Bigarlina: ["^b[ie]g[ah]?e?rl[iì]"]
+    Scossàl:
+      Scossàl: ["^sc?[oö]?[sh]+al$", "^h?co[sh]al$", "^scoĥal"]
+      Scussàl: ["^scus+al$"]
+      Scossalina: ["^sc[oö][sh]+alin", "^scohalin"]
+      Scussalina: ["^scus+alin"]
+      Scossalì: ["^sc?[oö][sh]+ali$", "^scuhali"]
+      Scussalì: ["^scus+ali$"]
+      Scossaléta: ["^sc[oö]s+alet"]
+    Grembiöl:
+      Grembiöl: ["^grembi"]
+  escluse: ["LI USO TUTTI"]
+
+Ombelico:
+  lessemi:
+    Butù:
+      Butulì: ["^b[uo][td]ul", "^butun"]
+      Butù: ["^b[uo]t[uú]", "^bugi$"]
+    Bìgol:
+      Bìgol: ["^big[oö]+l", "^biguli"]
+    Bus de la pansa:
+      Bus de la pansa: ["^b[uü]s"]
+  escluse: ["el butu figa", "Nessuna risposta"]
