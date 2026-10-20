@@ -80,7 +80,7 @@ Il frontend legge l'export statico del gold in `public/data/gold/` (`indice.json
 ```bash
 python3 build/esagoni.py        # griglia H3, stima di tutte le parole, export JSON (~3 minuti)
 python3 build/validazione.py    # validazione: seed, validazione incrociata, BYM2, mappe (analisi/fase2/)
-python3 build/scarica_istat.py  # sezioni di censimento ISTAT in data/istat/ (serve www.istat.it)
+python3 build/scarica_istat.py  # sezioni di censimento ISTAT 2021 in data/istat/ (serve www.istat.it, da lanciare prima di esagoni.py)
 ```
 
 `python3 build/db.py` esegue anche `esagoni.py` dopo il gold per comune. Il metodo e i risultati della validazione sono in `VALIDAZIONE.md`.
@@ -94,4 +94,4 @@ python3 build/scarica_istat.py  # sezioni di censimento ISTAT in data/istat/ (se
 
 Export per il frontend: `public/data/gold/esagoni.geojson` (geometria, un esagono per feature con `id` progressivo) e `public/data/gold/esagoni/<slug>.json`, dove `celle[i]` si riferisce alla feature `i` e vale `[dominante, consenso, seconda, prob_seconda, n_eff, sbiadito, stabilità]` (le varianti sono indici nella lista `varianti`, con i colori). `isoglosse` elenca `[i, j, netta]`.
 
-La maschera dell'abitato usa le sezioni di censimento ISTAT se sono in `data/istat/` (cartella esclusa dal repository). Senza, usa una maschera provvisoria: la popolazione di ogni comune (`data/popolazione_comuni.csv`, censimento ISTAT 2011 da [comuni-json](https://github.com/matteocontrini/comuni-json)) spalmata uniformemente sulla sua superficie. La maschera in uso è scritta in `gold_meta` e in `esagoni.geojson`.
+La maschera dell'abitato usa le sezioni di censimento ISTAT 2021 con popolazione residente > 0 (`POP21` dello shapefile della Lombardia, 6.466 sezioni abitate su 11.154 in provincia, 1.102.997 residenti) se sono in `data/istat/` (cartella esclusa dal repository, si ricrea con `scarica_istat.py`). Senza, usa una maschera provvisoria: la popolazione di ogni comune (`data/popolazione_comuni.csv`, censimento ISTAT 2011 da [comuni-json](https://github.com/matteocontrini/comuni-json)) spalmata uniformemente sulla sua superficie. La maschera in uso è scritta in `gold_meta` e in `esagoni.geojson`.

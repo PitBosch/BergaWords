@@ -43,8 +43,8 @@ PARAMETRI_H3 = {
     "taglio_kernel": 3.0,   # pesi nulli oltre 3 bande
     "jitter_km": 0.35,      # raggio del punto casuale attorno al centro del pezzo
     # differenza di probabilità tra esagoni confinanti (centri a ~0,8 km) per un'isoglossa netta:
-    # ~5% dei confini con la maschera provvisoria, da ricalibrare con le sezioni ISTAT
-    "salto_netto": 0.05,
+    # ~5% delle isoglosse con le sezioni ISTAT 2021 (con la maschera provvisoria ne marca ~2%)
+    "salto_netto": 0.065,
 }
 
 
@@ -60,7 +60,8 @@ def sezioni():
     if not shp:
         return None
     sez = gpd.read_file(shp[0])
-    sez = sez[sez.COD_PROV.astype(int) == 16]
+    prov = "COD_PROV" if "COD_PROV" in sez.columns else "COD_UTS"  # 2021: COD_UTS
+    sez = sez[sez[prov].astype(int) == 16]
     chiave = next(c for c in sez.columns if c in ("SEZ21_ID", "SEZ2011", "SEZ21", "SEZ_ID"))
     pop = next((c for c in sez.columns if c in ("P1", "POP21", "POP_2021")), None)
     if pop is None:
