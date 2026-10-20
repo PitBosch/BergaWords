@@ -223,6 +223,7 @@ def esagoni(con, par=PARAMETRI_H3):
     peso_pop = attivi.popolazione.values / attivi.popolazione.sum()
 
     t_stima, t_iso, t_div = [], [], []
+    quote = {}  # (parola, livello) -> {variante: probabilità per esagono attivo}, solo per l'export
     for parola, g in var.groupby("parola", sort=False):
         k = par["k_vicini_poche"] if parola in par["parole_poche"] else par["k_vicini"]
         for livello in LIVELLI:
@@ -232,6 +233,7 @@ def esagoni(con, par=PARAMETRI_H3):
             perm = [varianti.index(v) for v in ord_v]
             varianti, Y = ord_v, Y[:, perm]
             prob, n_eff, banda, stabile, dev = stima_parola(comuni, Y, centri, camp, par, k)
+            quote[parola, livello] = {v: dict(zip(attivi.h3, prob[:, j])) for j, v in enumerate(varianti)}
             idx = prob.argmax(1)
             sec = np.argsort(-prob, 1)[:, 1]
             for i, c in enumerate(attivi.h3):
@@ -277,11 +279,14 @@ def esagoni(con, par=PARAMETRI_H3):
         {"chiave": "esagoni_parametri", "valore": json.dumps(par)},
     ])])
     scrivi(con, "gold_meta", meta)
-    esporta_esagoni(con)
+    esporta_esagoni(con, quote)
 
 
-def esporta_esagoni(con):
-    """public/data/gold/esagoni.geojson (geometria) + esagoni/<slug>.json (stima, indici sugli esagoni)."""
+def esporta_esagoni(con, quote=None):
+    """public/data/gold/esagoni.geojson (geometria) + esagoni/<slug>.json (stima, indici sugli esagoni).
+
+    Con quote (le probabilità complete della stima appena fatta) aggiunge a ogni livello "quote":
+    per esagono, la probabilità di ogni variante in millesimi, nell'ordine di "varianti"."""
     esa = pd.read_sql("select * from gold_esagoni where abitato", con)
     stima = pd.read_sql("select * from gold_stima_esagono", con)
     iso = pd.read_sql("select * from gold_isoglosse_esagono", con)
@@ -320,6 +325,9 @@ def esporta_esagoni(con):
                 "isoglosse": [[pos[a], pos[b], int(t == "netta")] for a, b, t in
                               i[["h3_a", "h3_b", "tipo"]].itertuples(index=False)],
             }
+            if quote is not None:
+                q = quote[p.parola, livello]
+                out["livelli"][livello]["quote"] = [[round(1000 * q[n][h]) for n in nomi] for h in s.h3]
         (EXPORT / "esagoni" / f"{p.slug}.json").write_text(
             json.dumps(out, ensure_ascii=False, separators=(",", ":")))
 
