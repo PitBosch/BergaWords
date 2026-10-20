@@ -121,7 +121,7 @@ def semi(ctx):
     return df
 
 
-def cv(ctx):
+def cv(ctx, configurazioni=CONFIGURAZIONI, file="cv_blocchi.csv", confronti=True):
     righe = []
     coord = _km(ctx.comuni.lon.values, ctx.comuni.lat.values)
     for parola in ctx.var.parola.unique():
@@ -132,6 +132,13 @@ def cv(ctx):
             tr, te = f != b, f == b
             prior = Y[tr].sum(0) / Y[tr].sum()
             r = {"parola": parola, "blocco": b, "n_test": int(te.sum())}
+            for nome, mod in configurazioni.items():
+                par = {**PARAMETRI_H3, **mod}
+                p = ctx.kernel_comune(comuni[tr], Y[tr], par, range(SEED_CV))
+                r[f"esagoni: {nome}"] = punteggio(p, ctx.ci, comuni[te], Y[te])
+            righe.append(r)
+            if not confronti:
+                continue
             r["solo prior provinciale"] = punteggio(np.tile(prior, (len(ctx.nomi), 1)), ctx.ci, comuni[te], Y[te])
             # quote osservate nel comune, con lo stesso prior di Dirichlet (nessuno smoothing spaziale)
             N = np.zeros((len(ctx.nomi), Y.shape[1]))
@@ -141,15 +148,24 @@ def cv(ctx):
                                                     ctx.ci, comuni[te], Y[te])
             r["kernel sui centroidi (fase 1)"] = punteggio(stima(N, coord, N.sum(0), PARAMETRI)[0],
                                                            ctx.ci, comuni[te], Y[te])
-            for nome, mod in CONFIGURAZIONI.items():
-                par = {**PARAMETRI_H3, **mod}
-                p = ctx.kernel_comune(comuni[tr], Y[tr], par, range(SEED_CV))
-                r[f"esagoni: {nome}"] = punteggio(p, ctx.ci, comuni[te], Y[te])
-            righe.append(r)
         print("  cv", parola)
     df = pd.DataFrame(righe)
-    df.to_csv(OUT / "cv_blocchi.csv", index=False)
+    df.to_csv(OUT / file, index=False)
     return df
+
+
+COMBINAZIONI = {
+    "k=15": {"k_vicini": 15, "k_vicini_poche": 15},
+    "k=10": {"k_vicini": 10, "k_vicini_poche": 10},
+    "k=15, banda max 6 km": {"k_vicini": 15, "k_vicini_poche": 15, "banda_max_km": 6.0},
+    "k=15, banda max 6 km, alpha=2": {"k_vicini": 15, "k_vicini_poche": 15, "banda_max_km": 6.0, "alpha_prior": 2.0},
+    "k=20, banda max 8 km, alpha=2": {"k_vicini": 20, "k_vicini_poche": 20, "banda_max_km": 8.0, "alpha_prior": 2.0},
+}
+
+
+def combinazioni(ctx):
+    """Secondo giro: combinazioni delle variazioni migliori del primo."""
+    return cv(ctx, COMBINAZIONI, "cv_combinazioni.csv", confronti=False)
 
 
 def _bym2_input(ctx, comuni, Y, varianti, soglia=0.02):
