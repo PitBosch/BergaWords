@@ -2,5 +2,113 @@
   "framework": "astro",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "installCommand": "npm install"
+  "installCommand": "npm install",
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/Albicocca",
+      "destination": "/albicocca",
+      "permanent": true
+    },
+    {
+      "source": "/Briciole",
+      "destination": "/briciole",
+      "permanent": true
+    },
+    {
+      "source": "/Pop%20Corn",
+      "destination": "/pop-corn",
+      "permanent": true
+    },
+    {
+      "source": "/cotechino%20grigliato",
+      "destination": "/cotechino-grigliato",
+      "permanent": true
+    },
+    {
+      "source": "/Panettiere",
+      "destination": "/panettiere",
+      "permanent": true
+    },
+    {
+      "source": "/Macellaio",
+      "destination": "/macellaio",
+      "permanent": true
+    },
+    {
+      "source": "/Pettegola",
+      "destination": "/pettegola",
+      "permanent": true
+    },
+    {
+      "source": "/Roncola",
+      "destination": "/roncola",
+      "permanent": true
+    },
+    {
+      "source": "/Imbuto",
+      "destination": "/imbuto",
+      "permanent": true
+    },
+    {
+      "source": "/Fiammifero",
+      "destination": "/fiammifero",
+      "permanent": true
+    },
+    {
+      "source": "/Libellula",
+      "destination": "/libellula",
+      "permanent": true
+    },
+    {
+      "source": "/Gallina",
+      "destination": "/gallina",
+      "permanent": true
+    },
+    {
+      "source": "/Sasso",
+      "destination": "/sasso",
+      "permanent": true
+    },
+    {
+      "source": "/Ombelico",
+      "destination": "/ombelico",
+      "permanent": true
+    },
+    {
+      "source": "/Bagnato",
+      "destination": "/bagnato",
+      "permanent": true
+    },
+    {
+      "source": "/Fradicio",
+      "destination": "/fradicio",
+      "permanent": true
+    },
+    {
+      "source": "/Scapolo",
+      "destination": "/scapolo",
+      "permanent": true
+    },
+    {
+      "source": "/l'Asso%20di%20Ori",
+      "destination": "/l-asso-di-ori",
+      "permanent": true
+    },
+    {
+      "source": "/l'Asso%20di%20Spade",
+      "destination": "/l-asso-di-spade",
+      "permanent": true
+    },
+    {
+      "source": "/l'Asso%20di%20Bastoni",
+      "destination": "/l-asso-di-bastoni",
+      "permanent": true
+    },
+    {
+      "source": "/l'Asso%20di%20Coppe",
+      "destination": "/l-asso-di-coppe",
+      "permanent": true
+    }
+  ]
 }

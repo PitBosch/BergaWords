@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import Layout from '../layouts/Layout.astro';
 import { words } from '../data/words';
+import { elenco, pct, riepiloghi } from '../lib/riepilogo';
 
 const gold = path.join(process.cwd(), 'public', 'data', 'gold');
 const indice = JSON.parse(fs.readFileSync(path.join(gold, 'indice.json'), 'utf8'));
@@ -17,15 +18,46 @@ const tessere = atlante.parole.map((p: any, i: number) => {
   const w = perSlug.get(p.slug);
   const varianti = p.varianti.filter((v: any) => v[0] !== 'Altre forme');
   return {
-    slug: p.slug, href: `/${encodeURIComponent(w?.slug ?? p.parola)}`, nome: (w?.name ?? p.parola).replace(/^L'/, "l'"),
+    slug: p.slug, href: `/${p.slug}`, nome: (w?.name ?? p.parola).replace(/^L'/, "l'"),
     rango: i + 1, varianti: varianti.slice(0, 3).map((v: any) => v[0]), altre: Math.max(0, varianti.length - 3),
   };
 });
+
+// vocabolario italiano-bergamasco in ordine alfabetico, con le forme principali
+const vocabolario = [...riepiloghi()].sort((a, b) => a.nome.localeCompare(b.nome, "it"))
+  .map(r => ({ ...r, titolo: r.nome.replace(/^L'/, "l'") }));
+const comuni = new Set(riepiloghi()[0].righe.map(r => r.comune)).size;
+
+const descrizione = `Atlante del dialetto bergamasco: come si dicono ${tessere.length} parole di tutti i giorni a Bergamo e nei ${comuni} comuni della provincia, con mappe interattive costruite su ${numero(risposte)} risposte.`;
+const assoluto = (p: string) => (Astro.site ? new URL(p, Astro.site).href : p);
+const jsonLd = [
+  {
+    "@context": "https://schema.org", "@type": "WebSite",
+    name: "BergaWords", alternateName: "Atlante del dialetto bergamasco", url: assoluto("/"), inLanguage: "it",
+    description: descrizione,
+  },
+  {
+    "@context": "https://schema.org", "@type": "Dataset",
+    name: "Atlante del dialetto bergamasco",
+    description: `${numero(risposte)} risposte di parlanti bergamaschi su come si dicono ${tessere.length} parole, stimate su una griglia di esagoni H3 per tutta la provincia di Bergamo.`,
+    url: assoluto("/"), inLanguage: "it",
+    keywords: ["dialetto bergamasco", "bergamasco", "Bergamo", "lingua lombarda", "geografia linguistica", "atlante linguistico"],
+    spatialCoverage: { "@type": "Place", name: "Provincia di Bergamo", geo: { "@type": "GeoShape", box: "45.42 9.42 46.14 10.27" } },
+    isAccessibleForFree: true,
+    sameAs: "https://github.com/PitBosch/BergaWords",
+  },
+  {
+    "@context": "https://schema.org", "@type": "ItemList",
+    name: "Parole del dialetto bergamasco",
+    itemListElement: vocabolario.map((v, i) => ({ "@type": "ListItem", position: i + 1, name: `${v.nome}: ${elenco(v.varianti.slice(0, 3).map(x => x.nome))}`, url: assoluto(`/${v.slug}`) })),
+  },
+];
 ---
 
-<Layout title="Atlante del bergamasco">
+<Layout title="Dialetto bergamasco: come si dice a Bergamo e provincia | BergaWords" description={descrizione} jsonLd={jsonLd}>
   <div class="contenitore">
     <header class="hero">
+      <p class="hero-occhiello">Atlante del dialetto bergamasco</p>
       <h1 class="hero-titolo">Come si dice<br />a Bergamo?</h1>
       <p class="hero-testo">
         {numero(risposte)} risposte da tutta la provincia, per {tessere.length} parole di tutti i giorni.
@@ -56,6 +88,26 @@ const tessere = atlante.parole.map((p: any, i: number) => {
       </ol>
     </section>
 
+    <section id="vocabolario" class="vocabolario" aria-labelledby="titolo-vocabolario">
+      <h2 id="titolo-vocabolario" class="atlante-titolo">Piccolo vocabolario italiano–bergamasco</h2>
+      <p class="vocabolario-testo">
+        Il bergamasco è il dialetto lombardo orientale parlato a Bergamo e nella sua provincia. Non è uguale dappertutto:
+        la stessa cosa ha nomi diversi in Val Brembana, in Val Seriana, sul Sebino, nell'Isola e nella Bassa.
+        Qui sotto, per ogni parola italiana, le forme bergamasche più diffuse e quanto si usano in provincia.
+      </p>
+      <table class="vocabolario-tab">
+        <thead><tr><th scope="col">Italiano</th><th scope="col">In bergamasco</th></tr></thead>
+        <tbody>
+          {vocabolario.map(v => (
+            <tr>
+              <th scope="row"><a href={`/${v.slug}`}>{v.titolo}</a></th>
+              <td>{v.varianti.slice(0, 4).map((x, k) => <>{k > 0 && ", "}<i>{x.nome}</i> <span>{pct(x.quota)}</span></>)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+
     <section id="metodo" class="metodo" aria-labelledby="titolo-metodo">
       <h2 id="titolo-metodo" class="atlante-titolo">Come leggere le carte</h2>
       <div class="metodo-colonne">
@@ -83,6 +135,16 @@ const tessere = atlante.parole.map((p: any, i: number) => {
     font-size: clamp(60px, 11vw, 150px); line-height: 0.92; letter-spacing: -0.035em; margin: 0 0 32px -0.04em;
     font-variation-settings: "opsz" 96;
   }
+  .hero-occhiello { font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grafite); margin: 0 0 18px; }
+  .vocabolario { margin-top: 120px; }
+  .vocabolario-testo { color: var(--grafite); max-width: 70ch; margin: 16px 0 28px; }
+  .vocabolario-tab { width: 100%; max-width: 860px; border-collapse: collapse; font-size: 16px; }
+  .vocabolario-tab th, .vocabolario-tab td { text-align: left; padding: 9px 12px 9px 0; border-bottom: 1px solid var(--filo); vertical-align: baseline; }
+  .vocabolario-tab thead th { font-weight: 600; font-size: 14px; color: var(--grafite); }
+  .vocabolario-tab tbody th { font-weight: 500; white-space: nowrap; }
+  .vocabolario-tab tbody th a { text-decoration: underline; text-decoration-color: var(--filo); text-underline-offset: 4px; }
+  .vocabolario-tab i { font-family: var(--serif); font-weight: 600; font-size: 18px; }
+  .vocabolario-tab td span { color: var(--grafite); font-size: 14px; font-variant-numeric: tabular-nums; }
   .hero-testo { font-size: clamp(19px, 2.1vw, 23px); line-height: 1.45; max-width: 56ch; margin: 0; }
 
   .atlante-testa { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 28px; }

@@ -1,11 +1,15 @@
 ---
 // Mappa dell'atlante per una parola: esagoni H3 della stima (public/data/gold/esagoni*), con il nome
 // di ogni variante scritto dentro il suo territorio. Un clic su una variante mostra la sua percentuale.
+import type { RigaComune } from "../lib/riepilogo";
+import { pct } from "../lib/riepilogo";
 interface Props {
   slug: string;   // slug dei file gold, es. "l-asso-di-ori"
   nome: string;
+  righe?: RigaComune[];   // tabella dei comuni già nell'HTML, per chi non esegue JavaScript (motori di ricerca)
 }
-const { slug, nome } = Astro.props;
+const { slug, nome, righe = [] } = Astro.props;
+const nomeMinuscolo = nome.replace(/^L'/, "l'").toLowerCase();
 ---
 
 <section class="atl" data-slug={slug} data-nome={nome}>
@@ -62,11 +66,15 @@ const { slug, nome } = Astro.props;
   </div>
 
   <details class="atl-tabella">
-    <summary>Tutti i comuni in tabella</summary>
+    <summary>Come si dice {nomeMinuscolo} in ogni comune della provincia di Bergamo</summary>
     <div class="atl-tabella-s">
       <table>
         <thead><tr><th scope="col">Comune</th><th scope="col">Più detta</th><th scope="col" class="n">Quota</th><th scope="col">Poi</th><th scope="col" class="n">Quota</th></tr></thead>
-        <tbody></tbody>
+        <tbody>
+          {righe.map(r => (
+            <tr><td>{r.comune}</td><td class="p">{r.prima}</td><td class="n">{pct(r.quotaPrima)}</td><td class="p">{r.seconda ?? "–"}</td><td class="n">{r.seconda ? pct(r.quotaSeconda) : ""}</td></tr>
+          ))}
+        </tbody>
       </table>
     </div>
   </details>

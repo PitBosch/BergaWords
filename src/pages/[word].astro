@@ -1,67 +1,110 @@
 ---
-import fs from 'node:fs';
-import path from 'node:path';
 import Layout from '../layouts/Layout.astro';
 import HexMap from '../components/HexMap.astro';
-import { words } from '../data/words';
+import { elenco, numero, pct, riepiloghi, risposta } from '../lib/riepilogo';
 
 export async function getStaticPaths() {
-  return words.map(word => ({
-    params: { word: word.slug },
-    props: { word }
+  const tutti = riepiloghi();
+  return tutti.map((r, i) => ({
+    params: { word: r.slug },
+    props: { r, prima: tutti[i - 1] ?? null, dopo: tutti[i + 1] ?? null },
   }));
 }
 
-const { word } = Astro.props;
+const { r, prima, dopo } = Astro.props;
+const [a, b, c] = r.varianti;
+const nomi = r.varianti.map(v => v.nome);
+const titolo = r.nome.replace(/^L'/, "l'");
 
-// stesso slug dei file in public/data/gold (build/db.py: slug)
-const goldSlug = word.slug.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-
-// numeri per il testo d'apertura, letti dall'export gold al momento della build
-const gold = path.join(process.cwd(), 'public', 'data', 'gold');
-const indice = JSON.parse(fs.readFileSync(path.join(gold, 'indice.json'), 'utf8'));
-const voce = indice.parole.find((p: any) => p.slug === goldSlug);
-const esagoni = JSON.parse(fs.readFileSync(path.join(gold, 'esagoni', `${goldSlug}.json`), 'utf8'));
-const varianti = esagoni.livelli.lessema.varianti.filter((v: any) => v.variante !== 'Altre forme');
-const rango = voce?.rango_divisivita ?? 0;
-const totale = indice.parole.length;
-const pct = (x: number) => `${Math.round(x * 100)}%`;
-const numero = (n: number) => n.toLocaleString('it-IT');
-
-const [a, b, c] = varianti;
-let apertura = `Su ${numero(voce?.risposte_valide ?? 0)} risposte da ${voce?.comuni_con_risposte ?? 0} comuni, `;
+let apertura = `Su ${numero(r.risposte)} risposte da ${r.comuniConRisposte} comuni, `;
 apertura += b
-  ? `il ${pct(a.quota_provincia)} dice «${a.variante}» e il ${pct(b.quota_provincia)} «${b.variante}»${c && c.quota_provincia >= 0.05 ? `; poi viene «${c.variante}», col ${pct(c.quota_provincia)}` : ''}.`
-  : `quasi tutti dicono «${a.variante}».`;
-const giudizio = rango <= Math.ceil(totale / 4)
-  ? `È tra le parole che dividono di più la provincia: ${rango}ª su ${totale}.`
-  : rango > totale - Math.ceil(totale / 4)
-    ? `È tra le parole più uniformi: ${rango}ª su ${totale} per quanto divide la provincia.`
-    : `Per quanto divide la provincia è ${rango}ª su ${totale}.`;
+  ? `il ${pct(a.quota)} dice «${a.nome}» e il ${pct(b.quota)} «${b.nome}»${c && c.quota >= 0.05 ? `; poi viene «${c.nome}», col ${pct(c.quota)}` : ''}.`
+  : `quasi tutti dicono «${a.nome}».`;
+const giudizio = r.rango <= Math.ceil(r.totale / 4)
+  ? `È tra le parole che dividono di più la provincia: ${r.rango}ª su ${r.totale}.`
+  : r.rango > r.totale - Math.ceil(r.totale / 4)
+    ? `È tra le parole più uniformi: ${r.rango}ª su ${r.totale} per quanto divide la provincia.`
+    : `Per quanto divide la provincia è ${r.rango}ª su ${r.totale}.`;
 
-const i = words.findIndex(w => w.slug === word.slug);
-const prima = i > 0 ? words[i - 1] : null;
-const dopo = i < words.length - 1 ? words[i + 1] : null;
-const titolo = word.name.replace(/^L'/, "l'");
+const breve = risposta(r);
+const titoloPagina = `Come si dice ${r.nomeMinuscolo} in bergamasco? ${elenco(nomi.slice(0, 3))} | BergaWords`;
+const descrizione = `${breve} Mappa interattiva del dialetto bergamasco nei comuni della provincia di Bergamo.`;
+
+// alcuni paesi noti per la domanda "come si dice a ...?"
+const PAESI = ["Bergamo", "Treviglio", "Seriate", "Dalmine", "Albino", "Clusone", "Lovere", "Zogno", "San Pellegrino Terme", "Romano di Lombardia", "Caravaggio", "Sarnico"];
+const paesi = PAESI.map(p => r.perComune.get(p)).filter(Boolean);
+
+const assoluto = (p: string) => (Astro.site ? new URL(p, Astro.site).href : p);
+const jsonLd = [
+  {
+    "@context": "https://schema.org", "@type": "FAQPage",
+    mainEntity: [
+      { "@type": "Question", name: `Come si dice ${r.nomeMinuscolo} in dialetto bergamasco?`, acceptedAnswer: { "@type": "Answer", text: breve } },
+      ...paesi.slice(0, 6).map(p => ({
+        "@type": "Question", name: `Come si dice ${r.nomeMinuscolo} a ${p!.comune}?`,
+        acceptedAnswer: { "@type": "Answer", text: `A ${p!.comune} si dice soprattutto «${p!.prima}» (${pct(p!.quotaPrima)})${p!.seconda ? `, poi «${p!.seconda}» (${pct(p!.quotaSeconda)})` : ""}.` },
+      })),
+    ],
+  },
+  {
+    "@context": "https://schema.org", "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Atlante del dialetto bergamasco", item: assoluto("/") },
+      { "@type": "ListItem", position: 2, name: `Come si dice ${r.nomeMinuscolo} in bergamasco`, item: assoluto(`/${r.slug}`) },
+    ],
+  },
+  {
+    "@context": "https://schema.org", "@type": "DefinedTerm",
+    name: r.nome, inLanguage: "it",
+    description: breve,
+    alternateName: nomi,
+    inDefinedTermSet: { "@type": "DefinedTermSet", name: "Atlante del dialetto bergamasco", url: assoluto("/") },
+  },
+];
 ---
 
-<Layout title={`Come si dice ${word.name}?`} description={`${apertura} Mappa interattiva del dialetto bergamasco.`}>
+<Layout title={titoloPagina} description={descrizione} jsonLd={jsonLd}>
   <div class="contenitore">
     <nav class="briciole" aria-label="Navigazione tra le parole">
       <a href="/#parole">Tutte le parole</a>
       <span class="briciole-vicine">
-        {prima && <a href={`/${encodeURIComponent(prima.slug)}`} rel="prev">{prima.name}</a>}
-        {dopo && <a href={`/${encodeURIComponent(dopo.slug)}`} rel="next">{dopo.name}</a>}
+        {prima && <a href={`/${prima.slug}`} rel="prev">{prima.nome}</a>}
+        {dopo && <a href={`/${dopo.slug}`} rel="next">{dopo.nome}</a>}
       </span>
     </nav>
 
     <header class="apertura">
-      <p class="apertura-domanda">Come si dice</p>
+      <p class="apertura-domanda">Come si dice in bergamasco</p>
       <h1 class="apertura-parola">{titolo}<span aria-hidden="true">?</span></h1>
       <p class="apertura-testo">{apertura} {giudizio}</p>
     </header>
 
-    <HexMap slug={goldSlug} nome={word.name} />
+    <HexMap slug={r.slug} nome={r.nome} righe={r.righe} />
+
+    <section class="parlato" aria-labelledby="titolo-parlato">
+      <h2 id="titolo-parlato" class="parlato-h2">{titolo} in dialetto bergamasco, paese per paese</h2>
+      <p class="parlato-breve">{breve}</p>
+      <dl class="parlato-varianti">
+        {r.varianti.map(v => (
+          <div>
+            <dt><b>{v.nome}</b> <span>{pct(v.quota)} in provincia</span></dt>
+            <dd>
+              {v.comuni.length
+                ? `È la forma più detta in ${v.comuni.length === 1 ? "un comune" : `${v.comuni.length} comuni`}: ${v.comuni.length > 8 ? `${v.comuni.slice(0, 8).join(", ")} e altri` : elenco(v.comuni)}.`
+                : "Si sente qua e là, ma non è la più detta in nessun comune."}
+            </dd>
+          </div>
+        ))}
+      </dl>
+      {paesi.length > 0 && (
+        <>
+          <h3 class="parlato-h3">Come si dice {r.nomeMinuscolo} a…</h3>
+          <ul class="parlato-paesi">
+            {paesi.map(p => <li><span>{p!.comune}</span> <b>{p!.prima}</b> <span class="n">{pct(p!.quotaPrima)}</span></li>)}
+          </ul>
+        </>
+      )}
+    </section>
   </div>
 </Layout>
 
@@ -81,5 +124,18 @@ const titolo = word.name.replace(/^L'/, "l'");
   }
   .apertura-parola span { font-weight: 400; color: var(--grafite); margin-left: 0.02em; }
   .apertura-testo { font-size: clamp(18px, 2vw, 21px); line-height: 1.45; max-width: 58ch; margin: 0; }
+  .parlato { margin-top: 88px; max-width: 980px; }
+  .parlato-h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(28px, 4vw, 40px); line-height: 1.1; margin: 0 0 12px; letter-spacing: -0.01em; }
+  .parlato-breve { font-size: 18px; max-width: 62ch; margin: 0 0 28px; }
+  .parlato-varianti { margin: 0; display: grid; gap: 18px; }
+  .parlato-varianti dt b { font-family: var(--serif); font-style: italic; font-weight: 700; font-size: 22px; }
+  .parlato-varianti dt span { color: var(--grafite); font-size: 15px; margin-left: 6px; font-variant-numeric: tabular-nums; }
+  .parlato-varianti dd { margin: 2px 0 0; color: var(--grafite); max-width: 70ch; }
+  .parlato-h3 { font-family: var(--serif); font-weight: 500; font-size: 26px; margin: 48px 0 12px; }
+  .parlato-paesi { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0 32px; }
+  .parlato-paesi li { display: flex; gap: 10px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--filo); }
+  .parlato-paesi li span:first-child { flex: 1; }
+  .parlato-paesi b { font-family: var(--serif); font-style: italic; font-size: 18px; }
+  .parlato-paesi .n { color: var(--grafite); font-variant-numeric: tabular-nums; }
   @media (max-width: 560px) { .briciole { margin-top: 24px; } .briciole-vicine { gap: 12px; } .apertura { margin: 36px 0 28px; } }
 </style>
