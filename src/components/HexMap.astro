@@ -246,6 +246,7 @@ const { slug, nome } = Astro.props;
     let proj: d3.GeoProjection, poli: [number, number][][], centri: [number, number][], raggio = 4;
     let delaunay: d3.Delaunay<number>;
     let vicini: number[][] = [];
+    let bordiComuni: [number, number][] = [];   // coppie di esagoni vicini in comuni diversi
     let attuali: string[] = [];        // colore disegnato di ogni esagono (per le transizioni)
     let animazione: d3.Timer | null = null;
 
@@ -281,6 +282,8 @@ const { slug, nome } = Astro.props;
       delaunay = d3.Delaunay.from(centri);
       vicini = centri.map((_, i) => [...delaunay.neighbors(i)].filter(j =>
         Math.hypot(centri[j][0] - centri[i][0], centri[j][1] - centri[i][1]) < raggio * 2.2));
+      bordiComuni = [];
+      vicini.forEach((vv, i) => vv.forEach(j => { if (i < j && comuneDi[i] !== comuneDi[j]) bordiComuni.push([i, j]); }));
       canvas2d(canvas, W, H);
       svg.attr("viewBox", `0 0 ${W} ${H}`).attr("width", W).attr("height", H);
       zoom.extent([[0, 0], [W, H]]).translateExtent([[-W * 0.2, -H * 0.2], [W * 1.2, H * 1.2]]);
@@ -297,6 +300,16 @@ const { slug, nome } = Astro.props;
     }
 
     // ---------------------------------------------------------------- disegno su canvas
+    // il lato in comune tra due esagoni vicini
+    function lato(ctx: CanvasRenderingContext2D, a: number, b: number) {
+      const [ax, ay] = centri[a], [bx, by] = centri[b];
+      const dx = bx - ax, dy = by - ay, l = Math.hypot(dx, dy);
+      if (!l) return;
+      const mx = (ax + bx) / 2, my = (ay + by) / 2, h = l / (2 * Math.sqrt(3)) * 1.02;
+      ctx.moveTo(mx - (dy / l) * h, my + (dx / l) * h);
+      ctx.lineTo(mx + (dy / l) * h, my - (dx / l) * h);
+    }
+
     function disegnaCanvas() {
       const ctx = canvas.getContext("2d")!;
       const dpr = canvas.width / W;
@@ -319,20 +332,15 @@ const { slug, nome } = Astro.props;
         ctx.closePath();
         ctx.fillStyle = attuali[i]; ctx.fill();
       }
-      // confini comunali: un filo sottile per orientarsi
-      ctx.beginPath(); path(provincia as any);
-      ctx.lineWidth = 0.6 / t.k; ctx.lineJoin = "round"; ctx.strokeStyle = "rgba(28, 36, 51, 0.32)"; ctx.stroke();
+      // confini comunali: un filo sottile sui lati degli esagoni
+      ctx.beginPath();
+      for (const [a, b] of bordiComuni) lato(ctx, a, b);
+      ctx.lineWidth = 1 / t.k; ctx.lineCap = "round"; ctx.strokeStyle = "rgba(28, 36, 51, 0.5)"; ctx.stroke();
       // isoglosse nette: il lato in comune tra due esagoni
       if (mostraIso && fuoco == null) {
         ctx.beginPath();
         for (const [a, b, netta] of L.isoglosse) {
-          if (!netta) continue;
-          const [ax, ay] = centri[a], [bx, by] = centri[b];
-          const dx = bx - ax, dy = by - ay, l = Math.hypot(dx, dy);
-          if (!l) continue;
-          const mx = (ax + bx) / 2, my = (ay + by) / 2, h = l / (2 * Math.sqrt(3)) * 1.02;
-          ctx.moveTo(mx - (dy / l) * h, my + (dx / l) * h);
-          ctx.lineTo(mx + (dy / l) * h, my - (dx / l) * h);
+          if (netta) lato(ctx, a, b);
         }
         ctx.lineWidth = 2 / Math.sqrt(t.k); ctx.lineCap = "round"; ctx.strokeStyle = INCHIOSTRO; ctx.stroke();
       }
@@ -639,10 +647,18 @@ const { slug, nome } = Astro.props;
       if (i != null) mostraEtichetta(i, px, py); else nascondiEtichetta();
     });
     palco.addEventListener("pointerleave", () => { sotto = null; nascondiEtichetta(); disegnaCanvas(); aggiornaScheda(); });
+    // La scelta del comune parte dal rilascio del puntatore: il "click" può non arrivare, perché d3-zoom
+    // annulla gli eventi touch (e Safari allora non genera il click) o lo scarta dopo un trascinamento.
+    // Un secondo dito (pizzico) annulla la scelta.
     let giu: [number, number] | null = null;
-    palco.addEventListener("pointerdown", ev => { giu = [ev.clientX, ev.clientY]; });
-    palco.addEventListener("click", ev => {
-      if (giu && Math.hypot(ev.clientX - giu[0], ev.clientY - giu[1]) > 5) return; // era un trascinamento
+    palco.addEventListener("pointerdown", ev => {
+      giu = ev.isPrimary && !(ev.target as Element).closest(".atl-zoom") ? [ev.clientX, ev.clientY] : null;
+    });
+    palco.addEventListener("pointercancel", () => { giu = null; });
+    palco.addEventListener("pointerup", ev => {
+      if (!ev.isPrimary) return;
+      const inizio = giu; giu = null;
+      if (!inizio || Math.hypot(ev.clientX - inizio[0], ev.clientY - inizio[1]) > 6) return; // era un trascinamento o un pizzico
       const r = palco.getBoundingClientRect();
       const i = esagonoIn(ev.clientX - r.left, ev.clientY - r.top);
       fisso = i == null ? null : comuneDi[i];
