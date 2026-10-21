@@ -319,6 +319,9 @@ const { slug, nome } = Astro.props;
         ctx.closePath();
         ctx.fillStyle = attuali[i]; ctx.fill();
       }
+      // confini comunali: un filo sottile per orientarsi
+      ctx.beginPath(); path(provincia as any);
+      ctx.lineWidth = 0.6 / t.k; ctx.lineJoin = "round"; ctx.strokeStyle = "rgba(28, 36, 51, 0.32)"; ctx.stroke();
       // isoglosse nette: il lato in comune tra due esagoni
       if (mostraIso && fuoco == null) {
         ctx.beginPath();
@@ -602,6 +605,8 @@ const { slug, nome } = Astro.props;
 
     // ---------------------------------------------------------------- interazione
     const zoom = d3.zoom<HTMLElement, unknown>().scaleExtent([1, 9])
+      // senza soglia d3 scarta il clic al minimo tremolio del mouse, come fosse un trascinamento
+      .clickDistance(5)
       .on("zoom", ev => { t = ev.transform; nascondiEtichetta(); disegnaCanvas(); disegnaSvg(); });
     d3.select(palco).call(zoom).on("dblclick.zoom", null);
     root.querySelectorAll<HTMLButtonElement>(".atl-zoom button").forEach(b => b.addEventListener("click", ev => {
