@@ -335,7 +335,8 @@ const { slug, nome } = Astro.props;
       // confini comunali: un filo sottile sui lati degli esagoni
       ctx.beginPath();
       for (const [a, b] of bordiComuni) lato(ctx, a, b);
-      ctx.lineWidth = 1 / t.k; ctx.lineCap = "round"; ctx.strokeStyle = "rgba(28, 36, 51, 0.5)"; ctx.stroke();
+      // spessore in proporzione agli esagoni, così non copre la carta sugli schermi piccoli
+      ctx.lineWidth = Math.min(1, raggio * t.k * 0.14) / t.k; ctx.lineCap = "round"; ctx.strokeStyle = "rgba(28, 36, 51, 0.5)"; ctx.stroke();
       // isoglosse nette: il lato in comune tra due esagoni
       if (mostraIso && fuoco == null) {
         ctx.beginPath();
@@ -635,8 +636,11 @@ const { slug, nome } = Astro.props;
       const j = fuoco ?? L.celle[i][0];
       const v = L.quote[i][j] / 1000;
       etichetta.replaceChildren(el("span", "e-c", comuneDi[i]), el("b", "", L.varianti[j].variante), el("span", "", ` ${pct(v)}`));
-      etichetta.style.left = `${px}px`; etichetta.style.top = `${py}px`;
       etichetta.hidden = false;
+      // dentro la carta anche vicino ai bordi
+      const w = etichetta.offsetWidth, h = etichetta.offsetHeight;
+      etichetta.style.left = `${Math.max(w / 2 + 6, Math.min(W - w / 2 - 6, px))}px`;
+      etichetta.style.top = `${Math.max(h + 20, py)}px`;
     }
     palco.addEventListener("pointermove", ev => {
       if (ev.pointerType !== "mouse" || ev.buttons) return;
@@ -646,7 +650,11 @@ const { slug, nome } = Astro.props;
       if (i !== sotto) { sotto = i; disegnaCanvas(); aggiornaScheda(); }
       if (i != null) mostraEtichetta(i, px, py); else nascondiEtichetta();
     });
-    palco.addEventListener("pointerleave", () => { sotto = null; nascondiEtichetta(); disegnaCanvas(); aggiornaScheda(); });
+    // un dito "esce" dalla carta a ogni tocco: solo il mouse che esce chiude l'etichetta
+    palco.addEventListener("pointerleave", ev => {
+      if (ev.pointerType !== "mouse") return;
+      sotto = null; nascondiEtichetta(); disegnaCanvas(); aggiornaScheda();
+    });
     // La scelta del comune parte dal rilascio del puntatore: il "click" può non arrivare, perché d3-zoom
     // annulla gli eventi touch (e Safari allora non genera il click) o lo scarta dopo un trascinamento.
     // Un secondo dito (pizzico) annulla la scelta.
@@ -664,6 +672,11 @@ const { slug, nome } = Astro.props;
       fisso = i == null ? null : comuneDi[i];
       cerca.value = fisso ?? "";
       sotto = null; disegnaCanvas(); aggiornaScheda();
+      // col dito non c'è il passaggio del mouse, e su schermi stretti la scheda sta sotto la carta:
+      // l'etichetta dice subito dove si è toccato
+      if (ev.pointerType !== "mouse") {
+        if (i != null) mostraEtichetta(i, ev.clientX - r.left, ev.clientY - r.top); else nascondiEtichetta();
+      }
     });
     cerca.addEventListener("input", () => {
       const v = cerca.value.trim().toLowerCase();
