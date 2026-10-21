@@ -1,0 +1,2321 @@
+# Proposte di normalizzazione generate da build/analisi.py.
+# Per ogni parola: canonico -> grafie da unire. Correggi qui e rinomina in varianti.yaml.
+# 'multiple' vengono divise tra le varianti citate; 'commenti' finiscono nel tab Commenti;
+# 'escluse' non entrano nella stima.
+
+"Fradicio":
+  varianti:
+    "Maserét":  # 757 risposte
+      - "Maserét"  # 742
+      - "Maserat"  # 7
+      - "Masarét"  # 3
+      - "Maserát"  # 2
+      - "Másaret"  # 1
+      - "Maseràt"  # 1
+      - "Smaserét"  # 1
+    "Bagnàt":  # 537 risposte
+      - "Bagnàt"  # 527
+      - "Bagnàt méss"  # 2
+      - "Miss bagnat"  # 2
+      - "Bagnàt mess"  # 2
+      - "Bagnàt mes"  # 1
+      - "Bagnat mez"  # 1
+      - "bagnàt miss"  # 1
+      - "Bagnat mis"  # 1
+    "Trebatit":  # 101 risposte
+      - "Trebatit"  # 35
+      - "Trebatìt"  # 13
+      - "Trobatit"  # 13
+      - "Trebatít"  # 4
+      - "Tròbatit"  # 3
+      - "Mess trebatit"  # 3
+      - "Trobatít"  # 2
+      - "trebatit"  # 2
+      - "Trubatit"  # 2
+      - "trebatìt"  # 2
+      - "Trèbatit"  # 1
+      - "mes trebatit"  # 1
+      - "Trèbatít"  # 1
+      - "Trùbatit"  # 1
+      - "mess trebatit"  # 1
+      - "Trebatit pie"  # 1
+      - "trobatít"  # 1
+      - "Méss Trebatit"  # 1
+      - "Trebatì"  # 1
+      - "Méss trebatìt"  # 1
+      - "Mees trebatit"  # 1
+      - "Mìss trèbatit"  # 1
+      - "Mìss trebatit"  # 1
+      - "Trobatit😂"  # 1
+      - "Tróbatit"  # 1
+      - "Trobatìt"  # 1
+      - "Trebatìd"  # 1
+      - "Trebátit"  # 1
+      - "Méss trebatít"  # 1
+      - "trèbatit"  # 1
+      - "stróbatit"  # 1
+      - "Trebatid"  # 1
+    "Méss":  # 60 risposte
+      - "Méss"  # 43
+      - "Mess"  # 8
+      - "méss"  # 3
+      - "Mèss"  # 2
+      - "mes"  # 1
+      - "mèss"  # 1
+      - "Mes"  # 1
+      - "Mets"  # 1
+    "Trabatit":  # 37 risposte
+      - "Trabatit"  # 21
+      - "Trabatìt"  # 9
+      - "Trabatít"  # 2
+      - "Trabàtit"  # 1
+      - "Mess strabatit"  # 1
+      - "Trabatic"  # 1
+      - "trabatit"  # 1
+      - "Trabatid"  # 1
+    "Maser":  # 29 risposte
+      - "Maser"  # 19
+      - "Masér"  # 4
+      - "Masèr"  # 4
+      - "masero"  # 1
+      - "masér"  # 1
+    "Mbrombet":  # 16 risposte  (rara)
+      - "Mbrombet"  # 16
+    "Mezz":  # 11 risposte  (rara)
+      - "Mezz"  # 11
+    "Laàt":  # 6 risposte  (rara)
+      - "Laàt"  # 6
+    "Imbrombet":  # 6 risposte  (rara)
+      - "Imbrombet"  # 6
+    "Ciombo":  # 6 risposte  (rara)
+      - "Ciombo"  # 6
+    "Mézz":  # 5 risposte  (rara)
+      - "Mézz"  # 5
+    "Laat":  # 5 risposte  (rara)
+      - "Laat"  # 5
+    "Masaràt":  # 4 risposte  (rara)
+      - "Masaràt"  # 4
+    "Mbrombét":  # 4 risposte  (rara)
+      - "Mbrombét"  # 4
+    "Slozzo":  # 4 risposte  (rara)
+      - "Slozzo"  # 4
+    "Masarát":  # 3 risposte  (rara)
+      - "Masarát"  # 3
+    "Imbrombat":  # 3 risposte  (rara)
+      - "Imbrombat"  # 3
+    "Mez":  # 3 risposte  (rara)
+      - "Mez"  # 3
+    "Masarat":  # 3 risposte  (rara)
+      - "Masarat"  # 3
+    "Fradec":  # 2 risposte  (rara)
+      - "Fradec"  # 2
+    "Bagnat trunk":  # 2 risposte  (rara)
+      - "Bagnat trunk"  # 2
+    "Slòzz":  # 2 risposte  (rara)
+      - "Slòzz"  # 2
+    "Meslaat":  # 2 risposte  (rara)
+      - "Meslaat"  # 2
+    "Brombet":  # 2 risposte  (rara)
+      - "Brombet"  # 2
+    "Imbrombét":  # 2 risposte  (rara)
+      - "Imbrombét"  # 2
+    "Bagnàt fràdes":  # 2 risposte  (rara)
+      - "Bagnàt fràdes"  # 2
+    "Imbrombàt":  # 2 risposte  (rara)
+      - "Imbrombàt"  # 2
+    "Imbrumbét":  # 2 risposte  (rara)
+      - "Imbrumbét"  # 2
+    "Bagnat robatit":  # 2 risposte  (rara)
+      - "Bagnat robatit"  # 2
+    "Bagnàt trebatìt":  # 2 risposte  (rara)
+      - "Bagnàt trebatìt"  # 2
+    "Paciarét":  # 2 risposte  (rara)
+      - "Paciarét"  # 2
+    "Slózz":  # 2 risposte  (rara)
+      - "Slózz"  # 2
+    "Cimbo":  # 1 risposte  (rara)
+      - "Cimbo"  # 1
+    "Omed":  # 1 risposte  (rara)
+      - "Omed"  # 1
+    "Cepp":  # 1 risposte  (rara)
+      - "Cepp"  # 1
+    "Mpregnat":  # 1 risposte  (rara)
+      - "Mpregnat"  # 1
+    "IMbrombat":  # 1 risposte  (rara)
+      - "IMbrombat"  # 1
+    "Lavat":  # 1 risposte  (rara)
+      - "Lavat"  # 1
+    "mbrombàt":  # 1 risposte  (rara)
+      - "mbrombàt"  # 1
+    "méz":  # 1 risposte  (rara)
+      - "méz"  # 1
+    "imbrombét":  # 1 risposte  (rara)
+      - "imbrombét"  # 1
+    "Fràdec":  # 1 risposte  (rara)
+      - "Fràdec"  # 1
+    "mpiombet":  # 1 risposte  (rara)
+      - "mpiombet"  # 1
+    "Mis trobatit":  # 1 risposte  (rara)
+      - "Mis trobatit"  # 1
+    "Pingue":  # 1 risposte  (rara)
+      - "Pingue"  # 1
+    "Moi paciarét":  # 1 risposte  (rara)
+      - "Moi paciarét"  # 1
+    "moio":  # 1 risposte  (rara)
+      - "moio"  # 1
+    "Laàt mézz":  # 1 risposte  (rara)
+      - "Laàt mézz"  # 1
+    "‘mpiombét":  # 1 risposte  (rara)
+      - "‘mpiombét"  # 1
+    "mio":  # 1 risposte  (rara)
+      - "mio"  # 1
+    "Bagnat trebatit":  # 1 risposte  (rara)
+      - "Bagnat trebatit"  # 1
+    "Imbròmbèt":  # 1 risposte  (rara)
+      - "Imbròmbèt"  # 1
+    "Mis laat":  # 1 risposte  (rara)
+      - "Mis laat"  # 1
+    "Bagnát trebatít":  # 1 risposte  (rara)
+      - "Bagnát trebatít"  # 1
+    "Miss laat":  # 1 risposte  (rara)
+      - "Miss laat"  # 1
+    "‘Nciombet":  # 1 risposte  (rara)
+      - "‘Nciombet"  # 1
+    "Culèt":  # 1 risposte  (rara)
+      - "Culèt"  # 1
+    "Bagnat trobatit":  # 1 risposte  (rara)
+      - "Bagnat trobatit"  # 1
+    "Mecc":  # 1 risposte  (rara)
+      - "Mecc"  # 1
+    "Tranét":  # 1 risposte  (rara)
+      - "Tranét"  # 1
+    "Mislaat trabatit":  # 1 risposte  (rara)
+      - "Mislaat trabatit"  # 1
+    "Miss laàt":  # 1 risposte  (rara)
+      - "Miss laàt"  # 1
+    "Fradicio trebatit":  # 1 risposte  (rara)
+      - "Fradicio trebatit"  # 1
+    "‘nciombet":  # 1 risposte  (rara)
+      - "‘nciombet"  # 1
+    "Lahat":  # 1 risposte  (rara)
+      - "Lahat"  # 1
+    "Messént":  # 1 risposte  (rara)
+      - "Messént"  # 1
+    "Tìs":  # 1 risposte  (rara)
+      - "Tìs"  # 1
+    "Miz":  # 1 risposte  (rara)
+      - "Miz"  # 1
+    "Mbrombat":  # 1 risposte  (rara)
+      - "Mbrombat"  # 1
+    "Méss cúss":  # 1 risposte  (rara)
+      - "Méss cúss"  # 1
+    "Bagnato mezzo":  # 1 risposte  (rara)
+      - "Bagnato mezzo"  # 1
+    "ciombo":  # 1 risposte  (rara)
+      - "ciombo"  # 1
+    "Mezzo":  # 1 risposte  (rara)
+      - "Mezzo"  # 1
+    "Mescio":  # 1 risposte  (rara)
+      - "Mescio"  # 1
+    "Mèz":  # 1 risposte  (rara)
+      - "Mèz"  # 1
+    "Imbrombèt":  # 1 risposte  (rara)
+      - "Imbrombèt"  # 1
+    "Ransit [ranzit]":  # 1 risposte  (rara)
+      - "Ransit [ranzit]"  # 1
+    "Méss laat":  # 1 risposte  (rara)
+      - "Méss laat"  # 1
+    "Stra mezz 😂":  # 1 risposte  (rara)
+      - "Stra mezz 😂"  # 1
+    "Miss":  # 1 risposte  (rara)
+      - "Miss"  # 1
+    "Masnét":  # 1 risposte  (rara)
+      - "Masnét"  # 1
+    "Laat zo":  # 1 risposte  (rara)
+      - "Laat zo"  # 1
+    "ntrombat":  # 1 risposte  (rara)
+      - "ntrombat"  # 1
+    "Piömbet":  # 1 risposte  (rara)
+      - "Piömbet"  # 1
+    "Miss ciomp":  # 1 risposte  (rara)
+      - "Miss ciomp"  # 1
+    "Làat (lavato)":  # 1 risposte  (rara)
+      - "Làat (lavato)"  # 1
+    "stra bagnàt":  # 1 risposte  (rara)
+      - "stra bagnàt"  # 1
+    "Bagnàt fradech":  # 1 risposte  (rara)
+      - "Bagnàt fradech"  # 1
+    "Ciömbét":  # 1 risposte  (rara)
+      - "Ciömbét"  # 1
+    "bagnàt trebatit":  # 1 risposte  (rara)
+      - "bagnàt trebatit"  # 1
+    "pezzata":  # 1 risposte  (rara)
+      - "pezzata"  # 1
+    "Frades":  # 1 risposte  (rara)
+      - "Frades"  # 1
+    "Mbrumbet":  # 1 risposte  (rara)
+      - "Mbrumbet"  # 1
+    "mbrombát":  # 1 risposte  (rara)
+      - "mbrombát"  # 1
+    "Métz":  # 1 risposte  (rara)
+      - "Métz"  # 1
+    "mess laàt":  # 1 risposte  (rara)
+      - "mess laàt"  # 1
+    "mes laàt":  # 1 risposte  (rara)
+      - "mes laàt"  # 1
+    "Mìss culét":  # 1 risposte  (rara)
+      - "Mìss culét"  # 1
+  multiple:
+    - "Maseret o Brombat"  # 1
+    - "Maserét, oppure Imbrombét"  # 1
+    - "Maser/mezzo"  # 1
+    - "Alagat(allagato) o bagnat"  # 1
+  escluse:
+    - "Non lo dico"  # 1
+    - "Boh raga per me è sempre trebatit"  # 1
+
+"l'Asso di Spade":
+  varianti:
+    "l'ass de spade":  # 810 risposte
+      - "l'ass de spade"  # 810
+    "ol taiamerde":  # 58 risposte
+      - "ol taiamerde"  # 57
+      - "Ol taiamerda"  # 1
+    "Ol spadù":  # 2 risposte  (rara)
+      - "Ol spadù"  # 2
+    "Spadù":  # 2 risposte  (rara)
+      - "Spadù"  # 2
+    "La spada vincente":  # 1 risposte  (rara)
+      - "La spada vincente"  # 1
+    "Spadino":  # 1 risposte  (rara)
+      - "Spadino"  # 1
+    "Ol teamerda":  # 1 risposte  (rara)
+      - "Ol teamerda"  # 1
+    "La forecia":  # 1 risposte  (rara)
+      - "La forecia"  # 1
+    "La margi":  # 1 risposte  (rara)
+      - "La margi"  # 1
+    "Ol spadú":  # 1 risposte  (rara)
+      - "Ol spadú"  # 1
+    "SPADU":  # 1 risposte  (rara)
+      - "SPADU"  # 1
+    "spadone / spadu":  # 1 risposte  (rara)
+      - "spadone / spadu"  # 1
+    "lo spadù":  # 1 risposte  (rara)
+      - "lo spadù"  # 1
+  escluse:
+    - "Sconosciuto"  # 1
+
+"l'Asso di Ori":
+  varianti:
+    "ol borla":  # 317 risposte
+      - "la borla"  # 166
+      - "ol borla"  # 140
+      - "Ol borlo"  # 5
+      - "Il borlo"  # 1
+      - "la börola"  # 1
+      - "la forla"  # 1
+      - "il borlo"  # 1
+      - "Ol borlì"  # 1
+      - "ol borlo"  # 1
+    "l'ass de ori":  # 288 risposte
+      - "l'ass de ori"  # 285
+      - "l’ass de or"  # 1
+      - "L'ass de ore"  # 1
+      - "l'ass de òr"  # 1
+    "la bola":  # 65 risposte
+      - "la bola"  # 56
+      - "ol bosla"  # 8
+      - "La bobla"  # 1
+    "La polenta":  # 52 risposte
+      - "La polenta"  # 28
+      - "Polenta"  # 5
+      - "la polenta"  # 5
+      - "Ol polenta"  # 3
+      - "ol polenta"  # 2
+      - "Ol polentù"  # 2
+      - "Polentù"  # 1
+      - "Il Polenta"  # 1
+      - "polenta"  # 1
+      - "Ol polentú"  # 1
+      - "La pólenta"  # 1
+      - "Il polentù"  # 1
+      - "La polentina"  # 1
+    "La cüla":  # 32 risposte
+      - "La cula"  # 13
+      - "La cüla"  # 9
+      - "la cula"  # 2
+      - "Ol cülatù"  # 1
+      - "ol cula"  # 1
+      - "La culona"  # 1
+      - "il cula"  # 1
+      - "La ciula"  # 1
+      - "Cula"  # 1
+      - "Ol cul"  # 1
+      - "Cúla"  # 1
+    "la formaggia":  # 30 risposte
+      - "la formaggia"  # 23
+      - "La formagela"  # 4
+      - "La formagèla"  # 2
+      - "Ol formai"  # 1
+    "la burlina":  # 11 risposte
+      - "la burlina"  # 10
+      - "Ol Burlì"  # 1
+    "La padella":  # 3 risposte  (rara)
+      - "La padella"  # 3
+    "Culo":  # 3 risposte  (rara)
+      - "Culo"  # 3
+    "L'ass de dener":  # 2 risposte  (rara)
+      - "L'ass de dener"  # 2
+    "La padela":  # 2 risposte  (rara)
+      - "La padela"  # 2
+    "Ol boslo":  # 2 risposte  (rara)
+      - "Ol boslo"  # 2
+    "la lola":  # 2 risposte  (rara)
+      - "la lola"  # 2
+    "La fufa":  # 2 risposte  (rara)
+      - "La fufa"  # 2
+    "La padèla":  # 2 risposte  (rara)
+      - "La padèla"  # 2
+    "La Lola":  # 2 risposte  (rara)
+      - "La Lola"  # 2
+    "l’ass de daner":  # 1 risposte  (rara)
+      - "l’ass de daner"  # 1
+    "Masenghini":  # 1 risposte  (rara)
+      - "Masenghini"  # 1
+    "la büsa":  # 1 risposte  (rara)
+      - "la büsa"  # 1
+    "La bufala":  # 1 risposte  (rara)
+      - "La bufala"  # 1
+    "padéla":  # 1 risposte  (rara)
+      - "padéla"  # 1
+    "La padelä":  # 1 risposte  (rara)
+      - "La padelä"  # 1
+    "Piösna":  # 1 risposte  (rara)
+      - "Piösna"  # 1
+    "Ol chorla":  # 1 risposte  (rara)
+      - "Ol chorla"  # 1
+    "Il buslo":  # 1 risposte  (rara)
+      - "Il buslo"  # 1
+    "La fulana":  # 1 risposte  (rara)
+      - "La fulana"  # 1
+    "La füla":  # 1 risposte  (rara)
+      - "La füla"  # 1
+    "L’ass de denér":  # 1 risposte  (rara)
+      - "L’ass de denér"  # 1
+    "ol cül de pèpa":  # 1 risposte  (rara)
+      - "ol cül de pèpa"  # 1
+    "La luna":  # 1 risposte  (rara)
+      - "La luna"  # 1
+    "Ol cülo":  # 1 risposte  (rara)
+      - "Ol cülo"  # 1
+    "la colata":  # 1 risposte  (rara)
+      - "la colata"  # 1
+    "Busù":  # 1 risposte  (rara)
+      - "Busù"  # 1
+    "La bösna":  # 1 risposte  (rara)
+      - "La bösna"  # 1
+    "Ol cul de pepa":  # 1 risposte  (rara)
+      - "Ol cul de pepa"  # 1
+    "Ol Cembol":  # 1 risposte  (rara)
+      - "Ol Cembol"  # 1
+    "la cölata":  # 1 risposte  (rara)
+      - "la cölata"  # 1
+    "la pula":  # 1 risposte  (rara)
+      - "la pula"  # 1
+    "La lóla":  # 1 risposte  (rara)
+      - "La lóla"  # 1
+    "L'òr":  # 1 risposte  (rara)
+      - "L'òr"  # 1
+    "La maèla":  # 1 risposte  (rara)
+      - "La maèla"  # 1
+    "Burtulí":  # 1 risposte  (rara)
+      - "Burtulí"  # 1
+    "La busna":  # 1 risposte  (rara)
+      - "La busna"  # 1
+    "Il cul de la nona":  # 1 risposte  (rara)
+      - "Il cul de la nona"  # 1
+    "Ol leròi":  # 1 risposte  (rara)
+      - "Ol leròi"  # 1
+    "Ol cùl del nono":  # 1 risposte  (rara)
+      - "Ol cùl del nono"  # 1
+    "la padela":  # 1 risposte  (rara)
+      - "la padela"  # 1
+    "Ol cul de la suocera":  # 1 risposte  (rara)
+      - "Ol cul de la suocera"  # 1
+    "La bigia":  # 1 risposte  (rara)
+      - "La bigia"  # 1
+    "Ciòrla":  # 1 risposte  (rara)
+      - "Ciòrla"  # 1
+    "La pucia":  # 1 risposte  (rara)
+      - "La pucia"  # 1
+    "L'ass bambo (a truco)":  # 1 risposte  (rara)
+      - "L'ass bambo (a truco)"  # 1
+    "ol cul isporc":  # 1 risposte  (rara)
+      - "ol cul isporc"  # 1
+    "La Màgia":  # 1 risposte  (rara)
+      - "La Màgia"  # 1
+    "La bosna":  # 1 risposte  (rara)
+      - "La bosna"  # 1
+    "Ol bùs del gnao":  # 1 risposte  (rara)
+      - "Ol bùs del gnao"  # 1
+    "Bosna":  # 1 risposte  (rara)
+      - "Bosna"  # 1
+    "la bösna":  # 1 risposte  (rara)
+      - "la bösna"  # 1
+    "Ol cul del nono":  # 1 risposte  (rara)
+      - "Ol cul del nono"  # 1
+    "La LOLA":  # 1 risposte  (rara)
+      - "La LOLA"  # 1
+    "La pula":  # 1 risposte  (rara)
+      - "La pula"  # 1
+    "Ol ciapù":  # 1 risposte  (rara)
+      - "Ol ciapù"  # 1
+    "La busla":  # 1 risposte  (rara)
+      - "La busla"  # 1
+    "Büs del cül":  # 1 risposte  (rara)
+      - "Büs del cül"  # 1
+    "La masenghini":  # 1 risposte  (rara)
+      - "La masenghini"  # 1
+    "L’ass de denari":  # 1 risposte  (rara)
+      - "L’ass de denari"  # 1
+    "L'ass de denàr":  # 1 risposte  (rara)
+      - "L'ass de denàr"  # 1
+    "La fula":  # 1 risposte  (rara)
+      - "La fula"  # 1
+    "Palanche":  # 1 risposte  (rara)
+      - "Palanche"  # 1
+    "Padela":  # 1 risposte  (rara)
+      - "Padela"  # 1
+    "La margi":  # 1 risposte  (rara)
+      - "La margi"  # 1
+    "Ciola":  # 1 risposte  (rara)
+      - "Ciola"  # 1
+    "Zener/ Dener":  # 1 risposte  (rara)
+      - "Zener/ Dener"  # 1
+    "Cul del papa":  # 1 risposte  (rara)
+      - "Cul del papa"  # 1
+    "Ol cül del nono":  # 1 risposte  (rara)
+      - "Ol cül del nono"  # 1
+    "la formaèla":  # 1 risposte  (rara)
+      - "la formaèla"  # 1
+    "Bus del cül":  # 1 risposte  (rara)
+      - "Bus del cül"  # 1
+    "Ol bocio":  # 1 risposte  (rara)
+      - "Ol bocio"  # 1
+  multiple:
+    - "La polenta / la pula"  # 1
+    - "L’ass de mara/ la polenta"  # 1
+    - "La bigia o la polenta"  # 1
+    - "ol polentu / la polenta"  # 1
+  commenti:
+    - "La padela o l'ass de dener"  # 1
+
+"Bagnato":
+  varianti:
+    "Bagnàt":  # 1277 risposte
+      - "Bagnàt"  # 1274
+      - "Bagn"  # 2
+      - "Bagnat"  # 1
+    "Méss":  # 145 risposte
+      - "Méss"  # 144
+      - "Mesc"  # 1
+    "Laat":  # 4 risposte  (rara)
+      - "Laat"  # 4
+    "Trebatit":  # 4 risposte  (rara)
+      - "Trebatit"  # 4
+    "Maser":  # 3 risposte  (rara)
+      - "Maser"  # 3
+    "Tìs":  # 2 risposte  (rara)
+      - "Tìs"  # 2
+    "trebatit":  # 2 risposte  (rara)
+      - "trebatit"  # 2
+    "Masér":  # 2 risposte  (rara)
+      - "Masér"  # 2
+    "Mezz":  # 2 risposte  (rara)
+      - "Mezz"  # 2
+    "Niz":  # 2 risposte  (rara)
+      - "Niz"  # 2
+    "Mescio":  # 2 risposte  (rara)
+      - "Mescio"  # 2
+    "Méz":  # 2 risposte  (rara)
+      - "Méz"  # 2
+    "Mìss":  # 2 risposte  (rara)
+      - "Mìss"  # 2
+    "Miss":  # 2 risposte  (rara)
+      - "Miss"  # 2
+    "Laát":  # 2 risposte  (rara)
+      - "Laát"  # 2
+    "Trabatit":  # 1 risposte  (rara)
+      - "Trabatit"  # 1
+    "maseret":  # 1 risposte  (rara)
+      - "maseret"  # 1
+    "Ümèt":  # 1 risposte  (rara)
+      - "Ümèt"  # 1
+    "Mis":  # 1 risposte  (rara)
+      - "Mis"  # 1
+    "Masèr":  # 1 risposte  (rara)
+      - "Masèr"  # 1
+    "Maserét":  # 1 risposte  (rara)
+      - "Maserét"  # 1
+    "Maseret":  # 1 risposte  (rara)
+      - "Maseret"  # 1
+    "mézz":  # 1 risposte  (rara)
+      - "mézz"  # 1
+    "MIH":  # 1 risposte  (rara)
+      - "MIH"  # 1
+    "Trobatìt":  # 1 risposte  (rara)
+      - "Trobatìt"  # 1
+    "Entrambi in base al contesto":  # 1 risposte  (rara)
+      - "Entrambi in base al contesto"  # 1
+    "Entrambi, dipende dal contesto":  # 1 risposte  (rara)
+      - "Entrambi, dipende dal contesto"  # 1
+    "Trebátit":  # 1 risposte  (rara)
+      - "Trebátit"  # 1
+    "Masarét":  # 1 risposte  (rara)
+      - "Masarét"  # 1
+    "Masarèt":  # 1 risposte  (rara)
+      - "Masarèt"  # 1
+  commenti:
+    - "Participio o aggettivo verbale? Il primo bagnat, il secondo més"  # 1
+
+"Ombelico":
+  varianti:
+    "butù":  # 686 risposte
+      - "butù"  # 683
+      - "butulì"  # 1
+      - "Butuní"  # 1
+      - "Butulí"  # 1
+    "bigol":  # 88 risposte
+      - "bigol"  # 85
+      - "bigöl"  # 2
+      - "bigool"  # 1
+    "butù de la pansa":  # 4 risposte  (rara)
+      - "butù de la pansa"  # 4
+    "Butù dol veter":  # 2 risposte  (rara)
+      - "Butù dol veter"  # 2
+    "Bugì":  # 2 risposte  (rara)
+      - "Bugì"  # 2
+    "Butù del vetre":  # 2 risposte  (rara)
+      - "Butù del vetre"  # 2
+    "Butù del veter":  # 2 risposte  (rara)
+      - "Butù del veter"  # 2
+    "Ol butù de la pansa":  # 2 risposte  (rara)
+      - "Ol butù de la pansa"  # 2
+    "Butù dela pansa":  # 2 risposte  (rara)
+      - "Butù dela pansa"  # 2
+    "Butù de la pansa":  # 2 risposte  (rara)
+      - "Butù de la pansa"  # 2
+    "Buduli'":  # 1 risposte  (rara)
+      - "Buduli'"  # 1
+    "Botol":  # 1 risposte  (rara)
+      - "Botol"  # 1
+    "Bigulí":  # 1 risposte  (rara)
+      - "Bigulí"  # 1
+    "butù dol veder":  # 1 risposte  (rara)
+      - "butù dol veder"  # 1
+    "Butù ‘lla zerlö":  # 1 risposte  (rara)
+      - "Butù ‘lla zerlö"  # 1
+    "Butulì del nono":  # 1 risposte  (rara)
+      - "Butulì del nono"  # 1
+    "butù dol veter":  # 1 risposte  (rara)
+      - "butù dol veter"  # 1
+    "Burigel":  # 1 risposte  (rara)
+      - "Burigel"  # 1
+    "Butù dèla pansa":  # 1 risposte  (rara)
+      - "Butù dèla pansa"  # 1
+    "Luí":  # 1 risposte  (rara)
+      - "Luí"  # 1
+    "Butù lla sèrla":  # 1 risposte  (rara)
+      - "Butù lla sèrla"  # 1
+    "Büs dol veter":  # 1 risposte  (rara)
+      - "Büs dol veter"  # 1
+    "butù-bogia":  # 1 risposte  (rara)
+      - "butù-bogia"  # 1
+    "el butu figa":  # 1 risposte  (rara)
+      - "el butu figa"  # 1
+    "Botàs":  # 1 risposte  (rara)
+      - "Botàs"  # 1
+    "Butù dol vèter":  # 1 risposte  (rara)
+      - "Butù dol vèter"  # 1
+    "bugì":  # 1 risposte  (rara)
+      - "bugì"  # 1
+    "Butù de la Pansa":  # 1 risposte  (rara)
+      - "Butù de la Pansa"  # 1
+    "Burlì":  # 1 risposte  (rara)
+      - "Burlì"  # 1
+    "Butu dela pansa":  # 1 risposte  (rara)
+      - "Butu dela pansa"  # 1
+    "Butù ‘lla pansa":  # 1 risposte  (rara)
+      - "Butù ‘lla pansa"  # 1
+    "Ol Bùs del bútù":  # 1 risposte  (rara)
+      - "Ol Bùs del bútù"  # 1
+    "Butú de la pansa":  # 1 risposte  (rara)
+      - "Butú de la pansa"  # 1
+    "Bús de la pansa":  # 1 risposte  (rara)
+      - "Bús de la pansa"  # 1
+    "Bus del nono":  # 1 risposte  (rara)
+      - "Bus del nono"  # 1
+    "Butù lla pansa":  # 1 risposte  (rara)
+      - "Butù lla pansa"  # 1
+    "Butú l'la pansa":  # 1 risposte  (rara)
+      - "Butú l'la pansa"  # 1
+    "butù dal veter":  # 1 risposte  (rara)
+      - "butù dal veter"  # 1
+    "Botù":  # 1 risposte  (rara)
+      - "Botù"  # 1
+    "Botù dol veter":  # 1 risposte  (rara)
+      - "Botù dol veter"  # 1
+    "Bus dol veder":  # 1 risposte  (rara)
+      - "Bus dol veder"  # 1
+    "Butù 'la pansa":  # 1 risposte  (rara)
+      - "Butù 'la pansa"  # 1
+    "Butù dol veder":  # 1 risposte  (rara)
+      - "Butù dol veder"  # 1
+  commenti:
+    - "Butù de la Pansa (Bigol lo diceva mio nonno)"  # 1
+  escluse:
+    - "Nessuna risposta"  # 1
+
+"l'Asso di Coppe":
+  varianti:
+    "ol pisì":  # 274 risposte
+      - "ol pisì"  # 274
+    "l'ass de coppe":  # 245 risposte
+      - "l'ass de coppe"  # 244
+      - "L'ass de còpe"  # 1
+    "ol pisalobia":  # 179 risposte
+      - "ol pisalobia"  # 175
+      - "pesalobbia"  # 1
+      - "ol pesalobbia (lobbia)"  # 1
+      - "Ol pisì de la lobbia"  # 1
+      - "Ol pisalobie"  # 1
+    "ol pisagì":  # 156 risposte
+      - "ol pisagì"  # 154
+      - "ol pisacì"  # 1
+      - "Ol pisacì"  # 1
+    "Ol piseta":  # 2 risposte  (rara)
+      - "Ol piseta"  # 2
+    "ol piso":  # 1 risposte  (rara)
+      - "ol piso"  # 1
+    "ok pisèta":  # 1 risposte  (rara)
+      - "ok pisèta"  # 1
+    "piseta'":  # 1 risposte  (rara)
+      - "piseta'"  # 1
+    "Piso":  # 1 risposte  (rara)
+      - "Piso"  # 1
+    "Ol piseto":  # 1 risposte  (rara)
+      - "Ol piseto"  # 1
+    "ol pisèta":  # 1 risposte  (rara)
+      - "ol pisèta"  # 1
+    "Ol angel/ l’angiolet":  # 1 risposte  (rara)
+      - "Ol angel/ l’angiolet"  # 1
+    "L’angiolì":  # 1 risposte  (rara)
+      - "L’angiolì"  # 1
+    "Il pisabalì":  # 1 risposte  (rara)
+      - "Il pisabalì"  # 1
+    "Ol piso":  # 1 risposte  (rara)
+      - "Ol piso"  # 1
+    "ol pesacì":  # 1 risposte  (rara)
+      - "ol pesacì"  # 1
+    "ol diaulì":  # 1 risposte  (rara)
+      - "ol diaulì"  # 1
+    "Ol pistulì":  # 1 risposte  (rara)
+      - "Ol pistulì"  # 1
+    "L' angel dé cope":  # 1 risposte  (rara)
+      - "L' angel dé cope"  # 1
+    "Il nudo":  # 1 risposte  (rara)
+      - "Il nudo"  # 1
+    "Piciali":  # 1 risposte  (rara)
+      - "Piciali"  # 1
+    "Ol pisabuchì":  # 1 risposte  (rara)
+      - "Ol pisabuchì"  # 1
+    "ANGIOLET":  # 1 risposte  (rara)
+      - "ANGIOLET"  # 1
+    "Ol pisol":  # 1 risposte  (rara)
+      - "Ol pisol"  # 1
+    "ol pisa buchì":  # 1 risposte  (rara)
+      - "ol pisa buchì"  # 1
+    "Ol pisèta":  # 1 risposte  (rara)
+      - "Ol pisèta"  # 1
+    "Ol fuletì":  # 1 risposte  (rara)
+      - "Ol fuletì"  # 1
+    "pisapochì":  # 1 risposte  (rara)
+      - "pisapochì"  # 1
+    "Ol folèt":  # 1 risposte  (rara)
+      - "Ol folèt"  # 1
+  commenti:
+    - "Pimpin uselì perche hai tempi vedevi il pisellino,se non ricordo male 🤣🤣"  # 1
+  escluse:
+    - "Sconosciuto"  # 1
+
+"l'Asso di Bastoni":
+  varianti:
+    "l'ass de bastù":  # 458 risposte
+      - "l'ass de bastù"  # 458
+    "ol vincerai":  # 329 risposte
+      - "ol vincerai"  # 329
+    "ol bastù":  # 93 risposte
+      - "ol bastù"  # 92
+      - "ol batistù"  # 1
+    "OL LEGN":  # 1 risposte  (rara)
+      - "OL LEGN"  # 1
+    "Tarèl":  # 1 risposte  (rara)
+      - "Tarèl"  # 1
+
+"Scapolo":
+  varianti:
+    "Pötvecc":  # 326 risposte
+      - "Pötvecc"  # 321
+      - "Pötaecc"  # 2
+      - "Pötvec"  # 1
+      - "Potaecc"  # 1
+      - "Pöt vëc"  # 1
+    "Barba":  # 206 risposte
+      - "Barba"  # 205
+      - "Bàrba"  # 1
+    "Marèll":  # 106 risposte
+      - "Marèll"  # 103
+      - "Marelöt"  # 1
+      - "Marelot"  # 1
+      - "Marelòt"  # 1
+    "Pöt":  # 99 risposte
+      - "Pöt"  # 99
+    "Barbì":  # 26 risposte
+      - "Barbì"  # 26
+    "Maröc":  # 4 risposte  (rara)
+      - "Maröc"  # 4
+    "maröcc":  # 1 risposte  (rara)
+      - "maröcc"  # 1
+    "Pinciòc":  # 1 risposte  (rara)
+      - "Pinciòc"  # 1
+    "Maröch":  # 1 risposte  (rara)
+      - "Maröch"  # 1
+    "ciöppì":  # 1 risposte  (rara)
+      - "ciöppì"  # 1
+    "Pötaech":  # 1 risposte  (rara)
+      - "Pötaech"  # 1
+    "Maröcc":  # 1 risposte  (rara)
+      - "Maröcc"  # 1
+    "Rasgapoie":  # 1 risposte  (rara)
+      - "Rasgapoie"  # 1
+    "Furbo":  # 1 risposte  (rara)
+      - "Furbo"  # 1
+    "Barbinèt":  # 1 risposte  (rara)
+      - "Barbinèt"  # 1
+    "Maròc":  # 1 risposte  (rara)
+      - "Maròc"  # 1
+    "Marocòt / Maröc":  # 1 risposte  (rara)
+      - "Marocòt / Maröc"  # 1
+  commenti:
+    - "Pöt vecc (come püta ega x la donna)"  # 1
+
+"Pettegola":
+  varianti:
+    "petònega":  # 1520 risposte
+      - "petònega"  # 1512
+      - "betonega"  # 1
+      - "Petònegò"  # 1
+      - "Betònega"  # 1
+      - "betònega"  # 1
+      - "petònego"  # 1
+      - "Betónega"  # 1
+      - "Betonega"  # 1
+      - "Petoniga"  # 1
+    "zabèta":  # 145 risposte
+      - "zabèta"  # 142
+      - "bèta"  # 3
+    "tofa":  # 30 risposte
+      - "tofa"  # 29
+      - "Tofola"  # 1
+    "Meda":  # 3 risposte  (rara)
+      - "Meda"  # 3
+    "meda":  # 3 risposte  (rara)
+      - "meda"  # 3
+    "Comare":  # 2 risposte  (rara)
+      - "Comare"  # 2
+    "Mèda":  # 2 risposte  (rara)
+      - "Mèda"  # 2
+    "Petegola":  # 2 risposte  (rara)
+      - "Petegola"  # 2
+    "Comara":  # 1 risposte  (rara)
+      - "Comara"  # 1
+    "petola":  # 1 risposte  (rara)
+      - "petola"  # 1
+    "Petégula":  # 1 risposte  (rara)
+      - "Petégula"  # 1
+    "hihatola":  # 1 risposte  (rara)
+      - "hihatola"  # 1
+    "Perònega/cusolo":  # 1 risposte  (rara)
+      - "Perònega/cusolo"  # 1
+    "betola":  # 1 risposte  (rara)
+      - "betola"  # 1
+    "Betúna":  # 1 risposte  (rara)
+      - "Betúna"  # 1
+    "Méda":  # 1 risposte  (rara)
+      - "Méda"  # 1
+    "Betòniga":  # 1 risposte  (rara)
+      - "Betòniga"  # 1
+    "Teresa":  # 1 risposte  (rara)
+      - "Teresa"  # 1
+    "mèda":  # 1 risposte  (rara)
+      - "mèda"  # 1
+    "tutti e tre :)":  # 1 risposte  (rara)
+      - "tutti e tre :)"  # 1
+    "Pötaegia":  # 1 risposte  (rara)
+      - "Pötaegia"  # 1
+    "Putána de Brèsa":  # 1 risposte  (rara)
+      - "Putána de Brèsa"  # 1
+    "Betonegó":  # 1 risposte  (rara)
+      - "Betonegó"  # 1
+    "Barbecia":  # 1 risposte  (rara)
+      - "Barbecia"  # 1
+    "Tutte e tre":  # 1 risposte  (rara)
+      - "Tutte e tre"  # 1
+    "Pötaégia":  # 1 risposte  (rara)
+      - "Pötaégia"  # 1
+    "Pötaègia":  # 1 risposte  (rara)
+      - "Pötaègia"  # 1
+    "Bedola":  # 1 risposte  (rara)
+      - "Bedola"  # 1
+  multiple:
+    - "Sia zabeta che petonega"  # 2
+    - "Petonega e zabeta"  # 2
+    - "Petònega/bèta"  # 1
+    - "sia zabeta che betonega"  # 1
+    - "Tofa e petonega"  # 1
+    - "Zabeta e Petonega"  # 1
+    - "petònega/zabèta"  # 1
+    - "zabèta e/o petònega"  # 1
+    - "Zabèta o petònega"  # 1
+    - "sia zabeta che petonega"  # 1
+  commenti:
+    - "Tutti e 3 (tofa è più curiosa)"  # 1
+  escluse:
+    - "Pota sono in confusione, dico sia petònega che zabèta ma mi viene il dubbio che una delle due sia per influenza di mio papà di Comonte/Bolgare, solo che non so quale"  # 1
+
+"Libellula":
+  varianti:
+    "becaöcc":  # 388 risposte
+      - "becaöcc"  # 388
+    "scanaöcc":  # 78 risposte
+      - "scanaöcc"  # 78
+    "Caaöcc":  # 13 risposte
+      - "Caaöcc"  # 6
+      - "caaöcc"  # 2
+      - "Càaöcc"  # 2
+      - "Càhàöcc"  # 1
+      - "Scaaöcc"  # 1
+      - "Cavaöcc"  # 1
+    "Libellula":  # 4 risposte  (rara)
+      - "Libellula"  # 4
+    "Piöcc":  # 1 risposte  (rara)
+      - "Piöcc"  # 1
+    "Sciura":  # 1 risposte  (rara)
+      - "Sciura"  # 1
+    "Sciùra":  # 1 risposte  (rara)
+      - "Sciùra"  # 1
+    "pìaöcc":  # 1 risposte  (rara)
+      - "pìaöcc"  # 1
+    "La libelula":  # 1 risposte  (rara)
+      - "La libelula"  # 1
+    "Libelula":  # 1 risposte  (rara)
+      - "Libelula"  # 1
+    "Maiaöcc":  # 1 risposte  (rara)
+      - "Maiaöcc"  # 1
+    "Pungiöcc":  # 1 risposte  (rara)
+      - "Pungiöcc"  # 1
+    "Piaöcc":  # 1 risposte  (rara)
+      - "Piaöcc"  # 1
+    "Dragü":  # 1 risposte  (rara)
+      - "Dragü"  # 1
+    "Elicottero":  # 1 risposte  (rara)
+      - "Elicottero"  # 1
+  commenti:
+    - "chi cazzo ha mai visto le libellule a Bergamo"  # 1
+  escluse:
+    - "Non saprei"  # 1
+
+"Macellaio":
+  varianti:
+    "Macelér":  # 755 risposte
+      - "Macelér"  # 750
+      - "Macelar"  # 1
+      - "macelàre"  # 1
+      - "Maselér"  # 1
+      - "Macelèr"  # 1
+      - "Maceler"  # 1
+    "Bechér":  # 504 risposte
+      - "Bechér"  # 500
+      - "Bechèrí"  # 1
+      - "Bèchér"  # 1
+      - "Bechérí"  # 1
+      - "Becherí"  # 1
+    "li muerti Ca nu raggenu":  # 1 risposte  (rara)
+      - "li muerti Ca nu raggenu"  # 1
+    "Pàneter":  # 1 risposte  (rara)
+      - "Pàneter"  # 1
+    "Frér":  # 1 risposte  (rara)
+      - "Frér"  # 1
+    "Masulér":  # 1 risposte  (rara)
+      - "Masulér"  # 1
+    "Firlo":  # 1 risposte  (rara)
+      - "Firlo"  # 1
+    "Bröntanì":  # 1 risposte  (rara)
+      - "Bröntanì"  # 1
+    "Cervelé":  # 1 risposte  (rara)
+      - "Cervelé"  # 1
+    "Maser":  # 1 risposte  (rara)
+      - "Maser"  # 1
+    "Chel de la carne":  # 1 risposte  (rara)
+      - "Chel de la carne"  # 1
+    "Cöpa cí":  # 1 risposte  (rara)
+      - "Cöpa cí"  # 1
+    "valter beker Telgate 🤣🤣":  # 1 risposte  (rara)
+      - "valter beker Telgate 🤣🤣"  # 1
+    "Masúler":  # 1 risposte  (rara)
+      - "Masúler"  # 1
+    "Masulèr":  # 1 risposte  (rara)
+      - "Masulèr"  # 1
+    "Tutti 2":  # 1 risposte  (rara)
+      - "Tutti 2"  # 1
+
+"Panettiere":
+  varianti:
+    "Fornér":  # 880 risposte
+      - "Fornér"  # 863
+      - "Furnér"  # 10
+      - "Furner"  # 4
+      - "furnér"  # 2
+      - "Furnèr"  # 1
+    "Prestinér":  # 270 risposte
+      - "Prestinér"  # 268
+      - "Pristinér"  # 2
+    "Panetér":  # 196 risposte
+      - "Paneter"  # 89
+      - "Panetér"  # 63
+      - "Panetèr"  # 12
+      - "paneter"  # 12
+      - "panetér"  # 7
+      - "Panéter"  # 5
+      - "Pàneter"  # 2
+      - "Panèter"  # 2
+      - "panetèr"  # 1
+      - "Pànetér"  # 1
+      - "Panétér"  # 1
+      - "Panetër"  # 1
+    "Chel del pá":  # 1 risposte  (rara)
+      - "Chel del pá"  # 1
+    "Pristinaio":  # 1 risposte  (rara)
+      - "Pristinaio"  # 1
+    "furnai":  # 1 risposte  (rara)
+      - "furnai"  # 1
+    "Bröstöl":  # 1 risposte  (rara)
+      - "Bröstöl"  # 1
+    "becher":  # 1 risposte  (rara)
+      - "becher"  # 1
+    "Ol Furnárer":  # 1 risposte  (rara)
+      - "Ol Furnárer"  # 1
+    "fornai":  # 1 risposte  (rara)
+      - "fornai"  # 1
+    "Mosè":  # 1 risposte  (rara)
+      - "Mosè"  # 1
+    "Béchér":  # 1 risposte  (rara)
+      - "Béchér"  # 1
+    "Paér":  # 1 risposte  (rara)
+      - "Paér"  # 1
+  multiple:
+    - "Forner/Paneter"  # 1
+    - "Prestinér o Fornér"  # 1
+    - "Fornér o panetér"  # 1
+
+"Briciole":
+  varianti:
+    "Migole":  # 309 risposte
+      - "Migole"  # 306
+      - "Migola"  # 1
+      - "migola"  # 1
+      - "Mingole"  # 1
+    "Migle":  # 194 risposte
+      - "Migle"  # 183
+      - "Migule"  # 8
+      - "Migla"  # 1
+      - "Smigle"  # 1
+      - "Migre"  # 1
+    "Gandaie":  # 138 risposte
+      - "Gandaie"  # 138
+    "Fregoie":  # 103 risposte
+      - "Fregoie"  # 97
+      - "Fregoe"  # 2
+      - "Fregóe"  # 1
+      - "Fragoie"  # 1
+      - "fregöle"  # 1
+      - "Fregole"  # 1
+    "Fregói":  # 40 risposte
+      - "Fregói"  # 40
+    "Gandài":  # 37 risposte
+      - "Gandài"  # 37
+    "Brise":  # 7 risposte  (rara)
+      - "Brise"  # 7
+    "Briciole":  # 3 risposte  (rara)
+      - "Briciole"  # 3
+    "Brisole":  # 2 risposte  (rara)
+      - "Brisole"  # 2
+    "miglài":  # 1 risposte  (rara)
+      - "miglài"  # 1
+    "sbrisole":  # 1 risposte  (rara)
+      - "sbrisole"  # 1
+    "Grigole":  # 1 risposte  (rara)
+      - "Grigole"  # 1
+    "migoi":  # 1 risposte  (rara)
+      - "migoi"  # 1
+    "Mögazza":  # 1 risposte  (rara)
+      - "Mögazza"  # 1
+    "Bricole":  # 1 risposte  (rara)
+      - "Bricole"  # 1
+    "Miglài":  # 1 risposte  (rara)
+      - "Miglài"  # 1
+    "brisole":  # 1 risposte  (rara)
+      - "brisole"  # 1
+    "diompenut":  # 1 risposte  (rara)
+      - "diompenut"  # 1
+    "Brisöle":  # 1 risposte  (rara)
+      - "Brisöle"  # 1
+    "Miguel":  # 1 risposte  (rara)
+      - "Miguel"  # 1
+    "meche":  # 1 risposte  (rara)
+      - "meche"  # 1
+    "Brìsoe":  # 1 risposte  (rara)
+      - "Brìsoe"  # 1
+    "Mögazze":  # 1 risposte  (rara)
+      - "Mögazze"  # 1
+    "Migazze":  # 1 risposte  (rara)
+      - "Migazze"  # 1
+    "Briciöle":  # 1 risposte  (rara)
+      - "Briciöle"  # 1
+    "Gandole":  # 1 risposte  (rara)
+      - "Gandole"  # 1
+    "Blödösc":  # 1 risposte  (rara)
+      - "Blödösc"  # 1
+    "Mighase":  # 1 risposte  (rara)
+      - "Mighase"  # 1
+    "Brasole":  # 1 risposte  (rara)
+      - "Brasole"  # 1
+    "Griguli":  # 1 risposte  (rara)
+      - "Griguli"  # 1
+  escluse:
+    - "non lo so"  # 1
+
+"Albicocca":
+  varianti:
+    "Bignaga":  # 474 risposte
+      - "Bignaga"  # 470
+      - "Bögnaga"  # 1
+      - "Brognaga"  # 1
+      - "Begnaga"  # 1
+      - "Bégnaga"  # 1
+    "Mignaga":  # 266 risposte
+      - "Mignaga"  # 248
+      - "Megnaga"  # 7
+      - "Armignaga"  # 4
+      - "Mögnaga"  # 1
+      - "mognaga"  # 1
+      - "Remignaga"  # 1
+      - "Mognaga"  # 1
+      - "Magnaga"  # 1
+      - "armignaga"  # 1
+      - "Megnàga"  # 1
+    "Albicòch":  # 165 risposte
+      - "Albicòch"  # 156
+      - "Albicocca"  # 5
+      - "Albicòca"  # 1
+      - "albicòca"  # 1
+      - "Bicoca"  # 1
+      - "Albicòcò"  # 1
+    "Mugnaga":  # 25 risposte
+      - "Mugnaga"  # 13
+      - "Mügnaga"  # 9
+      - "mügnaga"  # 2
+      - "Mügnàga"  # 1
+    "Rimane cosí. Albicocca":  # 1 risposte  (rara)
+      - "Rimane cosí. Albicocca"  # 1
+    "Booooooh":  # 1 risposte  (rara)
+      - "Booooooh"  # 1
+    "ambrognaga":  # 1 risposte  (rara)
+      - "ambrognaga"  # 1
+  commenti:
+    - "Sia con la m che con la b"  # 1
+
+"Gallina":
+  varianti:
+    "Poia":  # 1926 risposte
+      - "Poia"  # 1926
+    "Galina":  # 308 risposte
+      - "Galina"  # 283
+      - "Galena"  # 17
+      - "Galinó"  # 3
+      - "Galinö"  # 1
+      - "Galinò"  # 1
+      - "Galèna"  # 1
+      - "Galinela"  # 1
+      - "Galéna"  # 1
+    "Pita":  # 3 risposte  (rara)
+      - "Pita"  # 3
+    "Puina":  # 2 risposte  (rara)
+      - "Puina"  # 2
+    "chichina":  # 1 risposte  (rara)
+      - "chichina"  # 1
+    "Raspandri":  # 1 risposte  (rara)
+      - "Raspandri"  # 1
+    "La poia Dio can":  # 1 risposte  (rara)
+      - "La poia Dio can"  # 1
+  multiple:
+    - "Poia o Galina"  # 1
+    - "Poia / galina"  # 1
+
+"Sasso":
+  varianti:
+    "Plòch":  # 1022 risposte
+      - "Plòch"  # 1021
+      - "Plòc"  # 1
+    "Sàss":  # 638 risposte
+      - "Sàss"  # 637
+      - "Sasso"  # 1
+    "Piòch":  # 54 risposte
+      - "Piòch"  # 19
+      - "Pioc"  # 8
+      - "Piòc"  # 8
+      - "Pioch"  # 6
+      - "piocch"  # 4
+      - "piòch"  # 2
+      - "Pióc"  # 2
+      - "pioc"  # 1
+      - "piòc"  # 1
+      - "Pióch"  # 1
+      - "pioch"  # 1
+      - "Pìoc"  # 1
+    "Corna":  # 47 risposte
+      - "Corna"  # 28
+      - "Còrna"  # 4
+      - "corna"  # 2
+      - "Cörna"  # 2
+      - "Córnò"  # 2
+      - "Cornò"  # 2
+      - "Cornö"  # 2
+      - "Còrnó"  # 1
+      - "Córna"  # 1
+      - "Corne"  # 1
+      - "Còrnò"  # 1
+      - "Cornó"  # 1
+    "Preda":  # 12 risposte  (rara)
+      - "Preda"  # 12
+    "Balót":  # 3 risposte  (rara)
+      - "Balót"  # 3
+    "Entrambe":  # 2 risposte  (rara)
+      - "Entrambe"  # 2
+    "Balot":  # 2 risposte  (rara)
+      - "Balot"  # 2
+    "Balòch":  # 1 risposte  (rara)
+      - "Balòch"  # 1
+    "piok":  # 1 risposte  (rara)
+      - "piok"  # 1
+    "Piòch, plòchada quando vine lanciato":  # 1 risposte  (rara)
+      - "Piòch, plòchada quando vine lanciato"  # 1
+    "Entrambi i modi":  # 1 risposte  (rara)
+      - "Entrambi i modi"  # 1
+    "Entrambi, forse di più sàss":  # 1 risposte  (rara)
+      - "Entrambi, forse di più sàss"  # 1
+    "Plòc: grande sàss: piccolo":  # 1 risposte  (rara)
+      - "Plòc: grande sàss: piccolo"  # 1
+    "Piòk":  # 1 risposte  (rara)
+      - "Piòk"  # 1
+    "plok":  # 1 risposte  (rara)
+      - "plok"  # 1
+    "Preda (in campagna, altrimenti plòch)":  # 1 risposte  (rara)
+      - "Preda (in campagna, altrimenti plòch)"  # 1
+    "preda":  # 1 risposte  (rara)
+      - "preda"  # 1
+    "Préda":  # 1 risposte  (rara)
+      - "Préda"  # 1
+    "Piòch con la i":  # 1 risposte  (rara)
+      - "Piòch con la i"  # 1
+    "juan musso":  # 1 risposte  (rara)
+      - "juan musso"  # 1
+    "Piok":  # 1 risposte  (rara)
+      - "Piok"  # 1
+    "Balòt":  # 1 risposte  (rara)
+      - "Balòt"  # 1
+    "Plòk":  # 1 risposte  (rara)
+      - "Plòk"  # 1
+    "Piók":  # 1 risposte  (rara)
+      - "Piók"  # 1
+    "Brocc":  # 1 risposte  (rara)
+      - "Brocc"  # 1
+    "Soc":  # 1 risposte  (rara)
+      - "Soc"  # 1
+    "Cogol":  # 1 risposte  (rara)
+      - "Cogol"  # 1
+  multiple:
+    - "Sia sàss che ploch in verità ahah"  # 1
+    - "Plòch oppure preda"  # 1
+    - "Plòch o Piòch"  # 1
+    - "Sàss o Plòch"  # 1
+  commenti:
+    - "sasso = sass pietra = ploch"  # 1
+    - "Dipende dalla grandezza, se piccolo sass, se grande corna"  # 1
+    - "Sàss: sasso piccolo, Plòch: sasso grande"  # 1
+    - "Sono due entità diverse: sasso piccolo sass; masso grande o sasso proveniente dal greto del fiume brembo ploch. Ploch usato anche figuratamente per indicare una grande dimensione di cibo non troppo appetitoso"  # 1
+    - "Sàss se piccolo, Plòch più grosso"  # 1
+    - "E’ in funzione della grandezza  Sass. Più piccolo ploch se grande"  # 1
+
+"Pop Corn":
+  varianti:
+    "s-cioparöle":  # 151 risposte
+      - "s-cioparöle"  # 149
+      - "s-scioparöle"  # 2
+    "méche":  # 131 risposte
+      - "méche"  # 131
+    "culumbine":  # 72 risposte
+      - "culumbine"  # 72
+    "s-ciuparöle":  # 38 risposte
+      - "s-ciuparöle"  # 38
+    "colombine":  # 21 risposte
+      - "colombine"  # 21
+    "culumbele":  # 9 risposte
+      - "culumbele"  # 9
+    "colombele":  # 5 risposte
+      - "colombele"  # 5
+    "Pop corn":  # 3 risposte  (rara)
+      - "Pop corn"  # 3
+    "pop corn":  # 2 risposte  (rara)
+      - "pop corn"  # 2
+    "Scutine":  # 2 risposte  (rara)
+      - "Scutine"  # 2
+    "Bombaröi":  # 2 risposte  (rara)
+      - "Bombaröi"  # 2
+    "Michine":  # 2 risposte  (rara)
+      - "Michine"  # 2
+    "michì":  # 2 risposte  (rara)
+      - "michì"  # 2
+    "Melgot":  # 2 risposte  (rara)
+      - "Melgot"  # 2
+    "Sciupù":  # 2 risposte  (rara)
+      - "Sciupù"  # 2
+    "Michí":  # 2 risposte  (rara)
+      - "Michí"  # 2
+    "Bescote":  # 1 risposte  (rara)
+      - "Bescote"  # 1
+    "puccurní":  # 1 risposte  (rara)
+      - "puccurní"  # 1
+    "Popcoren":  # 1 risposte  (rara)
+      - "Popcoren"  # 1
+    "S-ciupù":  # 1 risposte  (rara)
+      - "S-ciupù"  # 1
+    "s-ciüpi":  # 1 risposte  (rara)
+      - "s-ciüpi"  # 1
+    "Popicorn":  # 1 risposte  (rara)
+      - "Popicorn"  # 1
+    "Michitine":  # 1 risposte  (rara)
+      - "Michitine"  # 1
+    "S-ciupú":  # 1 risposte  (rara)
+      - "S-ciupú"  # 1
+    "Scutì":  # 1 risposte  (rara)
+      - "Scutì"  # 1
+    "Cornflex":  # 1 risposte  (rara)
+      - "Cornflex"  # 1
+    "Sciupu'":  # 1 risposte  (rara)
+      - "Sciupu'"  # 1
+    "pop corn o poccorn":  # 1 risposte  (rara)
+      - "pop corn o poccorn"  # 1
+    "Scüpù":  # 1 risposte  (rara)
+      - "Scüpù"  # 1
+    "Ol poccorn":  # 1 risposte  (rara)
+      - "Ol poccorn"  # 1
+    "Biscutì":  # 1 risposte  (rara)
+      - "Biscutì"  # 1
+    "Möcì":  # 1 risposte  (rara)
+      - "Möcì"  # 1
+    "Scutí":  # 1 risposte  (rara)
+      - "Scutí"  # 1
+    "s-ciopu":  # 1 risposte  (rara)
+      - "s-ciopu"  # 1
+    "S-ciupü":  # 1 risposte  (rara)
+      - "S-ciupü"  # 1
+    "melgà":  # 1 risposte  (rara)
+      - "melgà"  # 1
+    "Diaol cane mi cogli impreparato":  # 1 risposte  (rara)
+      - "Diaol cane mi cogli impreparato"  # 1
+    "Scütí":  # 1 risposte  (rara)
+      - "Scütí"  # 1
+    "Sciüpú":  # 1 risposte  (rara)
+      - "Sciüpú"  # 1
+    "S-ciopù":  # 1 risposte  (rara)
+      - "S-ciopù"  # 1
+    "S-ciopot":  # 1 risposte  (rara)
+      - "S-ciopot"  # 1
+    "Behcutí":  # 1 risposte  (rara)
+      - "Behcutí"  # 1
+    "Melgot sciopat":  # 1 risposte  (rara)
+      - "Melgot sciopat"  # 1
+    "Poccorn":  # 1 risposte  (rara)
+      - "Poccorn"  # 1
+    "Michì":  # 1 risposte  (rara)
+      - "Michì"  # 1
+    "Cünfète":  # 1 risposte  (rara)
+      - "Cünfète"  # 1
+    "Michéte":  # 1 risposte  (rara)
+      - "Michéte"  # 1
+    "Pöpcörn (tutto attacato)":  # 1 risposte  (rara)
+      - "Pöpcörn (tutto attacato)"  # 1
+    "S-ciupití":  # 1 risposte  (rara)
+      - "S-ciupití"  # 1
+    "Michete":  # 1 risposte  (rara)
+      - "Michete"  # 1
+    "Poc corn":  # 1 risposte  (rara)
+      - "Poc corn"  # 1
+  escluse:
+    - "SO MÌA"  # 1
+    - "Non lo so"  # 1
+    - "Non si dice"  # 1
+    - "Al so mia"  # 1
+
+"Roncola":
+  varianti:
+    "Podet":  # 943 risposte
+      - "Podet"  # 935
+      - "Pudet"  # 3
+      - "Podett"  # 1
+      - "Pudett"  # 1
+      - "Pudèt"  # 1
+      - "Püdet"  # 1
+      - "Pódèt"  # 1
+    "Pighess":  # 458 risposte
+      - "Pighess"  # 410
+      - "Pighesa"  # 11
+      - "Pighessot"  # 9
+      - "Pighet"  # 3
+      - "Pighessa"  # 3
+      - "Pighesot"  # 3
+      - "pighet"  # 2
+      - "Pighesòt"  # 1
+      - "pighesa"  # 1
+      - "Sighèss"  # 1
+      - "Pighessi"  # 1
+      - "Pighesót"  # 1
+      - "Pighessòp"  # 1
+      - "Pighésa"  # 1
+      - "pighessöt"  # 1
+      - "Pighésà"  # 1
+      - "Pighè(t)"  # 1
+      - "pighét"  # 1
+      - "Pieghesòt"  # 1
+      - "pighessot"  # 1
+      - "Pighesì"  # 1
+      - "Pighez"  # 1
+      - "Pighessót"  # 1
+      - "Pighè"  # 1
+    "Corlass":  # 234 risposte
+      - "Corlass"  # 230
+      - "Corlas"  # 1
+      - "corlasa"  # 1
+      - "Scorlas"  # 1
+      - "Scorlass"  # 1
+    "Pigassa":  # 175 risposte
+      - "Pigassa"  # 160
+      - "Pigazza"  # 6
+      - "Pegassa"  # 5
+      - "Pegasa"  # 1
+      - "pigassì"  # 1
+      - "pigazza"  # 1
+      - "Pigassì"  # 1
+    "Podeta":  # 65 risposte
+      - "Podeta"  # 26
+      - "Pudeta"  # 20
+      - "Podèta"  # 4
+      - "Podéta"  # 4
+      - "Püdeta"  # 2
+      - "podeta"  # 2
+      - "La podeta"  # 1
+      - "Pudetå"  # 1
+      - "Podétà"  # 1
+      - "Pùdeta"  # 1
+      - "podèta"  # 1
+      - "Pudèta"  # 1
+      - "La podèta"  # 1
+    "Fols":  # 37 risposte
+      - "Fols"  # 36
+      - "Folsc"  # 1
+    "Sblam":  # 9 risposte  (rara)
+      - "Sblam"  # 9
+    "Pigazzot":  # 6 risposte  (rara)
+      - "Pigazzot"  # 6
+    "Pighezzot":  # 6 risposte  (rara)
+      - "Pighezzot"  # 6
+    "Pegazza":  # 5 risposte  (rara)
+      - "Pegazza"  # 5
+    "Forset":  # 4 risposte  (rara)
+      - "Forset"  # 4
+    "Pighezzì":  # 3 risposte  (rara)
+      - "Pighezzì"  # 3
+    "pighezzot":  # 3 risposte  (rara)
+      - "pighezzot"  # 3
+    "Pighezot":  # 3 risposte  (rara)
+      - "Pighezot"  # 3
+    "Pudètò":  # 3 risposte  (rara)
+      - "Pudètò"  # 3
+    "Pigazzì":  # 3 risposte  (rara)
+      - "Pigazzì"  # 3
+    "Pudetö":  # 3 risposte  (rara)
+      - "Pudetö"  # 3
+    "furset":  # 2 risposte  (rara)
+      - "furset"  # 2
+    "Forsét":  # 2 risposte  (rara)
+      - "Forsét"  # 2
+    "Püdetò":  # 2 risposte  (rara)
+      - "Püdetò"  # 2
+    "Pudeto":  # 2 risposte  (rara)
+      - "Pudeto"  # 2
+    "Fursetù":  # 2 risposte  (rara)
+      - "Fursetù"  # 2
+    "Pudetò":  # 2 risposte  (rara)
+      - "Pudetò"  # 2
+    "Roncola":  # 2 risposte  (rara)
+      - "Roncola"  # 2
+    "Fursèt":  # 2 risposte  (rara)
+      - "Fursèt"  # 2
+    "Sblàm":  # 2 risposte  (rara)
+      - "Sblàm"  # 2
+    "Pigözz":  # 1 risposte  (rara)
+      - "Pigözz"  # 1
+    "Falset":  # 1 risposte  (rara)
+      - "Falset"  # 1
+    "Pigazót / sars":  # 1 risposte  (rara)
+      - "Pigazót / sars"  # 1
+    "Pigazzí\\ pigazöt":  # 1 risposte  (rara)
+      - "Pigazzí\\ pigazöt"  # 1
+    "Pighezzin":  # 1 risposte  (rara)
+      - "Pighezzin"  # 1
+    "pigazzot":  # 1 risposte  (rara)
+      - "pigazzot"  # 1
+    "Rasga":  # 1 risposte  (rara)
+      - "Rasga"  # 1
+    "Fürset":  # 1 risposte  (rara)
+      - "Fürset"  # 1
+    "Fursett":  # 1 risposte  (rara)
+      - "Fursett"  # 1
+    "Falcetto":  # 1 risposte  (rara)
+      - "Falcetto"  # 1
+    "Pudaröl":  # 1 risposte  (rara)
+      - "Pudaröl"  # 1
+    "Pigazot":  # 1 risposte  (rara)
+      - "Pigazot"  # 1
+    "Pegassì":  # 1 risposte  (rara)
+      - "Pegassì"  # 1
+    "Pudöröla":  # 1 risposte  (rara)
+      - "Pudöröla"  # 1
+    "Pudèto":  # 1 risposte  (rara)
+      - "Pudèto"  # 1
+    "Püdètó":  # 1 risposte  (rara)
+      - "Püdètó"  # 1
+    "piguet":  # 1 risposte  (rara)
+      - "piguet"  # 1
+    "Pegazot":  # 1 risposte  (rara)
+      - "Pegazot"  # 1
+    "Segrusell":  # 1 risposte  (rara)
+      - "Segrusell"  # 1
+    "Ma il paese?":  # 1 risposte  (rara)
+      - "Ma il paese?"  # 1
+    "Puditì":  # 1 risposte  (rara)
+      - "Puditì"  # 1
+    "Seghess":  # 1 risposte  (rara)
+      - "Seghess"  # 1
+    "Püderola":  # 1 risposte  (rara)
+      - "Püderola"  # 1
+    "Pigazzott":  # 1 risposte  (rara)
+      - "Pigazzott"  # 1
+    "Pighesa/Pigheza":  # 1 risposte  (rara)
+      - "Pighesa/Pigheza"  # 1
+    "Folc":  # 1 risposte  (rara)
+      - "Folc"  # 1
+    "Pudetù":  # 1 risposte  (rara)
+      - "Pudetù"  # 1
+    "Forsèt":  # 1 risposte  (rara)
+      - "Forsèt"  # 1
+    "pighezzót":  # 1 risposte  (rara)
+      - "pighezzót"  # 1
+    "Ransa":  # 1 risposte  (rara)
+      - "Ransa"  # 1
+    "Ol pighezzot":  # 1 risposte  (rara)
+      - "Ol pighezzot"  # 1
+    "Falceta":  # 1 risposte  (rara)
+      - "Falceta"  # 1
+    "Roncola bassa":  # 1 risposte  (rara)
+      - "Roncola bassa"  # 1
+    "Pighezì":  # 1 risposte  (rara)
+      - "Pighezì"  # 1
+    "al falci per l'erba":  # 1 risposte  (rara)
+      - "al falci per l'erba"  # 1
+    "Pegaza":  # 1 risposte  (rara)
+      - "Pegaza"  # 1
+    "Fursí":  # 1 risposte  (rara)
+      - "Fursí"  # 1
+    "püdetô":  # 1 risposte  (rara)
+      - "püdetô"  # 1
+    "puderola":  # 1 risposte  (rara)
+      - "puderola"  # 1
+    "Püdaröla":  # 1 risposte  (rara)
+      - "Püdaröla"  # 1
+    "Pighezza":  # 1 risposte  (rara)
+      - "Pighezza"  # 1
+    "Pighezzòt":  # 1 risposte  (rara)
+      - "Pighezzòt"  # 1
+    "Pighezzí":  # 1 risposte  (rara)
+      - "Pighezzí"  # 1
+    "Sgúr":  # 1 risposte  (rara)
+      - "Sgúr"  # 1
+    "Falcètt":  # 1 risposte  (rara)
+      - "Falcètt"  # 1
+    "Pudetô":  # 1 risposte  (rara)
+      - "Pudetô"  # 1
+  multiple:
+    - "Pighess e corlas"  # 1
+    - "Podet o podeta"  # 1
+    - "Pudeta o Podeta"  # 1
+    - "Corlas o corlasa"  # 1
+  commenti:
+    - "Mio padre dice che il corlass é diverso, tipo squadrato col manico ahahahah"  # 1
+    - "Podet O La podeta. Mi è arrivata in testa da piccolo. ogni volta che racconto l’avvenuto a i non bergamaschi, mi chiedono: oddio ma cosa è?…"  # 1
+    - "Di più PIGHESS ma ho sentito dire anche pighesa"  # 1
+    - "Podet per legna, pighess era simile ma per l'erba se non sbaglio"  # 1
+
+"Imbuto":
+  varianti:
+    "Pedriöl":  # 1171 risposte
+      - "Pedriöl"  # 1156
+      - "Pedreöl"  # 6
+      - "Pidriöl"  # 5
+      - "pedröl"  # 1
+      - "Pedròl"  # 1
+      - "Bedriöl"  # 1
+      - "Padriöl"  # 1
+    "Turtaröl":  # 56 risposte
+      - "Turtaröl"  # 52
+      - "Törtarol"  # 1
+      - "Tortáröl"  # 1
+      - "Tortaröl"  # 1
+      - "Törtaröl"  # 1
+    "Imbuto":  # 2 risposte  (rara)
+      - "Imbuto"  # 2
+    "Imbuch":  # 1 risposte  (rara)
+      - "Imbuch"  # 1
+    "Pedre":  # 1 risposte  (rara)
+      - "Pedre"  # 1
+    "Turcèl":  # 1 risposte  (rara)
+      - "Turcèl"  # 1
+    "Törtöröl":  # 1 risposte  (rara)
+      - "Törtöröl"  # 1
+    "mbüt":  # 1 risposte  (rara)
+      - "mbüt"  # 1
+    "Túrturì":  # 1 risposte  (rara)
+      - "Túrturì"  # 1
+    "Imböt":  # 1 risposte  (rara)
+      - "Imböt"  # 1
+    "Turturí":  # 1 risposte  (rara)
+      - "Turturí"  # 1
+    "ol laur":  # 1 risposte  (rara)
+      - "ol laur"  # 1
+    "Chel laur le":  # 1 risposte  (rara)
+      - "Chel laur le"  # 1
+    "Crogiöl":  # 1 risposte  (rara)
+      - "Crogiöl"  # 1
+    "Budriöl":  # 1 risposte  (rara)
+      - "Budriöl"  # 1
+
+"Fiammifero":
+  varianti:
+    "Solfanèl":  # 537 risposte
+      - "Solfanèl"  # 523
+      - "Sulfanèl"  # 4
+      - "Sorfanèl"  # 3
+      - "Sorfanel"  # 2
+      - "sonfanel"  # 1
+      - "Sufanèl"  # 1
+      - "Szulfanèl"  # 1
+      - "Sofanèl"  # 1
+      - "Sufanel"  # 1
+    "Fiamifer":  # 333 risposte
+      - "Fiamifer"  # 333
+    "Solferì":  # 153 risposte
+      - "Solferì"  # 149
+      - "Sulferì"  # 4
+    "Fölminànt":  # 34 risposte
+      - "Fölminànt"  # 33
+      - "Fömenànt"  # 1
+    "Zac":  # 6 risposte  (rara)
+      - "Zac"  # 6
+    "Sufranèl":  # 3 risposte  (rara)
+      - "Sufranèl"  # 3
+    "Sulfer":  # 2 risposte  (rara)
+      - "Sulfer"  # 2
+    "Fümenànt":  # 1 risposte  (rara)
+      - "Fümenànt"  # 1
+    "sufranél":  # 1 risposte  (rara)
+      - "sufranél"  # 1
+    "Zufranel":  # 1 risposte  (rara)
+      - "Zufranel"  # 1
+    "Sufrinel":  # 1 risposte  (rara)
+      - "Sufrinel"  # 1
+    "Fümenant":  # 1 risposte  (rara)
+      - "Fümenant"  # 1
+    "förmènál":  # 1 risposte  (rara)
+      - "förmènál"  # 1
+    "Súfranél":  # 1 risposte  (rara)
+      - "Súfranél"  # 1
+    "Sufferì":  # 1 risposte  (rara)
+      - "Sufferì"  # 1
+    "Sufranel":  # 1 risposte  (rara)
+      - "Sufranel"  # 1
+    "Súlfer":  # 1 risposte  (rara)
+      - "Súlfer"  # 1
+    "cerí":  # 1 risposte  (rara)
+      - "cerí"  # 1
+    "Sufèr":  # 1 risposte  (rara)
+      - "Sufèr"  # 1
+    "Sùlfer":  # 1 risposte  (rara)
+      - "Sùlfer"  # 1
+    "Sürfanel":  # 1 risposte  (rara)
+      - "Sürfanel"  # 1
+    "Sufferi'":  # 1 risposte  (rara)
+      - "Sufferi'"  # 1
+    "Cerino":  # 1 risposte  (rara)
+      - "Cerino"  # 1
+    "Serí":  # 1 risposte  (rara)
+      - "Serí"  # 1
+    "Zaac":  # 1 risposte  (rara)
+      - "Zaac"  # 1
+    "Fumenant":  # 1 risposte  (rara)
+      - "Fumenant"  # 1
+    "Sufferí":  # 1 risposte  (rara)
+      - "Sufferí"  # 1
+    "Zàc":  # 1 risposte  (rara)
+      - "Zàc"  # 1
+    "Sufranel/fülminant":  # 1 risposte  (rara)
+      - "Sufranel/fülminant"  # 1
+  multiple:
+    - "Sia fiamifer che solfanel"  # 1
+
+"coperchio":
+  varianti:
+    "Coèrcc":  # 1343 risposte
+      - "Coèrcc"  # 1338
+      - "Coerc"  # 2
+      - "Coèrt"  # 1
+      - "Coperc"  # 1
+      - "Coercol"  # 1
+    "Taèl":  # 51 risposte
+      - "Taèl"  # 47
+      - "Teèl"  # 2
+      - "Tàelì"  # 1
+      - "Tarel"  # 1
+    "Cuèrcc":  # 38 risposte
+      - "Cuèrcc"  # 23
+      - "Cuercc"  # 4
+      - "Cuerrc"  # 1
+      - "cuerc"  # 1
+      - "Cuaércc"  # 1
+      - "Cuerc"  # 1
+      - "Cuaerc"  # 1
+      - "Cúercól"  # 1
+      - "Cuaercc"  # 1
+      - "Cuaèrcc"  # 1
+      - "Cuaèrch"  # 1
+      - "cuaèrcc"  # 1
+      - "Cüercol"  # 1
+    "Cuérciöl":  # 1 risposte  (rara)
+      - "Cuérciöl"  # 1
+    "Stupàcc":  # 1 risposte  (rara)
+      - "Stupàcc"  # 1
+  commenti:
+    - "Coèrcc però anche \"il robo lì\" come il 90% delle cose perchè sono una bestia"  # 1
+    - "Vivo in canada ! Ma il bergamasco me lo ricordo 😁 cmq giusta la prima 😀 coercc"  # 1
+
+"talpa":
+  varianti:
+    "tópa":  # 282 risposte
+      - "tópa"  # 281
+      - "Tolpa"  # 1
+    "topinéra":  # 120 risposte
+      - "topinéra"  # 115
+      - "tupinéra"  # 1
+      - "Topina"  # 1
+      - "Tupinera"  # 1
+      - "Toppignera"  # 1
+      - "Tupinéra"  # 1
+    "tarfù":  # 69 risposte
+      - "tarfù"  # 68
+      - "tarpù"  # 1
+    "Talpa":  # 22 risposte
+      - "Talpa"  # 10
+      - "talpa"  # 4
+      - "Tapa"  # 2
+      - "Talpù"  # 2
+      - "Tápa"  # 1
+      - "Talpùna"  # 1
+      - "tapa"  # 1
+      - "Talpö"  # 1
+    "Tapinera":  # 22 risposte
+      - "Tapinera"  # 10
+      - "Tapenera"  # 4
+      - "tapinera"  # 3
+      - "Tapinéra"  # 3
+      - "tapenèra"  # 1
+      - "tapinéra"  # 1
+    "Tupina":  # 16 risposte
+      - "Tupina"  # 9
+      - "Tüpina"  # 2
+      - "tupina"  # 1
+      - "Tùpina"  # 1
+      - "Tupìna"  # 1
+      - "Tupína"  # 1
+      - "Tupí"  # 1
+    "farfù":  # 6 risposte
+      - "farfù"  # 6
+    "busa":  # 2 risposte  (rara)
+      - "busa"  # 2
+    "Buse (senza la ü)":  # 1 risposte  (rara)
+      - "Buse (senza la ü)"  # 1
+    "Trepuna":  # 1 risposte  (rara)
+      - "Trepuna"  # 1
+    "sórega":  # 1 risposte  (rara)
+      - "sórega"  # 1
+    "Talpö/tupì":  # 1 risposte  (rara)
+      - "Talpö/tupì"  # 1
+    "Trapunara":  # 1 risposte  (rara)
+      - "Trapunara"  # 1
+    "Trépuna":  # 1 risposte  (rara)
+      - "Trépuna"  # 1
+    "Trepùna":  # 1 risposte  (rara)
+      - "Trepùna"  # 1
+  commenti:
+    - "Questa è difficile e non la so"  # 1
+
+"ragnatela":
+  varianti:
+    "Tiramola":  # 677 risposte
+      - "Tiramola"  # 669
+      - "Taramola"  # 5
+      - "Teramola"  # 1
+      - "Tirimola"  # 1
+      - "Tiramoia"  # 1
+    "Telemora":  # 246 risposte
+      - "Telemora"  # 232
+      - "Telamora"  # 9
+      - "Teremora"  # 1
+      - "tilemora"  # 1
+      - "Telemura"  # 1
+      - "telamora"  # 1
+      - "Telemoro"  # 1
+    "Talamora":  # 99 risposte
+      - "Talamora"  # 78
+      - "Taramora"  # 5
+      - "Talamore"  # 5
+      - "talamora"  # 4
+      - "Talimora"  # 4
+      - "Talamóra"  # 2
+      - "Tálamora"  # 1
+    "Tilamora":  # 50 risposte
+      - "Tilamora"  # 50
+    "Tilimora":  # 44 risposte
+      - "Tilimora"  # 42
+      - "Tirimora"  # 2
+    "Telimora":  # 44 risposte
+      - "Telimora"  # 37
+      - "telimora"  # 6
+      - "Telimöra"  # 1
+    "Tiramora":  # 43 risposte
+      - "Tiramora"  # 32
+      - "Tiramore"  # 4
+      - "tiramora"  # 2
+      - "Teramora"  # 2
+      - "Tiramóra"  # 2
+      - "Tiramura"  # 1
+    "Porana":  # 20 risposte
+      - "Porana"  # 15
+      - "Porane"  # 3
+      - "porana"  # 1
+      - "Poràna"  # 1
+    "Ragnatela":  # 5 risposte  (rara)
+      - "Ragnatela"  # 5
+    "Ragnera":  # 3 risposte  (rara)
+      - "Ragnera"  # 3
+    "Ragnadela":  # 3 risposte  (rara)
+      - "Ragnadela"  # 3
+    "ragnatela":  # 2 risposte  (rara)
+      - "ragnatela"  # 2
+    "Calamore":  # 1 risposte  (rara)
+      - "Calamore"  # 1
+    "Pürada":  # 1 risposte  (rara)
+      - "Pürada"  # 1
+    "Ragnáda":  # 1 risposte  (rara)
+      - "Ragnáda"  # 1
+    "Ragnatéla":  # 1 risposte  (rara)
+      - "Ragnatéla"  # 1
+    "Sburda":  # 1 risposte  (rara)
+      - "Sburda"  # 1
+    "Ragnér":  # 1 risposte  (rara)
+      - "Ragnér"  # 1
+    "Ragnadèle":  # 1 risposte  (rara)
+      - "Ragnadèle"  # 1
+    "Sbursola":  # 1 risposte  (rara)
+      - "Sbursola"  # 1
+    "Taramore":  # 1 risposte  (rara)
+      - "Taramore"  # 1
+    "Sida":  # 1 risposte  (rara)
+      - "Sida"  # 1
+  multiple:
+    - "telamora o talamora"  # 1
+    - "Talamora o Telimora"  # 1
+  commenti:
+    - "ngl non ho mai detto ragnatela in tutta la mia vita"  # 1
+  escluse:
+    - "Al so mia"  # 1
+
+"tasca":
+  varianti:
+    "Scarsèla":  # 1005 risposte
+      - "Scarsèla"  # 987
+      - "Carsèla"  # 12
+      - "carsèla"  # 1
+      - "carsela"  # 1
+      - "Caraèla"  # 1
+      - "Carsela"  # 1
+      - "carséla"  # 1
+      - "Scarhèla"  # 1
+    "Sacòcia":  # 460 risposte
+      - "Sacòcia"  # 443
+      - "Secòcia"  # 9
+      - "Secocia"  # 4
+      - "Sicocia"  # 1
+      - "Sécocia"  # 1
+      - "Sicòcia"  # 1
+      - "secocia"  # 1
+    "Gaiòfa":  # 175 risposte
+      - "Gaiòfa"  # 174
+      - "Goiofa"  # 1
+    "Guèfo":  # 1 risposte  (rara)
+      - "Guèfo"  # 1
+    "Guèfa":  # 1 risposte  (rara)
+      - "Guèfa"  # 1
+    "Guéfò":  # 1 risposte  (rara)
+      - "Guéfò"  # 1
+    "2000":  # 1 risposte  (rara)
+      - "2000"  # 1
+    "Tasca":  # 1 risposte  (rara)
+      - "Tasca"  # 1
+    "Guefa":  # 1 risposte  (rara)
+      - "Guefa"  # 1
+    "Le prime due":  # 1 risposte  (rara)
+      - "Le prime due"  # 1
+    "Sachelò":  # 1 risposte  (rara)
+      - "Sachelò"  # 1
+    "Carsèla/carhela":  # 1 risposte  (rara)
+      - "Carsèla/carhela"  # 1
+    "Guéfò oppure sacòció":  # 1 risposte  (rara)
+      - "Guéfò oppure sacòció"  # 1
+    "Guèfò":  # 1 risposte  (rara)
+      - "Guèfò"  # 1
+  multiple:
+    - "Scarsèla/sacòcia"  # 1
+    - "Scarsèla o sacòcia"  # 1
+    - "Sia scarsèla che sacòcia"  # 1
+    - "Scarsèla e Gaiòfa"  # 1
+  commenti:
+    - "da parte di papà (gazzaniga) sacòcia e da parte di mamma (nembro) scarsèla, io dico entrambe ahah"  # 1
+    - "Tutti e tre nella mia famiglia vengono utilizzati come termini"  # 1
+
+"cotechino grigliato":
+  varianti:
+    "Codeghì":  # 467 risposte
+      - "Codeghì"  # 467
+    "Strinù":  # 439 risposte
+      - "Strinù"  # 439
+    "Cudeghì":  # 377 risposte
+      - "Cudeghì"  # 373
+      - "Cudighì"  # 1
+      - "cudighì"  # 1
+      - "Cuteghì"  # 1
+      - "cudighí"  # 1
+    "Salamina":  # 10 risposte  (rara)
+      - "Salamina"  # 10
+    "Salamèla":  # 6 risposte  (rara)
+      - "Salamèla"  # 6
+    "Salamela":  # 4 risposte  (rara)
+      - "Salamela"  # 4
+    "Vegana!!!!!! 😜":  # 1 risposte  (rara)
+      - "Vegana!!!!!! 😜"  # 1
+    "U Zambon":  # 1 risposte  (rara)
+      - "U Zambon"  # 1
+    "Cigutì":  # 1 risposte  (rara)
+      - "Cigutì"  # 1
+  multiple:
+    - "Sia strinù che cudeghì"  # 1
+    - "Sia codeghì che strinù"  # 1
+    - "Cudeghì o Salamèla"  # 1
+    - "Cudeghì e/o Strinù"  # 1
+  commenti:
+    - "Strinù solo se accompagnato dal \"pà\" altrimenti salamella"  # 1
+    - "Chi non lo chiama strinù non è bergamasco"  # 1
+    - "Il cotechino si fa solo bollito. Lo strinù (grigliato) si fa con le salsicce di misto"  # 1
+    - "Strinù è cotto strinato, sulla piastra/griglia. codeghì è crudo, bollito ecc..."  # 1
+
+"orologio":
+  varianti:
+    "Orolòi":  # 414 risposte
+      - "Orolòi"  # 392
+      - "Orlòi"  # 6
+      - "Orlói"  # 3
+      - "Orolòc"  # 2
+      - "oroloi"  # 2
+      - "Orloi"  # 2
+      - "Oroloi"  # 1
+      - "Örolòi"  # 1
+      - "Oròloi"  # 1
+      - "Rolói"  # 1
+      - "Oroloc"  # 1
+      - "Rolòi"  # 1
+      - "Orolog"  # 1
+    "Leròi":  # 240 risposte
+      - "Leròi"  # 237
+      - "Eròi"  # 2
+      - "leròe"  # 1
+    "Urlòi":  # 147 risposte
+      - "Urlòi"  # 144
+      - "Urulòi"  # 2
+      - "rulòi"  # 1
+    "Relòi":  # 107 risposte
+      - "Relòi"  # 106
+      - "relòc"  # 1
+    "Urelòc":  # 4 risposte  (rara)
+      - "Urelòc"  # 4
+    "Urelócc":  # 2 risposte  (rara)
+      - "Urelócc"  # 2
+    "Urelóch":  # 1 risposte  (rara)
+      - "Urelóch"  # 1
+    "Orolóch":  # 1 risposte  (rara)
+      - "Orolóch"  # 1
+    "Urelòch":  # 1 risposte  (rara)
+      - "Urelòch"  # 1
+    "Urelòcc/uralòcc":  # 1 risposte  (rara)
+      - "Urelòcc/uralòcc"  # 1
+    "Uréloc":  # 1 risposte  (rara)
+      - "Uréloc"  # 1
+    "Uraloch":  # 1 risposte  (rara)
+      - "Uraloch"  # 1
+    "Örolöch":  # 1 risposte  (rara)
+      - "Örolöch"  # 1
+    "uralòc":  # 1 risposte  (rara)
+      - "uralòc"  # 1
+    "Ureloc (con la c dolce)":  # 1 risposte  (rara)
+      - "Ureloc (con la c dolce)"  # 1
+    "Urulòc":  # 1 risposte  (rara)
+      - "Urulòc"  # 1
+    "Cambròi":  # 1 risposte  (rara)
+      - "Cambròi"  # 1
+    "Uralöć":  # 1 risposte  (rara)
+      - "Uralöć"  # 1
+    "Ürelòc":  # 1 risposte  (rara)
+      - "Ürelòc"  # 1
+    "Uraloch o uroloi":  # 1 risposte  (rara)
+      - "Uraloch o uroloi"  # 1
+    "Urelocc":  # 1 risposte  (rara)
+      - "Urelocc"  # 1
+
+"ciabatta":
+  varianti:
+    "sibra":  # 819 risposte
+      - "sibra"  # 796
+      - "Sibreta"  # 9
+      - "sibreta"  # 4
+      - "Zibra"  # 4
+      - "Sibrèta"  # 2
+      - "Sibrëta"  # 1
+      - "Síbra"  # 1
+      - "Sibrò"  # 1
+      - "Sibréta"  # 1
+    "sébra":  # 410 risposte
+      - "sébra"  # 395
+      - "Zébra"  # 3
+      - "Zebra"  # 2
+      - "zébra (z dura)"  # 1
+      - "Zebra."  # 1
+      - "zébra"  # 1
+      - "SZèbra"  # 1
+      - "Seber"  # 1
+      - "seber"  # 1
+      - "Zèbra"  # 1
+      - "Sėbreta"  # 1
+      - "Séber"  # 1
+      - "Zébra (letto tsébra)"  # 1
+    "saàta":  # 160 risposte
+      - "saàta"  # 151
+      - "Sapata"  # 5
+      - "Saàbata"  # 1
+      - "Sapáta"  # 1
+      - "sapata"  # 1
+      - "Sapàta"  # 1
+    "söbra":  # 128 risposte
+      - "söbra"  # 112
+      - "Zöbra"  # 8
+      - "Zöbbra"  # 2
+      - "Tsöbra"  # 2
+      - "zzöbra"  # 1
+      - "Zzöbra"  # 1
+      - "Höbra"  # 1
+      - "zöbra"  # 1
+    "Hapata":  # 2 risposte  (rara)
+      - "Hapata"  # 2
+    "Hibràtulo":  # 1 risposte  (rara)
+      - "Hibràtulo"  # 1
+    "Tzöbra o Tzibra":  # 1 risposte  (rara)
+      - "Tzöbra o Tzibra"  # 1
+    "S semi muta":  # 1 risposte  (rara)
+      - "S semi muta"  # 1
+    "Zibra perché siamo di Brembilla":  # 1 risposte  (rara)
+      - "Zibra perché siamo di Brembilla"  # 1
+    "Zöbra o zöbreta":  # 1 risposte  (rara)
+      - "Zöbra o zöbreta"  # 1
+    "Hàpata":  # 1 risposte  (rara)
+      - "Hàpata"  # 1
+    "Ciábátà":  # 1 risposte  (rara)
+      - "Ciábátà"  # 1
+    "Sibratula":  # 1 risposte  (rara)
+      - "Sibratula"  # 1
+    "Sambróch":  # 1 risposte  (rara)
+      - "Sambróch"  # 1
+    "tzibra":  # 1 risposte  (rara)
+      - "tzibra"  # 1
+    "Zöbra/zöbreta":  # 1 risposte  (rara)
+      - "Zöbra/zöbreta"  # 1
+    "zzöbra/ zzöbreta":  # 1 risposte  (rara)
+      - "zzöbra/ zzöbreta"  # 1
+    "Sibra singola sébre plurale":  # 1 risposte  (rara)
+      - "Sibra singola sébre plurale"  # 1
+    "Ciabatta💀":  # 1 risposte  (rara)
+      - "Ciabatta💀"  # 1
+    "Zibre":  # 1 risposte  (rara)
+      - "Zibre"  # 1
+    "Hapàta":  # 1 risposte  (rara)
+      - "Hapàta"  # 1
+    "Sibràtulò":  # 1 risposte  (rara)
+      - "Sibràtulò"  # 1
+  multiple:
+    - "Sia sébra che sibra"  # 1
+    - "Sibra o anche zibra"  # 1
+    - "Söbra/Höbra (s pronunciata con h aspirata)"  # 1
+    - "Saata o sebra"  # 1
+    - "Sébra e saàta"  # 1
+    - "Sibra o sivra"  # 1
+    - "Zébra o sébra"  # 1
+  commenti:
+    - "Zebra con la z molto marcata"  # 1
+    - "Zöbrèta (con la Z letta come TS)"  # 1
+    - "Zebra (con la z pronunciata ts)"  # 1
+    - "Zöbra (a Gandino mettiamo sempre la Z ahah)"  # 1
+
+"maiale":
+  varianti:
+    "Sunì":  # 988 risposte
+      - "Sunì"  # 983
+      - "Suní"  # 4
+      - "Sünì"  # 1
+    "Porsèl":  # 532 risposte
+      - "Porsèl"  # 525
+      - "Porsél"  # 4
+      - "Porsel"  # 1
+      - "Ol pörsel"  # 1
+      - "Porhèl"  # 1
+    "Pursèl":  # 230 risposte
+      - "Pursèl"  # 229
+      - "Purscèl"  # 1
+    "Ciù":  # 124 risposte
+      - "Ciù"  # 123
+      - "Ciùc"  # 1
+    "Roi":  # 87 risposte
+      - "Roi"  # 87
+    "Cì":  # 51 risposte
+      - "Cì"  # 51
+    "Bresà":  # 34 risposte
+      - "Bresà"  # 22
+      - "Bresá"  # 5
+      - "bresà"  # 3
+      - "Bresa"  # 1
+      - "Bressà"  # 1
+      - "BRESÀ"  # 1
+      - "Brèsa"  # 1
+    "Ciunì":  # 30 risposte
+      - "Ciunì"  # 24
+      - "Ciùnì"  # 2
+      - "ciunì"  # 1
+      - "Ciùni"  # 1
+      - "Ciuní"  # 1
+      - "Ciuni"  # 1
+    "Bresciano":  # 19 risposte  (rara)
+      - "Bresciano"  # 19
+    "Zù":  # 6 risposte  (rara)
+      - "Zù"  # 6
+    "Zú":  # 5 risposte  (rara)
+      - "Zú"  # 5
+    "bresciano":  # 3 risposte  (rara)
+      - "bresciano"  # 3
+    "Zu":  # 2 risposte  (rara)
+      - "Zu"  # 2
+    "Zzú":  # 2 risposte  (rara)
+      - "Zzú"  # 2
+    "Purcel o porcel":  # 1 risposte  (rara)
+      - "Purcel o porcel"  # 1
+    "Tutti tranne Roi":  # 1 risposte  (rara)
+      - "Tutti tranne Roi"  # 1
+    "Roi, porsèl, bresà":  # 1 risposte  (rara)
+      - "Roi, porsèl, bresà"  # 1
+    "si pursèl che sunì":  # 1 risposte  (rara)
+      - "si pursèl che sunì"  # 1
+    "Cuadrado":  # 1 risposte  (rara)
+      - "Cuadrado"  # 1
+    "zu":  # 1 risposte  (rara)
+      - "zu"  # 1
+    "Hunì":  # 1 risposte  (rara)
+      - "Hunì"  # 1
+    "Hi aspirato":  # 1 risposte  (rara)
+      - "Hi aspirato"  # 1
+    "zù":  # 1 risposte  (rara)
+      - "zù"  # 1
+    "zunì":  # 1 risposte  (rara)
+      - "zunì"  # 1
+    "Qualsiasi giocatore del Brescia":  # 1 risposte  (rara)
+      - "Qualsiasi giocatore del Brescia"  # 1
+    "zzù":  # 1 risposte  (rara)
+      - "zzù"  # 1
+    "Brescia...no mi dissocio":  # 1 risposte  (rara)
+      - "Brescia...no mi dissocio"  # 1
+    "tzùnì":  # 1 risposte  (rara)
+      - "tzùnì"  # 1
+    "Bresa suni":  # 1 risposte  (rara)
+      - "Bresa suni"  # 1
+    "Bresciani":  # 1 risposte  (rara)
+      - "Bresciani"  # 1
+    "Sunì in senso dispregiativo":  # 1 risposte  (rara)
+      - "Sunì in senso dispregiativo"  # 1
+    "Zü":  # 1 risposte  (rara)
+      - "Zü"  # 1
+    "\"Tuo padre era un maiale\"":  # 1 risposte  (rara)
+      - "\"Tuo padre era un maiale\""  # 1
+  multiple:
+    - "Sia roi che porsèl"  # 2
+    - "Sunì o meglio bresciano"  # 1
+    - "Ciù/Ciuní/porsèl"  # 1
+    - "Sia sunì che porsèl"  # 1
+    - "Roi e Sunì per i bresciani"  # 1
+    - "Tzù o sunì"  # 1
+    - "Porsel/Sunì"  # 1
+    - "Porsèl o sunì"  # 1
+    - "Roi porsèl e sunì"  # 1
+    - "Pursèl e roi"  # 1
+    - "Sunì o pursèl"  # 1
+    - "Sunì/Bresà"  # 1
+    - "Porsèl/Suì"  # 1
+    - "Suni e porsel"  # 1
+    - "Hunì o porsèl"  # 1
+    - "Sunì e anche Porsèl"  # 1
+    - "Sunì/ Ciùní/ Pursel/ Porsèl"  # 1
+    - "Bresà / brehà (bresciano)"  # 1
+    - "Sunì/Roi"  # 1
+    - "Sunì/Cì"  # 1
+  commenti:
+    - "Di solito Sunì, però \"Bresà\" è un sinonimo molto utilizzato"  # 1
+    - "Zunì ma anche solo Zu (a Gandino si usa spesso la Z morbida, non alla Zorro ma in stile \"ts\")"  # 1
+    - "Porsèl è usato dai paesi Montanari... Detto da nonna"  # 1
+    - "Zù (zunì é un maiale piccolo)"  # 1
+    - "Sunì per i bresciani, cì/sunì per l'animale e pursèl per una persona furba o che si comporta da porco"  # 1
+    - "Porcel e suni. Dipende dal contesto"  # 1
+    - "Porsel suni o roi, dipende se si parla del mais o se si sta facendo un insulto e anche quanto è pesante"  # 1
+
+"grembiule":
+  varianti:
+    "bigaröla":  # 458 risposte
+      - "bigaröla"  # 456
+      - "begaröla"  # 1
+      - "Begaröla"  # 1
+    "scossàl":  # 318 risposte
+      - "scossàl"  # 311
+      - "Scosàl"  # 2
+      - "Scosàl (una s sola)"  # 1
+      - "Scösaléta"  # 1
+      - "Scohal"  # 1
+      - "scosàl"  # 1
+      - "Scosaleta"  # 1
+    "bigaröl":  # 220 risposte
+      - "bigaröl"  # 212
+      - "Begaröl"  # 3
+      - "Begarol"  # 2
+      - "begarol"  # 1
+      - "begaröl"  # 1
+      - "ol begaröl"  # 1
+    "scossalina":  # 124 risposte
+      - "scossalina"  # 123
+      - "scöhalina"  # 1
+    "scussàl":  # 94 risposte
+      - "scussàl"  # 94
+    "scussalina":  # 50 risposte
+      - "scussalina"  # 50
+    "bigarla":  # 45 risposte
+      - "bigarla"  # 45
+    "scossalì":  # 39 risposte
+      - "scossalì"  # 39
+    "scussàlì":  # 27 risposte
+      - "scussàlì"  # 26
+      - "scuhalì"  # 1
+    "bigarlina":  # 26 risposte
+      - "bigarlina"  # 16
+      - "bigarlì"  # 6
+      - "Begarlina"  # 2
+      - "Bigherlina"  # 1
+      - "Begarlìna"  # 1
+    "grembiöl":  # 2 risposte  (rara)
+      - "grembiöl"  # 2
+    "Grembiöl":  # 1 risposte  (rara)
+      - "Grembiöl"  # 1
+    "Bigarla, scossàl, scossalina":  # 1 risposte  (rara)
+      - "Bigarla, scossàl, scossalina"  # 1
+    "Grembiül":  # 1 risposte  (rara)
+      - "Grembiül"  # 1
+    "Grembiol":  # 1 risposte  (rara)
+      - "Grembiol"  # 1
+    "Bighela":  # 1 risposte  (rara)
+      - "Bighela"  # 1
+    "Hcohal":  # 1 risposte  (rara)
+      - "Hcohal"  # 1
+    "LI USO TUTTI":  # 1 risposte  (rara)
+      - "LI USO TUTTI"  # 1
+    "Grembiôl":  # 1 risposte  (rara)
+      - "Grembiôl"  # 1
+    "Grembiüil":  # 1 risposte  (rara)
+      - "Grembiüil"  # 1
+    "Scoĥalí, scoĥal, bigaröl":  # 1 risposte  (rara)
+      - "Scoĥalí, scoĥal, bigaröl"  # 1
+  multiple:
+    - "grembiül o bigaröl"  # 1
+    - "Scussalina e scussal"  # 1
+    - "Sia bigarola che scosal"  # 1
+    - "sia scossàl che bigaröla"  # 1
+    - "Intercambiabili scussalina e bigaröla"  # 1
+    - "Scosàl e bigaröla"  # 1
+    - "Bigarola o scosalina"  # 1
+    - "Bigarol/bigarola"  # 1
+  commenti:
+    - "Sia bigaröla sia scossàl. Il primo quando sei tranquillo, il secondo quando sei incazzato"  # 1
+    - "scossàl e bigaröla indifferentemente  . Scossalina la versione “fino al collo”."  # 1
+    - "Bigarôl e scossàl sono due cose diverse...ol scossàl è l'abito intero da casa... Ol bigheröl è solo la parte bassa,dalla pancia in giù"  # 1
+    - "Scossàl per il grembiule intero- bigaröla per il grembiule da legare in vita"  # 1
+    - "Grembiöl (mio nonno lo chiama così)"  # 1
+    - "Grembiule nel senso di vestito scossàl, ma grembiule da cucina bigaröla totale"  # 1
+    - "Ma bigaröla e scossàl sono due cose diverse!!!!"  # 1

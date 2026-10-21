@@ -1,200 +1,141 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import BergamoMap from '../components/BergamoMap.astro';
-import { words } from '../data/words';
+import HexMap from '../components/HexMap.astro';
+import { elenco, numero, pct, riepiloghi, risposta } from '../lib/riepilogo';
 
 export async function getStaticPaths() {
-  return words.map(word => ({
-    params: { word: word.slug },
-    props: { word }
+  const tutti = riepiloghi();
+  return tutti.map((r, i) => ({
+    params: { word: r.slug },
+    props: { r, prima: tutti[i - 1] ?? null, dopo: tutti[i + 1] ?? null },
   }));
 }
 
-const { word } = Astro.props;
+const { r, prima, dopo } = Astro.props;
+const [a, b, c] = r.varianti;
+const nomi = r.varianti.map(v => v.nome);
+const titolo = r.nome.replace(/^L'/, "l'");
 
-// Get adjacent words for navigation
-const currentIndex = words.findIndex(w => w.slug === word.slug);
-const prevWord = currentIndex > 0 ? words[currentIndex - 1] : null;
-const nextWord = currentIndex < words.length - 1 ? words[currentIndex + 1] : null;
+let apertura = `Su ${numero(r.risposte)} risposte da ${r.comuniConRisposte} comuni, `;
+apertura += b
+  ? `il ${pct(a.quota)} dice «${a.nome}» e il ${pct(b.quota)} «${b.nome}»${c && c.quota >= 0.05 ? `; poi viene «${c.nome}», col ${pct(c.quota)}` : ''}.`
+  : `quasi tutti dicono «${a.nome}».`;
+const giudizio = r.rango <= Math.ceil(r.totale / 4)
+  ? `È tra le parole che dividono di più la provincia: ${r.rango}ª su ${r.totale}.`
+  : r.rango > r.totale - Math.ceil(r.totale / 4)
+    ? `È tra le parole più uniformi: ${r.rango}ª su ${r.totale} per quanto divide la provincia.`
+    : `Per quanto divide la provincia è ${r.rango}ª su ${r.totale}.`;
 
-const categoryColors: Record<string, string> = {
-  "Cibo": "from-orange-400 to-red-500",
-  "Mestieri": "from-blue-400 to-indigo-500",
-  "Oggetti": "from-emerald-400 to-teal-500",
-  "Natura": "from-green-400 to-lime-500",
-  "Corpo": "from-pink-400 to-rose-500",
-  "Stati": "from-purple-400 to-violet-500",
-  "Carte": "from-amber-400 to-yellow-500",
-};
+const breve = risposta(r);
+const titoloPagina = `Come si dice ${r.nomeMinuscolo} in bergamasco? ${elenco(nomi.slice(0, 3))} | BergaWords`;
+const descrizione = `${breve} Mappa interattiva del dialetto bergamasco nei comuni della provincia di Bergamo.`;
 
-const gradient = categoryColors[word.category] || "from-gray-400 to-gray-500";
+// alcuni paesi noti per la domanda "come si dice a ...?"
+const PAESI = ["Bergamo", "Treviglio", "Seriate", "Dalmine", "Albino", "Clusone", "Lovere", "Zogno", "San Pellegrino Terme", "Romano di Lombardia", "Caravaggio", "Sarnico"];
+const paesi = PAESI.map(p => r.perComune.get(p)).filter(Boolean);
+
+const assoluto = (p: string) => (Astro.site ? new URL(p, Astro.site).href : p);
+const jsonLd = [
+  {
+    "@context": "https://schema.org", "@type": "FAQPage",
+    mainEntity: [
+      { "@type": "Question", name: `Come si dice ${r.nomeMinuscolo} in dialetto bergamasco?`, acceptedAnswer: { "@type": "Answer", text: breve } },
+      ...paesi.slice(0, 6).map(p => ({
+        "@type": "Question", name: `Come si dice ${r.nomeMinuscolo} a ${p!.comune}?`,
+        acceptedAnswer: { "@type": "Answer", text: `A ${p!.comune} si dice soprattutto «${p!.prima}» (${pct(p!.quotaPrima)})${p!.seconda ? `, poi «${p!.seconda}» (${pct(p!.quotaSeconda)})` : ""}.` },
+      })),
+    ],
+  },
+  {
+    "@context": "https://schema.org", "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Atlante del dialetto bergamasco", item: assoluto("/") },
+      { "@type": "ListItem", position: 2, name: `Come si dice ${r.nomeMinuscolo} in bergamasco`, item: assoluto(`/${r.slug}`) },
+    ],
+  },
+  {
+    "@context": "https://schema.org", "@type": "DefinedTerm",
+    name: r.nome, inLanguage: "it",
+    description: breve,
+    alternateName: nomi,
+    inDefinedTermSet: { "@type": "DefinedTermSet", name: "Atlante del dialetto bergamasco", url: assoluto("/") },
+  },
+];
 ---
 
-<Layout title={`Come si dice "${word.name}"?`} description={`Scopri come si dice "${word.name}" nei 244 comuni della provincia di Bergamo`}>
-  <!-- Hero Section -->
-  <section class="relative overflow-hidden py-12 md:py-20">
-    <!-- Background decoration -->
-    <div class="absolute inset-0 -z-10">
-      <div class={`absolute top-10 left-10 w-96 h-96 bg-gradient-to-br ${gradient} rounded-full mix-blend-multiply filter blur-3xl opacity-20`}></div>
-      <div class="absolute bottom-10 right-10 w-72 h-72 bg-amber-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
-    </div>
+<Layout title={titoloPagina} description={descrizione} jsonLd={jsonLd}>
+  <div class="contenitore">
+    <nav class="briciole" aria-label="Navigazione tra le parole">
+      <a href="/#parole">Tutte le parole</a>
+      <span class="briciole-vicine">
+        {prima && <a href={`/${prima.slug}`} rel="prev">{prima.nome}</a>}
+        {dopo && <a href={`/${dopo.slug}`} rel="next">{dopo.nome}</a>}
+      </span>
+    </nav>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Breadcrumb -->
-      <nav class="flex items-center gap-2 text-sm text-gray-500 mb-8 animate-fade-in">
-        <a href="/" class="hover:text-amber-600 transition-colors">Home</a>
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-        <a href="/#parole" class="hover:text-amber-600 transition-colors">Parole</a>
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-        <span class="text-gray-700 font-medium">{word.name}</span>
-      </nav>
+    <header class="apertura">
+      <p class="apertura-domanda">Come si dice in bergamasco</p>
+      <h1 class="apertura-parola">{titolo}<span aria-hidden="true">?</span></h1>
+      <p class="apertura-testo">{apertura} {giudizio}</p>
+    </header>
 
-      <!-- Header -->
-      <div class="flex flex-col md:flex-row md:items-center gap-6 mb-12">
-        <!-- Emoji badge -->
-        <div class={`w-24 h-24 rounded-3xl bg-gradient-to-br ${gradient} flex items-center justify-center shadow-2xl animate-scale-in`}>
-          <span class="text-5xl">{word.emoji}</span>
-        </div>
+    <HexMap slug={r.slug} nome={r.nome} righe={r.righe} />
 
-        <div class="animate-slide-up">
-          <!-- Category badge -->
-          <span class={`inline-block text-sm font-medium px-3 py-1 rounded-full bg-gradient-to-r ${gradient} text-white mb-3`}>
-            {word.category}
-          </span>
-
-          <!-- Title -->
-          <h1 class="font-display text-4xl md:text-6xl font-bold text-gray-900 mb-2">
-            Come si dice <span class={`bg-gradient-to-r ${gradient} bg-clip-text text-transparent`}>{word.name}</span>?
-          </h1>
-
-          <!-- Description -->
-          <p class="text-xl text-gray-600">{word.description}</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Map Section -->
-  <section class="py-8">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="bg-white rounded-3xl shadow-2xl overflow-hidden animate-slide-up p-6" style="animation-delay: 0.2s">
-        <!-- Map Header -->
-        <div class="flex items-center justify-between mb-4">
-          <div class="flex items-center gap-3">
-            <div class="flex gap-1.5">
-              <div class="w-3 h-3 rounded-full bg-red-400"></div>
-              <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-              <div class="w-3 h-3 rounded-full bg-green-400"></div>
-            </div>
-            <span class="text-sm text-gray-500">Mappa interattiva della provincia di Bergamo</span>
+    <section class="parlato" aria-labelledby="titolo-parlato">
+      <h2 id="titolo-parlato" class="parlato-h2">{titolo} in dialetto bergamasco, paese per paese</h2>
+      <p class="parlato-breve">{breve}</p>
+      <dl class="parlato-varianti">
+        {r.varianti.map(v => (
+          <div>
+            <dt><b>{v.nome}</b> <span>{pct(v.quota)} in provincia</span></dt>
+            <dd>
+              {v.comuni.length
+                ? `È la forma più detta in ${v.comuni.length === 1 ? "un comune" : `${v.comuni.length} comuni`}: ${v.comuni.length > 8 ? `${v.comuni.slice(0, 8).join(", ")} e altri` : elenco(v.comuni)}.`
+                : "Si sente qua e là, ma non è la più detta in nessun comune."}
+            </dd>
           </div>
-          <div class="flex items-center gap-2 text-sm text-gray-400">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
-            </svg>
-            <span>Passa sopra i comuni per vedere le varianti</span>
-          </div>
-        </div>
-
-        <!-- D3.js Map Component -->
-        <BergamoMap wordSlug={word.slug} wordEmoji={word.emoji} />
-      </div>
-
-      <!-- Info cards -->
-      <div class="grid md:grid-cols-3 gap-6 mt-8">
-        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow animate-slide-up" style="animation-delay: 0.3s">
-          <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-          </div>
-          <h3 class="font-semibold text-gray-900 mb-2">243 Comuni</h3>
-          <p class="text-sm text-gray-500">Ogni comune della provincia di Bergamo &egrave; mappato con la sua variante dialettale</p>
-        </div>
-
-        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow animate-slide-up" style="animation-delay: 0.4s">
-          <div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
-            </svg>
-          </div>
-          <h3 class="font-semibold text-gray-900 mb-2">Dati reali</h3>
-          <p class="text-sm text-gray-500">Basato su centinaia di risposte raccolte da persone native della zona</p>
-        </div>
-
-        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow animate-slide-up" style="animation-delay: 0.5s">
-          <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-            </svg>
-          </div>
-          <h3 class="font-semibold text-gray-900 mb-2">Interattivo</h3>
-          <p class="text-sm text-gray-500">Zoom, pan e click sulla legenda per filtrare le varianti</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Navigation Section -->
-  <section class="py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col sm:flex-row justify-between gap-4">
-        {prevWord ? (
-          <a
-            href={`/${encodeURIComponent(prevWord.slug)}`}
-            class="group flex items-center gap-4 px-6 py-4 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all hover:-translate-x-1"
-          >
-            <svg class="w-5 h-5 text-gray-400 group-hover:text-amber-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-            <div>
-              <p class="text-sm text-gray-400">Precedente</p>
-              <p class="font-semibold text-gray-700 group-hover:text-amber-600 transition-colors">
-                {prevWord.emoji} {prevWord.name}
-              </p>
-            </div>
-          </a>
-        ) : (
-          <div></div>
-        )}
-
-        {nextWord ? (
-          <a
-            href={`/${encodeURIComponent(nextWord.slug)}`}
-            class="group flex items-center gap-4 px-6 py-4 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all hover:translate-x-1 text-right"
-          >
-            <div>
-              <p class="text-sm text-gray-400">Successiva</p>
-              <p class="font-semibold text-gray-700 group-hover:text-amber-600 transition-colors">
-                {nextWord.name} {nextWord.emoji}
-              </p>
-            </div>
-            <svg class="w-5 h-5 text-gray-400 group-hover:text-amber-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-          </a>
-        ) : (
-          <div></div>
-        )}
-      </div>
-
-      <!-- Back to all -->
-      <div class="text-center mt-8">
-        <a
-          href="/#parole"
-          class="inline-flex items-center gap-2 text-amber-600 hover:text-amber-700 font-medium transition-colors"
-        >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-          </svg>
-          Vedi tutte le parole
-        </a>
-      </div>
-    </div>
-  </section>
+        ))}
+      </dl>
+      {paesi.length > 0 && (
+        <>
+          <h3 class="parlato-h3">Come si dice {r.nomeMinuscolo} a…</h3>
+          <ul class="parlato-paesi">
+            {paesi.map(p => <li><span>{p!.comune}</span> <b>{p!.prima}</b> <span class="n">{pct(p!.quotaPrima)}</span></li>)}
+          </ul>
+        </>
+      )}
+    </section>
+  </div>
 </Layout>
+
+<style>
+  .briciole { display: flex; justify-content: space-between; gap: 16px; margin-top: 40px; font-size: 15px; color: var(--grafite); }
+  .briciole a { color: var(--grafite); text-decoration: none; }
+  .briciole a:hover { color: var(--inchiostro); text-decoration: underline; text-underline-offset: 4px; }
+  .briciole-vicine { display: flex; gap: 20px; }
+  .briciole-vicine a[rel="prev"]::before { content: "‹ "; }
+  .briciole-vicine a[rel="next"]::after { content: " ›"; }
+  .apertura { margin: 56px 0 40px; max-width: 980px; }
+  .apertura-domanda { font-family: var(--serif); font-size: clamp(22px, 3vw, 32px); margin: 0; color: var(--grafite); }
+  .apertura-parola {
+    font-family: var(--serif); font-style: italic; font-weight: 800;
+    font-size: clamp(64px, 13vw, 168px); line-height: 0.9; letter-spacing: -0.03em; margin: 0.04em 0 0.18em -0.04em;
+    font-variation-settings: "opsz" 96;
+  }
+  .apertura-parola span { font-weight: 400; color: var(--grafite); margin-left: 0.02em; }
+  .apertura-testo { font-size: clamp(18px, 2vw, 21px); line-height: 1.45; max-width: 58ch; margin: 0; }
+  .parlato { margin-top: 88px; max-width: 980px; }
+  .parlato-h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(28px, 4vw, 40px); line-height: 1.1; margin: 0 0 12px; letter-spacing: -0.01em; }
+  .parlato-breve { font-size: 18px; max-width: 62ch; margin: 0 0 28px; }
+  .parlato-varianti { margin: 0; display: grid; gap: 18px; }
+  .parlato-varianti dt b { font-family: var(--serif); font-style: italic; font-weight: 700; font-size: 22px; }
+  .parlato-varianti dt span { color: var(--grafite); font-size: 15px; margin-left: 6px; font-variant-numeric: tabular-nums; }
+  .parlato-varianti dd { margin: 2px 0 0; color: var(--grafite); max-width: 70ch; }
+  .parlato-h3 { font-family: var(--serif); font-weight: 500; font-size: 26px; margin: 48px 0 12px; }
+  .parlato-paesi { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0 32px; }
+  .parlato-paesi li { display: flex; gap: 10px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--filo); }
+  .parlato-paesi li span:first-child { flex: 1; }
+  .parlato-paesi b { font-family: var(--serif); font-style: italic; font-size: 18px; }
+  .parlato-paesi .n { color: var(--grafite); font-variant-numeric: tabular-nums; }
+  @media (max-width: 560px) { .briciole { margin-top: 24px; } .briciole-vicine { gap: 12px; } .apertura { margin: 36px 0 28px; } }
+</style>

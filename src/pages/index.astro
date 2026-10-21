@@ -1,240 +1,232 @@
 ---
+import fs from 'node:fs';
+import path from 'node:path';
 import Layout from '../layouts/Layout.astro';
-import WordCard from '../components/WordCard.astro';
-import { words, categories, getWordsByCategory } from '../data/words';
+import { words } from '../data/words';
+import { elenco, pct, riepiloghi } from '../lib/riepilogo';
+
+const gold = path.join(process.cwd(), 'public', 'data', 'gold');
+const indice = JSON.parse(fs.readFileSync(path.join(gold, 'indice.json'), 'utf8'));
+const atlante = JSON.parse(fs.readFileSync(path.join(gold, 'atlante.json'), 'utf8'));
+const slugGold = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const perSlug = new Map(words.map(w => [slugGold(w.slug), w]));
+const risposte = indice.parole.reduce((s: number, p: any) => s + p.risposte_valide, 0);
+const numero = (n: number) => n.toLocaleString('it-IT');
+
+// tessere in ordine di quanto la parola divide la provincia (atlante.json è già ordinato così)
+const tessere = atlante.parole.map((p: any, i: number) => {
+  const w = perSlug.get(p.slug);
+  const varianti = p.varianti.filter((v: any) => v[0] !== 'Altre forme');
+  return {
+    slug: p.slug, href: `/${p.slug}`, nome: (w?.name ?? p.parola).replace(/^L'/, "l'"),
+    rango: i + 1, varianti: varianti.slice(0, 3).map((v: any) => v[0]), altre: Math.max(0, varianti.length - 3),
+  };
+});
+
+// vocabolario italiano-bergamasco in ordine alfabetico, con le forme principali
+const vocabolario = [...riepiloghi()].sort((a, b) => a.nome.localeCompare(b.nome, "it"))
+  .map(r => ({ ...r, titolo: r.nome.replace(/^L'/, "l'") }));
+const comuni = new Set(riepiloghi()[0].righe.map(r => r.comune)).size;
+
+const descrizione = `Atlante del dialetto bergamasco: come si dicono ${tessere.length} parole di tutti i giorni a Bergamo e nei ${comuni} comuni della provincia, con mappe interattive costruite su ${numero(risposte)} risposte.`;
+const assoluto = (p: string) => (Astro.site ? new URL(p, Astro.site).href : p);
+const jsonLd = [
+  {
+    "@context": "https://schema.org", "@type": "WebSite",
+    name: "BergaWords", alternateName: "Atlante del dialetto bergamasco", url: assoluto("/"), inLanguage: "it",
+    description: descrizione,
+  },
+  {
+    "@context": "https://schema.org", "@type": "Dataset",
+    name: "Atlante del dialetto bergamasco",
+    description: `${numero(risposte)} risposte di parlanti bergamaschi su come si dicono ${tessere.length} parole, stimate su una griglia di esagoni H3 per tutta la provincia di Bergamo.`,
+    url: assoluto("/"), inLanguage: "it",
+    keywords: ["dialetto bergamasco", "bergamasco", "Bergamo", "lingua lombarda", "geografia linguistica", "atlante linguistico"],
+    spatialCoverage: { "@type": "Place", name: "Provincia di Bergamo", geo: { "@type": "GeoShape", box: "45.42 9.42 46.14 10.27" } },
+    isAccessibleForFree: true,
+    sameAs: "https://github.com/PitBosch/BergaWords",
+  },
+  {
+    "@context": "https://schema.org", "@type": "ItemList",
+    name: "Parole del dialetto bergamasco",
+    itemListElement: vocabolario.map((v, i) => ({ "@type": "ListItem", position: i + 1, name: `${v.nome}: ${elenco(v.varianti.slice(0, 3).map(x => x.nome))}`, url: assoluto(`/${v.slug}`) })),
+  },
+];
 ---
 
-<Layout title="Come si dice...?">
-  <!-- Hero Section -->
-  <section class="relative overflow-hidden">
-    <!-- Background decoration -->
-    <div class="absolute inset-0 -z-10">
-      <div class="absolute top-20 left-10 w-72 h-72 bg-amber-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
-      <div class="absolute top-40 right-10 w-72 h-72 bg-green-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" style="animation-delay: 1s"></div>
-      <div class="absolute bottom-20 left-1/2 w-72 h-72 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" style="animation-delay: 2s"></div>
-    </div>
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
-      <div class="text-center max-w-4xl mx-auto">
-        <!-- Badge -->
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 text-amber-700 text-sm font-medium mb-8 animate-fade-in">
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
-          </span>
-          244 comuni della provincia di Bergamo
-        </div>
-
-        <!-- Title -->
-        <h1 class="font-display text-5xl md:text-7xl font-bold text-gray-900 mb-6 animate-slide-up">
-          Come si dice
-          <span class="bg-gradient-to-r from-amber-500 via-orange-500 to-green-500 bg-clip-text text-transparent">
-            ...?
-          </span>
-        </h1>
-
-        <!-- Subtitle -->
-        <p class="text-xl md:text-2xl text-gray-600 mb-10 animate-slide-up" style="animation-delay: 0.1s">
-          Esplora le infinite varianti del dialetto bergamasco
-          <br class="hidden md:block" />
-          attraverso mappe interattive della provincia
-        </p>
-
-        <!-- Stats -->
-        <div class="grid grid-cols-3 gap-8 max-w-2xl mx-auto mb-12 animate-slide-up" style="animation-delay: 0.2s">
-          <div class="text-center">
-            <div class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
-              244
-            </div>
-            <div class="text-sm text-gray-500 mt-1">Comuni</div>
-          </div>
-          <div class="text-center">
-            <div class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-orange-500 to-green-500 bg-clip-text text-transparent">
-              {words.length}
-            </div>
-            <div class="text-sm text-gray-500 mt-1">Parole</div>
-          </div>
-          <div class="text-center">
-            <div class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent">
-              &infin;
-            </div>
-            <div class="text-sm text-gray-500 mt-1">Varianti</div>
-          </div>
-        </div>
-
-        <!-- CTA -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style="animation-delay: 0.3s">
-          <a
-            href="#parole"
-            class="px-8 py-4 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
-          >
-            Esplora le parole
-          </a>
-          <a
-            href="https://github.com/PitBosch/BergaWords"
-            target="_blank"
-            rel="noopener"
-            class="px-8 py-4 rounded-xl border-2 border-gray-200 text-gray-700 font-semibold text-lg hover:border-amber-300 hover:bg-amber-50 transition-all duration-300"
-          >
-            Vedi il progetto
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-      <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-      </svg>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section class="py-20 bg-white/50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div>
-          <h2 class="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Un viaggio nel dialetto
-            <span class="text-amber-500">bergamasco</span>
-          </h2>
-          <p class="text-lg text-gray-600 mb-6">
-            BergaWords nasce dalla curiosit&agrave; di scoprire come le stesse parole vengono pronunciate
-            in modi completamente diversi nei vari comuni della provincia di Bergamo.
-          </p>
-          <p class="text-lg text-gray-600 mb-8">
-            Attraverso un sondaggio che ha coinvolto centinaia di partecipanti, abbiamo mappato
-            le varianti dialettali di parole di uso quotidiano, creando una mappa linguistica
-            unica nel suo genere.
-          </p>
-          <div class="flex flex-wrap gap-3">
-            {categories.map((cat) => (
-              <span class="px-4 py-2 rounded-lg bg-amber-100 text-amber-700 text-sm font-medium">
-                {cat}
-              </span>
-            ))}
-          </div>
-        </div>
-        <div class="relative">
-          <div class="aspect-square rounded-3xl bg-gradient-to-br from-amber-100 via-orange-50 to-green-100 p-8 shadow-2xl">
-            <div class="w-full h-full rounded-2xl bg-white/80 backdrop-blur flex items-center justify-center">
-              <div class="text-center">
-                <div class="text-8xl mb-4">🗺️</div>
-                <p class="text-gray-600 font-medium">Mappe interattive</p>
-                <p class="text-sm text-gray-400">con Plotly.js</p>
-              </div>
-            </div>
-          </div>
-          <!-- Decorative elements -->
-          <div class="absolute -top-4 -right-4 w-24 h-24 bg-amber-400 rounded-2xl -z-10 opacity-50"></div>
-          <div class="absolute -bottom-4 -left-4 w-32 h-32 bg-green-400 rounded-2xl -z-10 opacity-30"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Words Section -->
-  <section id="parole" class="py-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Section Header -->
-      <div class="text-center mb-16">
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          Le parole
-        </h2>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-          Seleziona una parola per esplorare come viene detta nei diversi comuni
-        </p>
-      </div>
-
-      <!-- Category Filter -->
-      <div class="flex flex-wrap justify-center gap-3 mb-12">
-        <button
-          data-category="all"
-          class="category-btn px-5 py-2.5 rounded-full font-medium text-sm transition-all duration-300 bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg"
-        >
-          Tutte
-        </button>
-        {categories.map((cat) => (
-          <button
-            data-category={cat}
-            class="category-btn px-5 py-2.5 rounded-full font-medium text-sm transition-all duration-300 bg-white text-gray-600 hover:bg-amber-50 hover:text-amber-600 border border-gray-200"
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-
-      <!-- Words Grid -->
-      <div id="words-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {words.map((word, index) => (
-          <div data-category={word.category}>
-            <WordCard
-              name={word.name}
-              slug={word.slug}
-              emoji={word.emoji}
-              description={word.description}
-              category={word.category}
-              index={index}
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section class="py-20 bg-gradient-to-r from-amber-500 via-orange-500 to-green-500">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="font-display text-3xl md:text-4xl font-bold text-white mb-6">
-        Vuoi contribuire?
-      </h2>
-      <p class="text-xl text-white/90 mb-8">
-        Il progetto &egrave; open source e accoglie nuovi contributi.
-        Aiutaci a mappare sempre pi&ugrave; parole del dialetto bergamasco!
+<Layout title="Dialetto bergamasco: come si dice a Bergamo e provincia | BergaWords" description={descrizione} jsonLd={jsonLd}>
+  <div class="contenitore">
+    <header class="hero">
+      <p class="hero-occhiello">Atlante del dialetto bergamasco</p>
+      <h1 class="hero-titolo">Come si dice<br />a Bergamo?</h1>
+      <p class="hero-testo">
+        {numero(risposte)} risposte da tutta la provincia, per {tessere.length} parole di tutti i giorni.
+        Ogni carta mostra quale parola si usa in ogni angolo, dalle valli alla Bassa, e dove passa il confine tra una e l'altra.
       </p>
-      <a
-        href="https://github.com/PitBosch/BergaWords"
-        target="_blank"
-        rel="noopener"
-        class="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-white text-amber-600 font-semibold text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
-      >
-        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-        </svg>
-        Contribuisci su GitHub
-      </a>
-    </div>
-  </section>
+    </header>
+
+    <section id="parole" aria-labelledby="titolo-parole">
+      <div class="atlante-testa">
+        <h2 id="titolo-parole" class="atlante-titolo">Le parole</h2>
+        <div class="ordine" role="group" aria-label="Ordina le parole">
+          <button type="button" data-ordine="divide" aria-pressed="true">Dalla più divisa</button>
+          <button type="button" data-ordine="alfa" aria-pressed="false">In ordine alfabetico</button>
+        </div>
+      </div>
+      <ol class="atlante">
+        {tessere.map(t => (
+          <li data-nome={t.nome.toLowerCase()} data-rango={t.rango}>
+            <a href={t.href} class="tessera">
+              <canvas data-slug={t.slug} aria-hidden="true"></canvas>
+              <span class="tessera-nome">{t.nome}</span>
+              <span class="tessera-varianti">
+                {t.varianti.join(', ')}{t.altre > 0 && ` e altre ${t.altre}`}
+              </span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section id="vocabolario" class="vocabolario" aria-labelledby="titolo-vocabolario">
+      <h2 id="titolo-vocabolario" class="atlante-titolo">Piccolo vocabolario italiano–bergamasco</h2>
+      <p class="vocabolario-testo">
+        Il bergamasco è il dialetto lombardo orientale parlato a Bergamo e nella sua provincia. Non è uguale dappertutto:
+        la stessa cosa ha nomi diversi in Val Brembana, in Val Seriana, sul Sebino, nell'Isola e nella Bassa.
+        Qui sotto, per ogni parola italiana, le forme bergamasche più diffuse e quanto si usano in provincia.
+      </p>
+      <table class="vocabolario-tab">
+        <thead><tr><th scope="col">Italiano</th><th scope="col">In bergamasco</th></tr></thead>
+        <tbody>
+          {vocabolario.map(v => (
+            <tr>
+              <th scope="row"><a href={`/${v.slug}`}>{v.titolo}</a></th>
+              <td>{v.varianti.slice(0, 4).map((x, k) => <>{k > 0 && ", "}<i>{x.nome}</i> <span>{pct(x.quota)}</span></>)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+
+    <section id="metodo" class="metodo" aria-labelledby="titolo-metodo">
+      <h2 id="titolo-metodo" class="atlante-titolo">Come leggere le carte</h2>
+      <div class="metodo-colonne">
+        <div>
+          <h3>Il colore</h3>
+          <p>Ogni colore è una parola. Dove il colore è pieno quasi tutti dicono la stessa cosa; dove è pallido le forme convivono, oppure le risposte sono poche.</p>
+        </div>
+        <div>
+          <h3>Gli esagoni</h3>
+          <p>La provincia è divisa in esagoni di circa 0,7 km². Ogni risposta è collocata a caso nelle zone abitate del suo comune, secondo le sezioni di censimento ISTAT 2021, e ogni esagono fa la media delle risposte vicine.</p>
+        </div>
+        <div>
+          <h3>Le linee nere</h3>
+          <p>Segnano i confini netti: passandoli, la parola cambia di colpo. Dove la linea manca il passaggio è graduale, e due forme si sentono entrambe.</p>
+        </div>
+      </div>
+    </section>
+  </div>
 </Layout>
 
+<style>
+  .hero { margin: 72px 0 96px; }
+  .hero-titolo {
+    font-family: var(--serif); font-weight: 800; font-style: italic;
+    font-size: clamp(60px, 11vw, 150px); line-height: 0.92; letter-spacing: -0.035em; margin: 0 0 32px -0.04em;
+    font-variation-settings: "opsz" 96;
+  }
+  .hero-occhiello { font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grafite); margin: 0 0 18px; }
+  .vocabolario { margin-top: 120px; }
+  .vocabolario-testo { color: var(--grafite); max-width: 70ch; margin: 16px 0 28px; }
+  .vocabolario-tab { width: 100%; max-width: 860px; border-collapse: collapse; font-size: 16px; }
+  .vocabolario-tab th, .vocabolario-tab td { text-align: left; padding: 9px 12px 9px 0; border-bottom: 1px solid var(--filo); vertical-align: baseline; }
+  .vocabolario-tab thead th { font-weight: 600; font-size: 14px; color: var(--grafite); }
+  .vocabolario-tab tbody th { font-weight: 500; white-space: nowrap; }
+  .vocabolario-tab tbody th a { text-decoration: underline; text-decoration-color: var(--filo); text-underline-offset: 4px; }
+  .vocabolario-tab i { font-family: var(--serif); font-weight: 600; font-size: 18px; }
+  .vocabolario-tab td span { color: var(--grafite); font-size: 14px; font-variant-numeric: tabular-nums; }
+  .hero-testo { font-size: clamp(19px, 2.1vw, 23px); line-height: 1.45; max-width: 56ch; margin: 0; }
+
+  .atlante-testa { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .atlante-titolo { font-family: var(--serif); font-weight: 500; font-size: clamp(30px, 4vw, 44px); margin: 0; letter-spacing: -0.01em; }
+  .ordine { display: inline-flex; border: 1px solid var(--inchiostro); border-radius: 999px; padding: 2px; }
+  .ordine button { padding: 6px 16px; border-radius: 999px; font-size: 15px; }
+  .ordine button[aria-pressed="true"] { background: var(--inchiostro); color: var(--carta); }
+
+  .atlante { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 40px 24px; }
+  .tessera { display: block; text-decoration: none; }
+  .tessera canvas { display: block; width: 100%; aspect-ratio: 1 / 1.08; border-radius: 16px; background: var(--carta-2); transition: transform .25s ease; }
+  .tessera:hover canvas { transform: translateY(-4px); }
+  .tessera-nome { display: block; margin-top: 12px; font-family: var(--serif); font-style: italic; font-weight: 700; font-size: 26px; line-height: 1.1; }
+  .tessera:hover .tessera-nome { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+  .tessera-varianti { display: block; margin-top: 4px; color: var(--grafite); font-size: 15px; }
+  @media (max-width: 560px) {
+    .hero { margin: 40px 0 64px; }
+    .atlante { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 14px; }
+    .tessera-nome { font-size: 21px; }
+    .tessera-varianti { font-size: 14px; }
+  }
+
+  .metodo { margin-top: 120px; }
+  .metodo-colonne { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px 48px; margin-top: 28px; }
+  .metodo h3 { font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 24px; margin: 0 0 8px; }
+  .metodo p { margin: 0; color: var(--grafite); max-width: 46ch; }
+</style>
+
 <script>
-  // Category filter functionality
-  const buttons = document.querySelectorAll('.category-btn');
-  const cards = document.querySelectorAll('#words-grid > div');
+  import * as d3 from "d3";
+  import { TERRA, canvas2d, coloreVariante, json, riavvolgi, velatura } from "../lib/atlante";
 
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const category = btn.getAttribute('data-category');
+  async function disegna() {
+    const [atl, confini] = await Promise.all([json("/data/gold/atlante.json"), json("/data/bergamo.geojson")]);
+    riavvolgi(confini);
+    const centri: [number, number][] = atl.centri;
+    const perSlug = new Map<string, any>(atl.parole.map((p: any) => [p.slug, p]));
+    const tele = [...document.querySelectorAll<HTMLCanvasElement>(".tessera canvas")];
+    const w = tele[0]?.clientWidth || 200, h = w * 1.08;
+    const proj = d3.geoMercator().fitExtent([[10, 10], [w - 10, h - 10]], confini);
+    const xy = centri.map(c => proj(c)!);
+    // lato di un esagono H3 di risoluzione 8: ~0,46 km, un po' ridotto per lasciare il margine di carta
+    const lato = 0.461 / (111.32 * Math.cos(45.7 * Math.PI / 180));
+    const r = 0.92 * Math.abs(proj([9.8 + lato, 45.7])![0] - proj([9.8, 45.7])![0]);
+    const esagono = (ctx: CanvasRenderingContext2D, x: number, y: number) => {
+      ctx.moveTo(x, y - r);
+      for (let k = 1; k < 6; k++) ctx.lineTo(x + r * Math.sin(k * Math.PI / 3), y - r * Math.cos(k * Math.PI / 3));
+      ctx.closePath();
+    };
+    for (const c of tele) {
+      const p = perSlug.get(c.dataset.slug!);
+      if (!p) continue;
+      const ctx = canvas2d(c, w, h);
+      c.style.width = "100%"; c.style.height = "auto";
+      const path = d3.geoPath(proj, ctx);
+      ctx.beginPath(); path(confini); ctx.fillStyle = TERRA; ctx.fill();
+      const vel = p.varianti.map((v: any, i: number) => velatura(coloreVariante(v[0], i)));
+      const fasce = [0.05, 0.35, 0.65, 1];
+      // un percorso per colore: poche chiamate di riempimento anche con 3.000 esagoni
+      const gruppi = new Map<string, number[]>();
+      for (let i = 0; i < p.celle.length; i++) {
+        const k = p.celle.charCodeAt(i) - 48;
+        const col = vel[k >> 2](fasce[k & 3]);
+        if (!gruppi.has(col)) gruppi.set(col, []);
+        gruppi.get(col)!.push(i);
+      }
+      for (const [col, idx] of gruppi) {
+        ctx.beginPath();
+        for (const i of idx) esagono(ctx, xy[i][0], xy[i][1]);
+        ctx.fillStyle = col; ctx.fill();
+      }
+    }
+  }
+  disegna();
 
-      // Update button styles
-      buttons.forEach(b => {
-        b.classList.remove('bg-gradient-to-r', 'from-amber-500', 'to-orange-500', 'text-white', 'shadow-lg');
-        b.classList.add('bg-white', 'text-gray-600', 'border', 'border-gray-200');
-      });
-      btn.classList.remove('bg-white', 'text-gray-600', 'border', 'border-gray-200');
-      btn.classList.add('bg-gradient-to-r', 'from-amber-500', 'to-orange-500', 'text-white', 'shadow-lg');
-
-      // Filter cards
-      cards.forEach((card, index) => {
-        const cardCategory = card.getAttribute('data-category');
-        if (category === 'all' || cardCategory === category) {
-          card.style.display = 'block';
-          card.style.animationDelay = `${index * 50}ms`;
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    });
-  });
+  const lista = document.querySelector<HTMLOListElement>(".atlante")!;
+  document.querySelectorAll<HTMLButtonElement>(".ordine button").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll(".ordine button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    const voci = [...lista.children] as HTMLElement[];
+    voci.sort((x, y) => b.dataset.ordine === "alfa"
+      ? x.dataset.nome!.localeCompare(y.dataset.nome!, "it")
+      : Number(x.dataset.rango) - Number(y.dataset.rango));
+    lista.append(...voci);
+  }));
 </script>
